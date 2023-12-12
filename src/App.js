@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './Components/Home/Home';
 //import KakaoMap from './Components/KakaoMap/KakaoMap';
-// import Login from './Components/User/Login';
-// import NaverLoginHandler from './Components/User/NaverLoginHandler';
-// import KakaoLoginHandler from './Components/User/KakaoLoginHandler';
+import Login from './Components/User/Login';
+import NaverLoginHandler from './Components/User/NaverLoginHandler';
+import KakaoLoginHandler from './Components/User/KakaoLoginHandler';
 import Header from './Components/Header/Header';
 import styles from './App.module.scss';
 
@@ -25,7 +25,7 @@ function App() {
             path='/'
             element={<Home />}
           />
-          {/* <Route
+          <Route
             path='/login'
             element={<Login />}
           />
@@ -36,7 +36,7 @@ function App() {
           <Route
             path='/oauth/redirected/naver'
             element={<NaverLoginHandler />}
-          /> */}
+          />
         </Routes>
       </div>
     </div>
