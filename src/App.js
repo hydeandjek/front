@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './Components/Home/Home';
 //import KakaoMap from './Components/KakaoMap/KakaoMap';
-import Login from './Components/User/Login';
-import NaverLoginHandler from './Components/User/NaverLoginHandler';
-import KakaoLoginHandler from './Components/User/KakaoLoginHandler';
+import Login from './Components/User/Login/Login';
+import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
+import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import Header from './Components/Header/Header';
 import styles from './App.module.scss';
+import Join from './Components/User/Join/Join';
 
 function App() {
   // return (
@@ -26,8 +27,12 @@ function App() {
             element={<Home />}
           />
           <Route
-            path='/login'
+            path='/user/login'
             element={<Login />}
+          />
+          <Route
+            path='/user/join'
+            element={<Join />}
           />
           <Route
             path='/oauth/redirected/kakao'

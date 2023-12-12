@@ -1,6 +1,6 @@
 import React from 'react';
-import { KAKAO_AUTH_URL } from '../../config/kakao-config';
-import { NAVER_AUTH_URL } from '../../config/naver-config';
+import { KAKAO_AUTH_URL } from '../../../config/kakao-config';
+import { NAVER_AUTH_URL } from '../../../config/naver-config';
 import {
   Button,
   Card,
@@ -12,7 +12,7 @@ import {
   Label,
   Row,
 } from 'reactstrap';
-import styles from './Login.module.scss';
+import styles from './sass/Login.module.scss';
 
 const Login = () => {
   const [username, setUsername] = React.useState('');
@@ -94,7 +94,7 @@ const Login = () => {
                           <a href={KAKAO_AUTH_URL}>
                             <img
                               style={{ width: '100%' }}
-                              src={require('../../assets/img/kakao_login_medium_wide.png')}
+                              src={require('../../../assets/img/kakao_login_medium_wide.png')}
                               alt='카카오 로그인'
                             />
                           </a>
@@ -103,7 +103,7 @@ const Login = () => {
                           <a href={NAVER_AUTH_URL}>
                             <img
                               style={{ width: '100%' }}
-                              src={require('../../assets/img/naver_login.png')}
+                              src={require('../../../assets/img/naver_login.png')}
                               alt='카카오 로그인'
                             />
                           </a>
