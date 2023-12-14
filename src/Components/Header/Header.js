@@ -22,7 +22,11 @@ const Header = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   const onClickLogin = () => {
-    redirection('/login');
+    redirection('/user/login');
+  };
+
+  const onClickJoin = () => {
+    redirection('/user/join');
   };
 
   const onClickRecipe = () => {
@@ -130,6 +134,7 @@ const Header = () => {
               <DropdownMenu className={styles.menu}>
                 {/* <DropdownItem header>김춘식</DropdownItem> */}
                 <DropdownItem onClick={onClickLogin}>로그인</DropdownItem>
+                <DropdownItem onClick={onClickJoin}>회원가입</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
           </div>

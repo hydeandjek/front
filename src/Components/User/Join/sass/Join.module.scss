@@ -1,0 +1,60 @@
+.join-container {
+    margin-top: 100px;
+}
+
+.join-rows {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+button.join-button {
+    border-color: #8d7d6b;
+    background-color: #8d7d6b;
+    color: #fff;
+}
+
+button.join-button:active:hover {
+    border-color: #8d7d6b;
+    background-color: #8d7d6b;
+    color: #fff;
+}
+button.join-button:hover {
+    border-color: #61564a;
+    background-color: #61564a;
+    color: #fff;
+}
+
+
+
+div.join-container {
+    width: 500px;
+}
+
+
+div.join-card {
+    background-color: inherit;
+}
+
+.join-cardbody {
+    background-color: rgba(116, 99, 99, 0.1);
+
+    input {
+        background-color: var(--mainBg-color);
+
+
+        &:focus {
+            background-color: var(--mainBg-color);
+        }
+    }
+}
+
+.link-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }

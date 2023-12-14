@@ -1,6 +1,6 @@
-import React from 'react';
-import { KAKAO_AUTH_URL } from '../../config/kakao-config';
-import { NAVER_AUTH_URL } from '../../config/naver-config';
+import React, { useContext } from 'react';
+import { KAKAO_AUTH_URL } from '../../../config/kakao-config';
+import { NAVER_AUTH_URL } from '../../../config/naver-config';
 import {
   Button,
   Card,
@@ -12,15 +12,59 @@ import {
   Label,
   Row,
 } from 'reactstrap';
-import styles from './Login.module.scss';
+import styles from './sass/Login.module.scss';
+import { useNavigate } from 'react-router';
+import { API_BASE_URL as BASE, USER } from '../../../config/host-config';
+import AuthContext from '../../../utils/AuthContext';
 
 const Login = () => {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [isLoggedin, setLoggedin] = React.useState(false);
+  const redirection = useNavigate();
+
+  const API_BASE_URL = BASE + USER;
+  const { isLoggedIn, onLogin } = useContext(AuthContext);
+
+  const fetchLogin = async () => {
+    // 이메일, 비밀번호 입력 태그 얻어오기
+    const $email = document.getElementById('email');
+    const $password = document.getElementById('password');
+
+    // await는 async로 선언된 함수에서만 사용이 가능합니다.
+    // await는 프로미스 객체가 처리될 때까지 기다립니다.
+    // 프로미스 객체의 반환값을 바로 활용할 수 있도록 도와줍니다.
+    // then()을 활용하는 것보다 가독성이 좋고, 쓰기도 쉽습니다.
+    const res = await fetch(API_BASE_URL, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        email: $email.value,
+        password: $password.value,
+      }),
+    });
+
+    if (res.status === 400) {
+      const text = await res.text();
+      alert(text);
+      return;
+    }
+
+    const { token, userName, email, address } = await res.json(); // 서버에서 온 json 읽기
+
+    // Context Api
+    onLogin(token, userName, address);
+
+    // 홈으로 리다이렉트
+    redirection('/');
+  };
 
   const loginHandler = (e) => {
     e.preventDefault();
+
+    // 서버에 로그인 요청 전송
+    fetchLogin();
+  };
+
+  const onClickJoin = () => {
+    redirection('/user/join');
   };
 
   return (
@@ -37,7 +81,7 @@ const Login = () => {
                   >
                     <FormGroup className='pb-2 mr-sm-2 mb-sm-0'>
                       <Label
-                        for='exampleEmail'
+                        for='email'
                         className='mr-sm-2'
                       >
                         이메일
@@ -45,14 +89,13 @@ const Login = () => {
                       <Input
                         type='email'
                         name='email'
-                        id='exampleEmail'
+                        id='email'
                         placeholder='이메일 주소를 입력하세요'
-                        onChange={(ev) => setUsername(ev.currentTarget.value)}
                       />
                     </FormGroup>
                     <FormGroup className='pb-2 mr-sm-2 mb-sm-0'>
                       <Label
-                        for='examplePassword'
+                        for='password'
                         className='mr-sm-2'
                       >
                         비밀번호
@@ -60,9 +103,8 @@ const Login = () => {
                       <Input
                         type='password'
                         name='password'
-                        id='examplePassword'
+                        id='password'
                         placeholder='비밀번호를 입력하세요'
-                        onChange={(ev) => setPassword(ev.currentTarget.value)}
                       />
                     </FormGroup>
 
@@ -84,6 +126,7 @@ const Login = () => {
                             type='submit'
                             color='secondary'
                             style={{ width: '100%' }}
+                            onClick={onClickJoin}
                           >
                             회원가입
                           </Button>
@@ -94,7 +137,7 @@ const Login = () => {
                           <a href={KAKAO_AUTH_URL}>
                             <img
                               style={{ width: '100%' }}
-                              src={require('../../assets/img/kakao_login_medium_wide.png')}
+                              src={require('../../../assets/img/kakao_login_medium_wide.png')}
                               alt='카카오 로그인'
                             />
                           </a>
@@ -103,7 +146,7 @@ const Login = () => {
                           <a href={NAVER_AUTH_URL}>
                             <img
                               style={{ width: '100%' }}
-                              src={require('../../assets/img/naver_login.png')}
+                              src={require('../../../assets/img/naver_login.png')}
                               alt='카카오 로그인'
                             />
                           </a>
