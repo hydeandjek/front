@@ -22,7 +22,11 @@ const Header = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   const onClickLogin = () => {
-    redirection('/login');
+    redirection('/user/login');
+  };
+
+  const onClickJoin = () => {
+    redirection('/user/join');
   };
 
   return (
@@ -36,7 +40,7 @@ const Header = () => {
           href='/'
           id='navItem'
         >
-          <b>나를 위해 너에게</b>
+          <b>1nterFace</b>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse
@@ -119,6 +123,7 @@ const Header = () => {
               <DropdownMenu className={styles.menu}>
                 {/* <DropdownItem header>김춘식</DropdownItem> */}
                 <DropdownItem onClick={onClickLogin}>로그인</DropdownItem>
+                <DropdownItem onClick={onClickJoin}>회원가입</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
           </div>
