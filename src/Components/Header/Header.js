@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import NavHoverDropDown from './NavHoverDropDown';
 import styles from './sass/Header.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, Router, useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
 
 const Header = () => {
@@ -23,6 +23,14 @@ const Header = () => {
 
   const onClickLogin = () => {
     redirection('/login');
+  };
+
+  const onClickRecipe = () => {
+    redirection('/recipes');
+  };
+
+  const onClickKakao = () => {
+    redirection('/Kakao');
   };
 
   return (
@@ -36,7 +44,7 @@ const Header = () => {
           href='/'
           id='navItem'
         >
-          <b>나를 위해 너에게</b>
+          <b>1NTERFACE</b>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse
@@ -47,19 +55,21 @@ const Header = () => {
           <div className='navbar-nav me-auto mb-2 mb-lg-0'>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickRecipe}
                 nav
                 className={styles.menu_title}
               >
-                레시피
+                FOOD
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem>레시피</DropdownItem>
+                <DropdownItem>혼밥하기 좋은 식당</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickKakao}
                 nav
                 className={styles.menu_title}
               >
@@ -86,6 +96,7 @@ const Header = () => {
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickRecipe}
                 nav
                 className={styles.menu_title}
               >

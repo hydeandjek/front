@@ -6,6 +6,8 @@ import NaverLoginHandler from './Components/User/NaverLoginHandler';
 import KakaoLoginHandler from './Components/User/KakaoLoginHandler';
 import Header from './Components/Header/Header';
 import styles from './App.module.scss';
+import Recipes from './Components/Recipe/Recipes';
+import Kakao from './Components/Kakao/Kakao';
 
 function App() {
   // return (
@@ -26,6 +28,10 @@ function App() {
             element={<Home />}
           />
           <Route
+            path='/recipes'
+            element={<Recipes />}
+          />
+          <Route
             path='/login'
             element={<Login />}
           />
@@ -36,6 +42,10 @@ function App() {
           <Route
             path='/oauth/redirected/naver'
             element={<NaverLoginHandler />}
+          />
+          <Route
+            path='/kakao'
+            element={<Kakao />}
           />
         </Routes>
       </div>
