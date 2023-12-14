@@ -40,7 +40,7 @@ const Header = () => {
           href='/'
           id='navItem'
         >
-          <b>나를 위해 너에게</b>
+          <b>1nterFace</b>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse

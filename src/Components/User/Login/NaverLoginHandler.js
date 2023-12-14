@@ -16,7 +16,7 @@ const NaverLoginHandler = () => {
   useEffect(() => {
     // 컴포넌트가 렌더링 될 때 인가 코드를 백엔드로 전송하는 fetch 요청
     const kakaoLogin = async () => {
-      const res = await fetch(`${REQUEST_URL}/NaverLogin?code=${code}`);
+      const res = await fetch(`${REQUEST_URL}/naverLogin?code=${code}`);
       const { token, userName, role } = await res.json(); // 서버에서 온 json 읽기
 
       console.log(token, userName, role);
