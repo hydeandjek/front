@@ -12,23 +12,24 @@ const NaverLoginHandler = () => {
 
   // URL에 쿼리스트링으로 전달된 인가 코드를 얻어오는 방법.
   const code = new URL(window.location.href).searchParams.get('code');
+  console.log(code);
 
   useEffect(() => {
     // 컴포넌트가 렌더링 될 때 인가 코드를 백엔드로 전송하는 fetch 요청
-    const kakaoLogin = async () => {
+    const NaverLogin = async () => {
       const res = await fetch(`${REQUEST_URL}/naverLogin?code=${code}`);
-      const { token, userName, role } = await res.json(); // 서버에서 온 json 읽기
+      const { token, userName } = await res.json(); // 서버에서 온 json 읽기
 
-      console.log(token, userName, role);
+      console.log(token, userName);
 
       // Context Api
-      //onLogin(token, userName, role);
+      //onLogin(token, userName);
 
       // 홈으로 리다이렉트
       redirection('/');
     };
 
-    kakaoLogin();
+    NaverLogin();
   }, []);
 
   return (
