@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import NavHoverDropDown from './NavHoverDropDown';
 import styles from './sass/Header.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, Router, useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
 import AuthContext from '../../utils/AuthContext';
 import { API_BASE_URL, USER } from '../../config/host-config';
@@ -47,6 +47,13 @@ const Header = () => {
     // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
     onLogout();
     redirection('/user/login');
+
+  const onClickRecipe = () => {
+    redirection('/recipes');
+  };
+
+  const onClickKakao = () => {
+    redirection('/Kakao');
   };
 
   return (
@@ -60,7 +67,7 @@ const Header = () => {
           href='/'
           id='navItem'
         >
-          <b>1nterFace</b>
+          <b>1NTERFACE</b>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse
@@ -71,19 +78,21 @@ const Header = () => {
           <div className='navbar-nav me-auto mb-2 mb-lg-0'>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickRecipe}
                 nav
                 className={styles.menu_title}
               >
-                레시피
+                FOOD
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem>레시피</DropdownItem>
+                <DropdownItem>혼밥하기 좋은 식당</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickKakao}
                 nav
                 className={styles.menu_title}
               >
@@ -110,6 +119,7 @@ const Header = () => {
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickRecipe}
                 nav
                 className={styles.menu_title}
               >
