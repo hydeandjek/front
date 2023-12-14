@@ -14,13 +14,13 @@ import {
 } from 'reactstrap';
 import styles from './sass/Login.module.scss';
 import { useNavigate } from 'react-router';
-import { API_BASE_URL as BASE, USER } from '../../../config/host-config';
+import { API_BASE_URL as BASE, LOGIN, USER } from '../../../config/host-config';
 import AuthContext from '../../../utils/AuthContext';
 
 const Login = () => {
   const redirection = useNavigate();
 
-  const API_BASE_URL = BASE + USER;
+  const API_BASE_URL = BASE + USER + LOGIN;
   const { isLoggedIn, onLogin } = useContext(AuthContext);
 
   const fetchLogin = async () => {

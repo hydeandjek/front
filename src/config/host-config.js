@@ -12,3 +12,4 @@ if (clientHostName === 'localhost') {
 
 export const API_BASE_URL = backEndHostName;
 export const USER = '/api/user';
+export const LOGIN = '/signin';
