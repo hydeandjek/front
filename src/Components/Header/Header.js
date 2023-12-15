@@ -12,19 +12,16 @@ import {
 } from 'reactstrap';
 import NavHoverDropDown from './NavHoverDropDown';
 import styles from './sass/Header.module.scss';
-import { Link, Router, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
 import AuthContext from '../../utils/AuthContext';
-import { API_BASE_URL, USER } from '../../config/host-config';
+import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
-
-  // AuthContext에서 로그인 상태를 가져옵니다.
-  const { isLoggedIn, userName, onLogout } = useContext(AuthContext);
-
-  const token = localStorage.getItem('ACCESS_TOKEN');
+  const { userName, isLoggedIn, onLogout } = useContext(AuthContext);
+  const API_BASE_URL = BASE + USER;
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -47,6 +44,7 @@ const Header = () => {
     // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
     onLogout();
     redirection('/user/login');
+  };
 
   const onClickRecipe = () => {
     redirection('/recipes');
@@ -54,6 +52,19 @@ const Header = () => {
 
   const onClickKakao = () => {
     redirection('/Kakao');
+  };
+
+  const onClickLoginOut = () => {
+    const res = fetch(`${API_BASE_URL}/logout`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
+      },
+    });
+
+    // AuthContext의 OnLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
+    onLogout();
+    redirection('/login');
   };
 
   return (
@@ -151,17 +162,19 @@ const Header = () => {
                 <BsList />
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                {/* <DropdownItem header>김춘식</DropdownItem> */}
-                {/* if (ACCESS_TOKEN){
-                  <DropdownItem onClick={onClickMyPage}>마이페이지</DropdownItem>
-                  <DropdownItem onClick={onClickLogOut}>로그아웃</DropdownItem>
-                }else{
-                <DropdownItem onClick={onClickLogin}>로그인</DropdownItem>
-                <DropdownItem onClick={onClickJoin}>회원가입</DropdownItem>
-              )  */}
-                {token ? (
+                {isLoggedIn ? (
                   <>
-                    <DropdownItem onClick={onClickLogOut}>
+                    <DropdownItem
+                      header
+                      className={styles['dropdownitem-header']}
+                    >
+                      {userName}님 환영합니다
+                    </DropdownItem>
+                    <DropdownItem
+                      divider
+                      className={styles['dropdown-divider']}
+                    />
+                    <DropdownItem onClick={onClickLoginOut}>
                       로그아웃
                     </DropdownItem>
                   </>
