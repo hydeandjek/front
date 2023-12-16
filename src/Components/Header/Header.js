@@ -14,7 +14,7 @@ import NavHoverDropDown from './NavHoverDropDown';
 import styles from './sass/Header.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
-import AuthContext from '../../utils/AuthContext';
+import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 
 const Header = () => {
@@ -33,11 +33,11 @@ const Header = () => {
     redirection('/user/join');
   };
 
-  const onClickLogOut = async () => {
-    const res = await fetch(`${API_BASE_URL}${USER}/logout`, {
+  const onClickLogout = () => {
+    fetch(`${API_BASE_URL}/logout`, {
       method: 'GET',
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
+        Authorization: 'Bearer ' + getLoginUserInfo().token,
       },
     });
 
@@ -52,19 +52,6 @@ const Header = () => {
 
   const onClickKakao = () => {
     redirection('/Kakao');
-  };
-
-  const onClickLoginOut = () => {
-    const res = fetch(`${API_BASE_URL}/logout`, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
-      },
-    });
-
-    // AuthContext의 OnLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
-    onLogout();
-    redirection('/login');
   };
 
   return (
@@ -174,7 +161,7 @@ const Header = () => {
                       divider
                       className={styles['dropdown-divider']}
                     />
-                    <DropdownItem onClick={onClickLoginOut}>
+                    <DropdownItem onClick={onClickLogout}>
                       로그아웃
                     </DropdownItem>
                   </>

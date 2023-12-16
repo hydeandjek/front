@@ -14,13 +14,13 @@ import {
 } from 'reactstrap';
 import styles from './sass/Login.module.scss';
 import { useNavigate } from 'react-router';
-import { API_BASE_URL as BASE, LOGIN, USER } from '../../../config/host-config';
+import { API_BASE_URL as BASE, USER } from '../../../config/host-config';
 import AuthContext from '../../../utils/AuthContext';
 
 const Login = () => {
   const redirection = useNavigate();
 
-  const API_BASE_URL = BASE + USER + LOGIN;
+  const API_BASE_URL = BASE + USER;
   const { isLoggedIn, onLogin } = useContext(AuthContext);
 
   const fetchLogin = async () => {
@@ -47,10 +47,10 @@ const Login = () => {
       return;
     }
 
-    const { token, userName, email, address } = await res.json(); // 서버에서 온 json 읽기
+    const { token, userName, email, address, role } = await res.json(); // 서버에서 온 json 읽기
 
     // Context Api
-    onLogin(token, userName, address);
+    onLogin(token, userName, address, role);
 
     // 홈으로 리다이렉트
     redirection('/');
