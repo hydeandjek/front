@@ -11,7 +11,7 @@ const AuthContext = React.createContext({
 // 로그인 한 유저의 데이터 객체를 반환하는 함수
 export const getLoginUserInfo = () => {
   return {
-    token: localStorage.getItem('ACCESS_TOKEN'),
+    token: localStorage.getItem('LOGIN_TOKEN'),
     username: localStorage.getItem('LOGIN_USERNAME'),
     useraddress: localStorage.getItem('LOGIN_USERADDRESS'),
   };
@@ -40,7 +40,7 @@ export const AuthContextProvider = (props) => {
     //json에 담긴 인증정보를 클라이언트에 보관
     // 1. 로컬 스토리지 - 브라우저가 종료되어도 보관됨.
     // 2. 세션 스토리지 - 브라우저가 종료되면 사라짐.
-    localStorage.setItem('ACCESS_TOKEN', token);
+    localStorage.setItem('LOGIN_TOKEN', token);
     localStorage.setItem('LOGIN_USERNAME', userName);
     localStorage.setItem('LOGIN_USERADDRESS', address);
     setIsLoggedIn(true);
