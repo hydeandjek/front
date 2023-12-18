@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { API_BASE_URL, USER } from '../../../config/host-config';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../../utils/AuthContext';
 
 const NaverLoginHandler = () => {
   const REQUEST_URL = API_BASE_URL + USER;
   const redirection = useNavigate();
+  const { onLogin } = useContext(AuthContext);
 
   console.log(
     '사용자가 동의화면을 통해 필수 정보 동의 후 naver 서버에서 redirect를 진행함!'
@@ -23,7 +25,7 @@ const NaverLoginHandler = () => {
       console.log(token, userName);
 
       // Context Api
-      //onLogin(token, userName);
+      onLogin(token, userName, '');
 
       // 홈으로 리다이렉트
       redirection('/');

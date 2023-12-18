@@ -43,7 +43,7 @@ const Join = () => {
     password: undefined,
     passwordCheck: undefined,
     email: undefined,
-    address: undefined,
+    address: true,
   });
 
   const saveInputState = ({ key, inputValue, msg, flag }) => {
@@ -103,7 +103,6 @@ const Join = () => {
         }
       })
       .then((json) => {
-        console.log(json);
         if (json) {
           msg = '이메일이 중복되었습니다.';
         } else {
@@ -168,8 +167,6 @@ const Join = () => {
 
     let msg = '';
     let flag = false;
-    console.log(flag);
-    console.log(inputValue);
 
     if (!inputValue) {
       msg = '비밀번호는 필수입니다.';
@@ -220,17 +217,35 @@ const Join = () => {
     return true;
   };
 
-  const joinHandler = (e) => {
+  // 회원 가입 처리 서버 요청
+  const fetchSignUpPost = async () => {
+    const res = await fetch(`${API_BASE_URL}/join}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(userValue),
+    });
+
+    if (res.status === 200) {
+      alert('회원가입에 성공했습니다!');
+      // 로그인 페이지로 리다이렉트
+      redirection('/user/login');
+    } else {
+      alert('서버와의 통신이 원활하지 않습니다. 관리자에게 문의하세요.');
+    }
+  };
+
+  const joinHandler = async (e) => {
     e.preventDefault();
 
     if (isValid()) {
+      // 회원 가입 서버 요청
+      fetchSignUpPost();
     } else {
       alert('입력하지 않은 항목을 입력하세요');
 
       for (const key in correct) {
         const flag = correct[key];
         if (flag === undefined) {
-          console.log(flag);
           setCorrect((prev) => {
             const c = {
               ...prev,
@@ -407,12 +422,6 @@ const Join = () => {
                         id='address'
                         readOnly
                         value={userValue.address}
-                        invalid={
-                          correct.address === undefined
-                            ? undefined
-                            : !correct.address
-                        }
-                        valid={correct.address}
                       />
                     </Col>
                     <Col className='col-3'>
