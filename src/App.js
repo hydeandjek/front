@@ -1,62 +1,66 @@
 import { Route, Routes } from 'react-router-dom';
+import { AuthContextProvider } from './utils/AuthContext';
 import Home from './Components/Home/Home';
-//import KakaoMap from './Components/KakaoMap/KakaoMap';
-import Login from './Components/User/Login/Login';
-import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
-import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import Header from './Components/Header/Header';
-import styles from './App.module.scss';
 import Recipes from './Components/Recipe/Recipes';
 import Kakao from './Components/Kakao/Kakao';
 import Join from './Components/User/Join/Join';
-import { AuthContextProvider } from './utils/AuthContext';
+import Login from './Components/User/Login/Login';
+import styles from './App.module.scss';
+import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
+import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
+import './style.module.scss';
+import styled from 'styled-components';
+import { Index } from './assets/constants';
+import Emergency from './Components/Emergency/Emergency';
+import axios from 'axios';
+import { useState } from 'react';
 
 function App() {
-  // return (
-  //   <div className='App'>
-  //     <KakaoMap
-  //       searchWord={'약국'}
-  //       address={'서울특별시 마포구 백범로 23'}
-  //     />
-  //   </div>
-  // );
   return (
     <AuthContextProvider>
       <div className='App'>
         <Header />
-        <div className={styles['wrap-content']}>
-          <Routes>
-            <Route
-              path='/'
-              element={<Home />}
-            />
-            <Route
-              path='/user/login'
-              element={<Login />}
-            />
-            <Route
-              path='/user/join'
-              element={<Join />}
-            />
-            <Route
-              path='/oauth/redirected/kakao'
-              element={<KakaoLoginHandler />}
-            />
-            <Route
-              path='/oauth/redirected/naver'
-              element={<NaverLoginHandler />}
-            />
-            <Route
-              path='/kakao'
-              element={<Kakao />}
-            />
-            <Route
-              path='/recipes'
-              element={<Recipes />}
-            />
-          </Routes>
+        <div>
+          <div className={styles['wrap-content']}>
+            <Routes>
+              <Route
+                path='/'
+                element={<Home />}
+              />
+              <Route
+                path='/Emergency'
+                element={<Emergency />}
+              />
+              <Route
+                path='/user/login'
+                element={<Login />}
+              />
+              <Route
+                path='/user/join'
+                element={<Join />}
+              />
+              <Route
+                path='/oauth/redirected/kakao'
+                element={<KakaoLoginHandler />}
+              />
+              <Route
+                path='/oauth/redirected/naver'
+                element={<NaverLoginHandler />}
+              />
+              <Route
+                path='/kakao'
+                element={<Kakao />}
+              />
+              <Route
+                path='/recipes'
+                element={<Recipes />}
+              />
+            </Routes>
+          </div>
         </div>
       </div>
+      {/* <Emergency></Emergency> */}
     </AuthContextProvider>
   );
 }

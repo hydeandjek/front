@@ -45,13 +45,15 @@ const Header = () => {
     onLogout();
     redirection('/user/login');
   };
-
   const onClickRecipe = () => {
     redirection('/recipes');
   };
 
   const onClickKakao = () => {
     redirection('/Kakao');
+  };
+  const onClickEmergency = () => {
+    redirection('/Emergency');
   };
 
   return (
@@ -97,13 +99,14 @@ const Header = () => {
                 이사
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem>자취지역추천</DropdownItem>
+                <DropdownItem>이사짐센터</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
               >
@@ -117,7 +120,7 @@ const Header = () => {
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickRecipe}
+                onClick={onClickKakao}
                 nav
                 className={styles.menu_title}
               >

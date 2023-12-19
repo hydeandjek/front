@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+.carousel-wrapper {
+  width: 1500px;
+  height: 1300px;
+  overflow: hidden;
+}
+
+.carousel-wrapper > .carousel {
+  display: flex;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.2s;
+}
+
+// .carousel-wrapper > .carousel > img {
+//   width: 500px;
+//   height: 300px;
+// }
+// .carousel-item img {
+//   object-fit: none;
+//   width: 1000px;
+//   height: 720px;
+// }

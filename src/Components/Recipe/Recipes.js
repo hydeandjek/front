@@ -13,15 +13,7 @@ const Recipes = () => {
         <div className='side'>
           <div className='sidebar'>
             {menus.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                >
-                  <SidebarItem menu={menu} />
-                </NavLink>
-              );
+              return <SidebarItem menu={menu} />;
             })}
           </div>
         </div>

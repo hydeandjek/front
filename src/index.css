@@ -1,23 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://websfont.github.io/nanumSquareNeo/nanumSquareNeo.css");
-@import url("https://websfont.github.io/gmarket/gmarket.css");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://websfont.github.io/nanumSquareNeo/nanumSquareNeo.css');
+@import url('https://websfont.github.io/gmarket/gmarket.css');
 
 .mont {
-    font-family: "Montserrat";
+  font-family: 'Montserrat';
 }
 .nanum {
-    font-family: "nanumSquareNeo";
+  font-family: 'nanumSquareNeo';
 }
 .gmarket {
-    font-family: "gmarket";
+  font-family: 'gmarket';
 }
 
 .body_root {
-  --mainEng-font: "Montserrat";
-  --mainKor-font: "nanumSquareNeo";
-  --mainNum-font: "gmarket";
+  /* width: 100%; */
+  /* display: inline-block; */
+  --mainEng-font: 'Montserrat';
+  --mainKor-font: 'nanumSquareNeo';
+  --mainNum-font: 'gmarket';
+  /* background: url(../public/final_img1.jpg); */
+  /* background-size: 400px 400px; */
+  /* background-size: cover;
+  
 
-  --mainBg-color: #f3ede8;
+  /* --mainBg-color: #f3ede8;
   --subBg100: #cdc0b1;
   --subBg200: #afa395;
   --subBg300: #81887c;
@@ -29,9 +35,9 @@
   --black100: #2b2b2b;
   --black200: #434343;
   --black300: #686868;
-  --black400: #e0e0e0;
+  --black400: #e0e0e0; */
 
-  height: 100vh;
+  /* height: 100vh; */
 
   background-color: var(--mainBg-color);
 
@@ -47,7 +53,7 @@
   -webkit-text-size-adjust: 100%;
 
   @media (max-width: 800px) {
-      font-size: 14px;
-      line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.4;
   }
 }
