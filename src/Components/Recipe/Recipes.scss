@@ -1,35 +1,8 @@
-.rec_center {
+.warp-content {
+  width: 100%;
+}
+
+.warp-side {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 18%;
-  height: 92vh;
-  border-right: 1px solid #b4b4b4;
-  color: #000;
-  font-size: 30px;
-  position: relative;
-}
-
-.side {
-  position: relative;
-  padding: 30px;
-  color: #000;
-}
-
-.rec_center .side .sidebar p {
-  color: #000;
-  border-radius: 10px;
-  background-color: rgba(116, 99, 99, 0.205);
-  font-size: 16px;
-  width: 200px;
-  padding: 3px 10px;
-  margin: 5px 0px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-
-  &:hover {
-    background-color: rgba(75, 62, 62, 0.507);
-  }
+  width: 100%;
 }

@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
+import './Kakao.scss';
 
 const { kakao } = window;
+
 function Kakao() {
   useEffect(() => {
     const container = document.getElementById('map'); // 지도를 담을 DOM 레퍼런스
@@ -12,10 +14,10 @@ function Kakao() {
     const map = new kakao.maps.Map(container, options); // 지도생성 및 객체 리턴
   }, []);
   return (
-    <div>
+    <div className='mapBox'>
       <div
         id='map'
-        style={{ width: '500px', height: '500px' }}
+        style={{ width: '900px', height: '550px' }}
       ></div>
     </div>
   );

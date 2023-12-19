@@ -37,6 +37,10 @@ const Header = () => {
     redirection('/Kakao');
   };
 
+  const onClickLife = () => {
+    redirection('/Life');
+  };
+
   return (
     <div>
       <Navbar
@@ -89,6 +93,7 @@ const Header = () => {
               <DropdownToggle
                 nav
                 className={styles.menu_title}
+                onClick={onClickLife}
               >
                 라이프
               </DropdownToggle>

@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Recipe.scss';
-import { rec } from '../../assets/constants';
+
 import { NavLink } from 'react-router-dom';
 import SideBarContent from '../SideBar/SideBarContent';
 
+const rec = [
+  { id: 1, name: '국&찌개', src: '' },
+  { id: 2, name: '반찬', src: '' },
+  { id: 3, name: '후식', src: '' },
+  { id: 4, name: '일품', src: '' },
+  { id: 5, name: '밥', src: '' },
+];
 const Recipe = () => {
   return (
-    <div className='ContentBox'>
+    <div className='contentBox'>
       {rec.map((content, index) => {
         return (
-          <NavLink
-            style={{ textDecoration: 'none' }}
-            to={content.path}
+          <SideBarContent
+            content={content}
             key={index}
           >
-            <SideBarContent content={content} />
-          </NavLink>
+            <NavLink to={content.path}></NavLink>
+          </SideBarContent>
         );
       })}
     </div>

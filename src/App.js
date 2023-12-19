@@ -10,6 +10,7 @@ import Recipes from './Components/Recipe/Recipes';
 import Kakao from './Components/Kakao/Kakao';
 import Join from './Components/User/Join/Join';
 import { AuthContextProvider } from './utils/AuthContext';
+import Life from './Components/Life/Life';
 
 function App() {
   // return (
@@ -24,7 +25,10 @@ function App() {
     <AuthContextProvider>
       <div className='App'>
         <Header />
-        <div className={styles['wrap-content']}>
+        <div
+          className={styles['wrap-content']}
+          style={{ display: 'flex' }}
+        >
           <Routes>
             <Route
               path='/'
@@ -49,6 +53,10 @@ function App() {
             <Route
               path='/kakao'
               element={<Kakao />}
+            />
+            <Route
+              path='/Life'
+              element={<Life />}
             />
             <Route
               path='/recipes'
