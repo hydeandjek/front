@@ -17,7 +17,7 @@
   --mainKor-font: 'nanumSquareNeo';
   --mainNum-font: 'gmarket';
 
-  --mainBg-color: #f3ede8;
+  /* --mainBg-color: #f3ede8;
   --subBg100: #cdc0b1;
   --subBg200: #afa395;
   --subBg300: #81887c;
@@ -29,7 +29,8 @@
   --black100: #2b2b2b;
   --black200: #434343;
   --black300: #686868;
-  --black400: #e0e0e0;
+  --black400: #e0e0e0; 
+  */
 
   background-color: var(--mainBg-color);
 

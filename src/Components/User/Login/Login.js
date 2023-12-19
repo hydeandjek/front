@@ -47,10 +47,10 @@ const Login = () => {
       return;
     }
 
-    const { token, userName, email, address } = await res.json(); // 서버에서 온 json 읽기
+    const { token, userName, email, address, role } = await res.json(); // 서버에서 온 json 읽기
 
     // Context Api
-    onLogin(token, userName, address);
+    onLogin(token, userName, address, role);
 
     // 홈으로 리다이렉트
     redirection('/');

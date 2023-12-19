@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Collapse,
   Navbar,
@@ -12,12 +12,16 @@ import {
 } from 'reactstrap';
 import NavHoverDropDown from './NavHoverDropDown';
 import styles from './sass/Header.module.scss';
-import { Link, Router, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
+import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
+import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
+  const { userName, isLoggedIn, onLogout } = useContext(AuthContext);
+  const API_BASE_URL = BASE + USER;
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -29,12 +33,27 @@ const Header = () => {
     redirection('/user/join');
   };
 
+  const onClickLogout = () => {
+    fetch(`${API_BASE_URL}/logout`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + getLoginUserInfo().token,
+      },
+    });
+
+    // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
+    onLogout();
+    redirection('/user/login');
+  };
   const onClickRecipe = () => {
     redirection('/recipes');
   };
 
   const onClickKakao = () => {
     redirection('/Kakao');
+  };
+  const onClickEmergency = () => {
+    redirection('/Emergency');
   };
 
   const onClickLife = () => {
@@ -84,13 +103,14 @@ const Header = () => {
                 이사
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem>자취지역추천</DropdownItem>
+                <DropdownItem>이사짐센터</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
                 onClick={onClickLife}
@@ -105,7 +125,7 @@ const Header = () => {
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickRecipe}
+                onClick={onClickKakao}
                 nav
                 className={styles.menu_title}
               >
@@ -137,9 +157,28 @@ const Header = () => {
                 <BsList />
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                {/* <DropdownItem header>김춘식</DropdownItem> */}
-                <DropdownItem onClick={onClickLogin}>로그인</DropdownItem>
-                <DropdownItem onClick={onClickJoin}>회원가입</DropdownItem>
+                {isLoggedIn ? (
+                  <>
+                    <DropdownItem
+                      header
+                      className={styles['dropdownitem-header']}
+                    >
+                      {userName}님 환영합니다
+                    </DropdownItem>
+                    <DropdownItem
+                      divider
+                      className={styles['dropdown-divider']}
+                    />
+                    <DropdownItem onClick={onClickLogout}>
+                      로그아웃
+                    </DropdownItem>
+                  </>
+                ) : (
+                  <>
+                    <DropdownItem onClick={onClickLogin}>로그인</DropdownItem>
+                    <DropdownItem onClick={onClickJoin}>회원가입</DropdownItem>
+                  </>
+                )}
               </DropdownMenu>
             </NavHoverDropDown>
           </div>
