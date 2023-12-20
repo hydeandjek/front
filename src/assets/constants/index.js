@@ -19,7 +19,7 @@ export const rcp_pat2 = [
 export const express = [
   { name: ' 이삿짐센터 ', path: '/express/expressCenter' },
   { name: ' 공유창고 ', path: '/express/sharedWarehouse' },
-  { name: ' ', path: '/' },
+  { name: ' 자취지역추천 ', path: '/' },
 ];
 export const life = [
   { name: ' 편의점 ', path: '/life/convenienceStore' },

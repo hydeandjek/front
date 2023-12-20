@@ -14,7 +14,6 @@ import { Index } from './assets/constants';
 import Emergency from './Components/Emergency/Emergency';
 import axios from 'axios';
 import { useState } from 'react';
-import Life from './Components/Life/Life';
 import Recipes from './Components/Food/Recipe/Recipes';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
@@ -84,8 +83,8 @@ function App() {
               element={<DeliveryBox />}
             />
             <Route
-              path='/Life'
-              element={<Life />}
+              path='/emergency'
+              element={<Emergency />}
             />
           </Routes>
           <ChattingModal />
