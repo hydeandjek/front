@@ -60,6 +60,11 @@ const Header = () => {
     redirection('/Life');
   };
 
+  const onClickNavbarBrand = (e) => {
+    e.preventDefault();
+    redirection('/');
+  };
+
   return (
     <div>
       <Navbar
@@ -68,8 +73,9 @@ const Header = () => {
         className={styles.nav}
       >
         <NavbarBrand
-          href='/'
+          href='#'
           id='navItem'
+          onClick={onClickNavbarBrand}
         >
           <b>1NTERFACE</b>
         </NavbarBrand>
