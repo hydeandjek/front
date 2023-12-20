@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import SidebarItem from '../SideBar/SideBarItem';
+import SidebarItem from '../../SideBar/SideBarItem';
 import './Recipes.scss';
-import { menus } from '../../assets/constants';
+import { food } from '../../../assets/constants';
 import Recipe from './Recipe';
 
 const Recipes = () => {
@@ -12,7 +12,7 @@ const Recipes = () => {
         FOOD
         <div className='side'>
           <div className='sidebar'>
-            {menus.map((menu, index) => {
+            {food.map((menu, index) => {
               return (
                 <NavLink
                   style={{ textDecoration: 'none' }}
