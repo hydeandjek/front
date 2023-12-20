@@ -1,11 +1,12 @@
-.ContentBox {
-  border: 1px solid black;
-  border-radius: 5px;
-  font-size: 16px;
-  position: fixed;
-  right: 10vh;
-  top: 10vh;
-  height: 85vh;
-  width: 1500px;
-  padding: 5%;
+.contentBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ContentBox a {
+  text-decoration: 'none';
+}
+.rec_center {
+  justify-content: flex-start;
+  height: 50vh;
 }

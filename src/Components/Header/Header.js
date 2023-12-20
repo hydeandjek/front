@@ -76,6 +76,18 @@ const Header = () => {
     redirection('/life/deliveryBox');
   };
   
+  const onClickEmergency = () => {
+    redirection('/Emergency');
+  };
+
+  const onClickLife = () => {
+    redirection('/Life');
+  };
+
+  const onClickNavbarBrand = (e) => {
+    e.preventDefault();
+    redirection('/');
+  };
 
   return (
     <div>
@@ -85,8 +97,9 @@ const Header = () => {
         className={styles.nav}
       >
         <NavbarBrand
-          href='/'
+          href='#'
           id='navItem'
+          onClick={onClickNavbarBrand}
         >
           <b>1NTERFACE</b>
         </NavbarBrand>
@@ -120,11 +133,12 @@ const Header = () => {
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickExpressCenter}>이삿짐센터</DropdownItem>
                 <DropdownItem onClick={onClickSharedWarehouse}>공유창고</DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
+                <DropdownItem>자취지역추천</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
+                onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
               >
@@ -139,7 +153,7 @@ const Header = () => {
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickRecipe}
+                onClick={onClickKakao}
                 nav
                 className={styles.menu_title}
               >

@@ -1,14 +1,20 @@
 import { Route, Routes } from 'react-router-dom';
+import { AuthContextProvider } from './utils/AuthContext';
 import Home from './Components/Home/Home';
-//import KakaoMap from './Components/KakaoMap/KakaoMap';
-import Login from './Components/User/Login/Login';
-import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
-import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import Header from './Components/Header/Header';
-import styles from './App.module.scss';
 import Join from './Components/User/Join/Join';
 import ChattingModal from './Components/Modal/ChattingModal';
-import { AuthContextProvider } from './utils/AuthContext';
+import Login from './Components/User/Login/Login';
+import styles from './App.module.scss';
+import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
+import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
+import './style.module.scss';
+import styled from 'styled-components';
+import { Index } from './assets/constants';
+import Emergency from './Components/Emergency/Emergency';
+import axios from 'axios';
+import { useState } from 'react';
+import Life from './Components/Life/Life';
 import Recipes from './Components/Food/Recipe/Recipes';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
@@ -19,14 +25,6 @@ import CoinLaundry from './Components/Life/CoinLaundry';
 import DeliveryBox from './Components/Life/DeliveryBox';
 
 function App() {
-  // return (
-  //   <div className='App'>
-  //     <KakaoMap
-  //       searchWord={'약국'}
-  //       address={'서울특별시 마포구 백범로 23'}
-  //     />
-  //   </div>
-  // );
   return (
     <AuthContextProvider>
       <div className='App'>
@@ -84,6 +82,10 @@ function App() {
             <Route
               path='/life/deliveryBox'
               element={<DeliveryBox />}
+            />
+            <Route
+              path='/Life'
+              element={<Life />}
             />
           </Routes>
           <ChattingModal />

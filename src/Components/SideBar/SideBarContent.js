@@ -4,8 +4,10 @@ import './SideBarContent.scss';
 const SideBarContent = (content) => {
   return (
     <div className='sidebar-content'>
-      <img src={content.src} />
-      <p>{content.name}</p>
+      <div className='content-item'>
+        <img src={content.src} />
+        <p>{content.name}</p>
+      </div>
     </div>
   );
 };

@@ -16,4 +16,30 @@
       background-color: rgba(75, 62, 62, 0.507);
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+.recipe-menu {
+  color: #000;
+
+  div {
+    size: 70%;
+    border-radius: 10px;
+    background-color: rgba(116, 99, 99, 0.205);
+    font-size: 14px;
+    width: 150px;
+    padding: 3px 10px;
+    margin: 5px 0px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    margin-left: 25px;
+    color: #000;
+    display: block;
+    &:hover {
+      background-color: rgba(75, 62, 62, 0.507);
+    }
+  }
+}
+>>>>>>> 0006c4c70adcf9976b93f3757e3d176af3069da1

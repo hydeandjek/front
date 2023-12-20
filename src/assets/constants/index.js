@@ -9,6 +9,13 @@ export const recipe = [
   { name: '에가자', path: '/', src: '' },
   { name: ' ', path: '/', src: '' },
 ];
+export const rcp_pat2 = [
+  { name: '국&찌개' },
+  { name: '반찬' },
+  { name: '후식' },
+  { name: '일품' },
+  { name: '밥' },
+];
 export const express = [
   { name: ' 이삿짐센터 ', path: '/express/expressCenter' },
   { name: ' 공유창고 ', path: '/express/sharedWarehouse' },
