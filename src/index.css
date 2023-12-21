@@ -30,7 +30,8 @@
   --black200: #434343;
   --black300: #686868;
   --black400: #e0e0e0; 
- 
+
+  min-height: 100vh;
 
   background-color: var(--mainBg-color);
 

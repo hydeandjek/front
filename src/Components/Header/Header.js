@@ -45,19 +45,44 @@ const Header = () => {
     onLogout();
     redirection('/user/login');
   };
+
+  // food
   const onClickRecipe = () => {
-    redirection('/recipes');
+    redirection('food/recipes');
+  };
+  const onClickRestaurant = () => {
+    redirection('food/restaurant');
   };
 
-  const onClickKakao = () => {
-    redirection('/Kakao');
+  // express
+  const onClickExpressCenter = () => {
+    redirection('/express/expressCenter');
   };
+  const onClickSharedWarehouse = () => {
+    redirection('/express/sharedWarehouse');
+  };
+
+  // life
+  const onClickConvenienceStore = () => {
+    redirection('/life/convenienceStore');
+  };
+  const onClickDrugStore = () => {
+    redirection('/life/drugStore');
+  };
+  const onClickCoinLaundry = () => {
+    redirection('/life/coinLaundry');
+  };
+  const onClickDeliveryBox = () => {
+    redirection('/life/deliveryBox');
+  };
+
   const onClickEmergency = () => {
     redirection('/Emergency');
   };
 
-  const onClickLife = () => {
-    redirection('/Life');
+  const onClickNavbarBrand = (e) => {
+    e.preventDefault();
+    redirection('/');
   };
 
   const onClickParcel = () => {
@@ -80,8 +105,9 @@ const Header = () => {
         className={styles.nav}
       >
         <NavbarBrand
-          href='/'
+          href='#'
           id='navItem'
+          onClick={onClickNavbarBrand}
         >
           <b>1NTERFACE</b>
         </NavbarBrand>
@@ -94,49 +120,58 @@ const Header = () => {
           <div className='navbar-nav me-auto mb-2 mb-lg-0'>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickRecipe}
                 nav
                 className={styles.menu_title}
               >
                 FOOD
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>레시피</DropdownItem>
-                <DropdownItem>혼밥하기 좋은 식당</DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
-              </DropdownMenu>
-            </NavHoverDropDown>
-            <NavHoverDropDown>
-              <DropdownToggle
-                onClick={onClickKakao}
-                nav
-                className={styles.menu_title}
-              >
-                이사
-              </DropdownToggle>
-              <DropdownMenu className={styles.menu}>
-                <DropdownItem onClick={onClickSolo}>자취지역추천</DropdownItem>
-                <DropdownItem onClick={onClickPacking}>이사짐센터</DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
+                <DropdownItem onClick={onClickRecipe}>레시피</DropdownItem>
+                <DropdownItem>즐겨찾기 한 맛집 리스트</DropdownItem>
+                <DropdownItem onClick={onClickRestaurant}>
+                  혼밥하기 좋은 식당
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
                 nav
                 className={styles.menu_title}
-                onClick={onClickLife}
               >
-                라이프
+                Express
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem onClick={onClickEmergency}>응급실</DropdownItem>
-                <DropdownItem onClick={onClickParcel}>무인택배함</DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
+                <DropdownItem onClick={onClickExpressCenter}>
+                  이삿짐센터
+                </DropdownItem>
+                <DropdownItem onClick={onClickSharedWarehouse}>
+                  공유창고
+                </DropdownItem>
+                <DropdownItem>자취지역추천</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickKakao}
+                nav
+                className={styles.menu_title}
+              >
+                Life
+              </DropdownToggle>
+              <DropdownMenu className={styles.menu}>
+                <DropdownItem onClick={onClickConvenienceStore}>
+                  편의점
+                </DropdownItem>
+                <DropdownItem onClick={onClickDrugStore}>약국</DropdownItem>
+                <DropdownItem onClick={onClickCoinLaundry}>
+                  코인세탁소
+                </DropdownItem>
+                <DropdownItem onClick={onClickDeliveryBox}>
+                  무인택배함
+                </DropdownItem>
+              </DropdownMenu>
+            </NavHoverDropDown>
+            <NavHoverDropDown>
+              <DropdownToggle
                 nav
                 className={styles.menu_title}
               >

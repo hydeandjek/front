@@ -1,35 +1,34 @@
 import React from 'react';
-import SideBarItem from '../SideBar/SideBarItem';
 import { NavLink } from 'react-router-dom';
-import Kakao from '../Kakao/Kakao';
-import { life } from '../../assets/constants';
-import '../Recipe/Recipes.scss';
+import SidebarItem from '../../SideBar/SideBarItem';
+import './Recipes.scss';
+import { food } from '../../../assets/constants';
+import Recipe from './Recipe';
 
-const Life = () => {
+const Recipes = () => {
   return (
-    <>
+    <div className='recipe-content'>
       <div className='rec_center'>
-        Life
+        FOOD
         <div className='side'>
           <div className='sidebar'>
-            {life.map((menu, index) => {
+            {food.map((menu, index) => {
               return (
                 <NavLink
                   style={{ textDecoration: 'none' }}
                   to={menu.path}
                   key={index}
                 >
-                  <SideBarItem menu={menu} />
+                  <SidebarItem menu={menu} />
                 </NavLink>
               );
             })}
           </div>
         </div>
       </div>
-
-      <Kakao />
-    </>
+      <Recipe />
+    </div>
   );
 };
 
-export default Life;
+export default Recipes;
