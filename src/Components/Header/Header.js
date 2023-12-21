@@ -37,7 +37,7 @@ const Header = () => {
   };
 
   const onClickLogOut = async () => {
-    const res = await fetch(`${API_BASE_URL}${USER}/logout`, {
+    const res = await fetch(`http://localhost:3000${USER}/logout`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
@@ -46,7 +46,7 @@ const Header = () => {
 
     // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
     onLogout();
-    redirection('/user/login');
+    redirection('user/login');
   };
 
   return (
