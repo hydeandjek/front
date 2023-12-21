@@ -60,6 +60,18 @@ const Header = () => {
     redirection('/Life');
   };
 
+  const onClickParcel = () => {
+    redirection('/Parcel');
+  };
+
+  const onClickSolo = () => {
+    redirection('/Solo');
+  };
+
+  const onClickPacking = () => {
+    redirection('/Packing');
+  };
+
   return (
     <div>
       <Navbar
@@ -103,14 +115,13 @@ const Header = () => {
                 이사
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>자취지역추천</DropdownItem>
-                <DropdownItem>이사짐센터</DropdownItem>
+                <DropdownItem onClick={onClickSolo}>자취지역추천</DropdownItem>
+                <DropdownItem onClick={onClickPacking}>이사짐센터</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
                 onClick={onClickLife}
@@ -118,8 +129,8 @@ const Header = () => {
                 라이프
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem onClick={onClickEmergency}>응급실</DropdownItem>
+                <DropdownItem onClick={onClickParcel}>무인택배함</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>

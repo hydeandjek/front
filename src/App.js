@@ -16,6 +16,7 @@ import Emergency from './Components/Emergency/Emergency';
 import axios from 'axios';
 import { useState } from 'react';
 import Life from './Components/Life/Life';
+import Parcel from './Components/Parcel/Parcel';
 
 function App() {
   return (
@@ -27,6 +28,14 @@ function App() {
             <Route
               path='/'
               element={<Home />}
+            />
+            <Route
+              path='/Emergency'
+              element={<Emergency />}
+            />
+            <Route
+              path='/Parcel'
+              element={<Parcel />}
             />
             <Route
               path='/user/login'
