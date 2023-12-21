@@ -1,3 +1,16 @@
+.contentBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ContentBox a {
+  text-decoration: 'none';
+}
+.rec_center {
+  justify-content: flex-start;
+  height: 50vh;
+}
+
 .warp-content {
   width: 100%;
 }

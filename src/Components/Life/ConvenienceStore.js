@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import SidebarItem from '../SideBar/SideBarItem';
+import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
+import '../SideBar/SideBar2/SideBarItem2.scss';
+import '../SideBar/SideBar2/SideBarContent2.scss';
 import { life } from '../../assets/constants';
 import './ConvenienceStore.scss';
 import Kakao from '../Map/Kakao';
-
 
 const ConvenienceStore = () => {
 
@@ -12,10 +13,10 @@ const ConvenienceStore = () => {
     <>
       <div id='convenienceStore'>
 
-        <div className='rec_center'>
+        <div className='rec_center2'>
           Life
-          <div className='side'>
-            <div className='sidebar'>
+          <div className='side2'>
+            <div className='sidebar2'>
               {life.map((menu, index) => {
                 return (
                   <NavLink
@@ -23,7 +24,7 @@ const ConvenienceStore = () => {
                     to={menu.path}
                     key={index}
                   >
-                    <SidebarItem menu={menu} />
+                    <SideBarItem2 menu={menu} />
                   </NavLink>
                 );
               })}

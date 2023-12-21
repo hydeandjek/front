@@ -80,10 +80,6 @@ const Header = () => {
     redirection('/Emergency');
   };
 
-  const onClickLife = () => {
-    redirection('/Life');
-  };
-
   const onClickNavbarBrand = (e) => {
     e.preventDefault();
     redirection('/');
@@ -153,7 +149,6 @@ const Header = () => {
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickKakao}
                 nav
                 className={styles.menu_title}
               >
