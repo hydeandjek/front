@@ -7,7 +7,7 @@ import Recipe from './Recipe';
 
 const Recipes = () => {
   return (
-    <>
+    <div className='recipe-content'>
       <div className='rec_center'>
         FOOD
         <div className='side'>
@@ -27,7 +27,7 @@ const Recipes = () => {
         </div>
       </div>
       <Recipe />
-    </>
+    </div>
   );
 };
 
