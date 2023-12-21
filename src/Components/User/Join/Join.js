@@ -219,7 +219,7 @@ const Join = () => {
 
   // 회원 가입 처리 서버 요청
   const fetchSignUpPost = async () => {
-    const res = await fetch(`${API_BASE_URL}/join}`, {
+    const res = await fetch(`${API_BASE_URL}/join`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(userValue),
@@ -282,25 +282,6 @@ const Join = () => {
     }).open();
   };
 
-  // 회원 가입 처리 서버 요청
-  const infofetchHandler = async () => {
-    console.log('회원가입 핸들러 작동');
-    console.log(userValue);
-    fetch(API_BASE_URL, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(userValue),
-    }).then((res) => {
-      if (res.status === 200) {
-        alert('회원가입에 성공했습니다.');
-        // 로그인 페이지로 리다이렉트
-        // window.location.href = './login'; 바닐라
-        redirection('/user/login');
-      } else {
-        alert('서버와의 통신이 원활하지 않습니다. 관리자에게 문의하세요.');
-      }
-    });
-  };
   return (
     <Container className={styles['join-container']}>
       <Row>
@@ -443,7 +424,6 @@ const Join = () => {
                         type='submit'
                         className={styles['join-button']}
                         style={{ width: '100%' }}
-                        onClick={infofetchHandler}
                       >
                         회원가입
                       </Button>
