@@ -61,7 +61,7 @@ const Header = () => {
   const onClickSharedWarehouse = () => {
     redirection('/express/sharedWarehouse');
   };
-  
+
   // life
   const onClickConvenienceStore = () => {
     redirection('/life/convenienceStore');
@@ -75,7 +75,7 @@ const Header = () => {
   const onClickDeliveryBox = () => {
     redirection('/life/deliveryBox');
   };
-  
+
   const onClickEmergency = () => {
     redirection('/Emergency');
   };
@@ -83,6 +83,18 @@ const Header = () => {
   const onClickNavbarBrand = (e) => {
     e.preventDefault();
     redirection('/');
+  };
+
+  const onClickParcel = () => {
+    redirection('/Parcel');
+  };
+
+  const onClickSolo = () => {
+    redirection('/Solo');
+  };
+
+  const onClickPacking = () => {
+    redirection('/Packing');
   };
 
   return (
@@ -110,13 +122,15 @@ const Header = () => {
               <DropdownToggle
                 nav
                 className={styles.menu_title}
-                >
+              >
                 FOOD
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickRecipe}>레시피</DropdownItem>
                 <DropdownItem>즐겨찾기 한 맛집 리스트</DropdownItem>
-                <DropdownItem onClick={onClickRestaurant}>혼밥하기 좋은 식당</DropdownItem>
+                <DropdownItem onClick={onClickRestaurant}>
+                  혼밥하기 좋은 식당
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
@@ -127,24 +141,33 @@ const Header = () => {
                 Express
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem onClick={onClickExpressCenter}>이삿짐센터</DropdownItem>
-                <DropdownItem onClick={onClickSharedWarehouse}>공유창고</DropdownItem>
+                <DropdownItem onClick={onClickExpressCenter}>
+                  이삿짐센터
+                </DropdownItem>
+                <DropdownItem onClick={onClickSharedWarehouse}>
+                  공유창고
+                </DropdownItem>
                 <DropdownItem>자취지역추천</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
               >
                 Life
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem onClick={onClickConvenienceStore}>편의점</DropdownItem>
+                <DropdownItem onClick={onClickConvenienceStore}>
+                  편의점
+                </DropdownItem>
                 <DropdownItem onClick={onClickDrugStore}>약국</DropdownItem>
-                <DropdownItem onClick={onClickCoinLaundry}>코인세탁소</DropdownItem>
-                <DropdownItem onClick={onClickDeliveryBox}>무인택배함</DropdownItem>
+                <DropdownItem onClick={onClickCoinLaundry}>
+                  코인세탁소
+                </DropdownItem>
+                <DropdownItem onClick={onClickDeliveryBox}>
+                  무인택배함
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>

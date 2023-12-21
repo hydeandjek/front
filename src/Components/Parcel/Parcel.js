@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Map } from 'react-kakao-maps-sdk';
 
-function Emergency() {
+function Parcel() {
   const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 67;
@@ -12,20 +12,17 @@ function Emergency() {
   const fetchData = async (pageNumber) => {
     try {
       const response = await axios.get(
-        `http://openapi.seoul.go.kr:8088/63714f544868796437314365456f6a/json/TvEmgcHospitalInfo/${pageNumber}/${itemsPerPage}/`
+        `http://openapi.seoul.go.kr:8088/63714f544868796437314365456f6a/json/safeOpenBox/${pageNumber}/${itemsPerPage}/`
       );
 
-      if (response.data && response.data.TvEmgcHospitalInfo) {
-        const fetchedData = response.data.TvEmgcHospitalInfo.row.map(
-          (item) => ({
-            DUTYADDR: item.DUTYADDR,
-            DUTYMAPIMG: item.DUTYMAPIMG,
-            DUTYNAME: item.DUTYNAME,
-            DUTYTEL1: item.DUTYTEL1,
-            WGS84LON: item.WGS84LON,
-            WGS84LAT: item.WGS84LAT,
-          })
-        );
+      if (response.data && response.data.safeOpenBox) {
+        const fetchedData = response.data.safeOpenBox.row.map((item) => ({
+          ADDRDETAIL: item.ADDRDETAIL,
+          ANSIMIADDR: item.ANSIMIADDR,
+          ANSIMINM: item.ANSIMINM,
+          WGSXPT: item.WGSXPT,
+          WGSYPT: item.WGSYPT,
+        }));
         setData(fetchedData);
       }
     } catch (error) {
@@ -40,7 +37,7 @@ function Emergency() {
   useEffect(() => {
     if (data) {
       const filterdData = data.filter((item) => {
-        return item.DUTYADDR.includes(searchAddress);
+        return item.ANSIMIADDR.includes(searchAddress);
       });
 
       console.log(filterdData);
@@ -50,8 +47,8 @@ function Emergency() {
       const container = document.getElementById('map');
       const options = {
         center: new kakao.maps.LatLng(
-          filterdData[0].WGS84LAT,
-          filterdData[0].WGS84LON
+          filterdData[0].WGSXPT,
+          filterdData[0].WGSYPT
         ),
         level: 3,
       };
@@ -60,17 +57,14 @@ function Emergency() {
 
       // Add markers based on fetched data
       filterdData.forEach((item) => {
-        const markerPosition = new kakao.maps.LatLng(
-          item.WGS84LAT,
-          item.WGS84LON
-        );
+        const markerPosition = new kakao.maps.LatLng(item.WGSXPT, item.WGSYPT);
         const marker = new kakao.maps.Marker({
           position: markerPosition,
         });
 
         kakao.maps.event.addListener(marker, 'click', function () {
           const infowindow = new kakao.maps.InfoWindow({
-            content: `<div><p>${item.DUTYADDR}</p><p>${item.DUTYMAPIMG}</p><p>${item.DUTYNAME}</p></div>`,
+            content: `<div><p>${item.ADDRDETAIL}</p><p>${item.ANSIMINM}</p><p>${item.ANSIMIADDR}</p></div>`,
           });
           infowindow.open(map, marker);
         });
@@ -139,13 +133,12 @@ function Emergency() {
         <div>
           {data
             .filter((item) => {
-              return item.DUTYADDR.includes(searchAddress);
+              return item.ANSIMIADDR.includes(searchAddress);
             })
             .map((item, index) => (
               <div key={index}>
-                <p>주소: {item.DUTYADDR}</p>
-                <p>전화번호: {item.DUTYTEL1}</p>
-                <p>병원명: {item.DUTYNAME}</p>
+                <p>주소: {item.ANSIMIADDR}</p>
+                <p>택배명: {item.ANSIMINM}</p>
                 <hr />
               </div>
             ))}
@@ -155,4 +148,4 @@ function Emergency() {
   );
 }
 
-export default Emergency;
+export default Parcel;

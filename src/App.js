@@ -22,6 +22,7 @@ import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
 import DeliveryBox from './Components/Life/DeliveryBox';
+import Parcel from './Components/Parcel/Parcel';
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
             <Route
               path='/'
               element={<Home />}
+            />
+            <Route
+              path='/Emergency'
+              element={<Emergency />}
+            />
+            <Route
+              path='/Parcel'
+              element={<Parcel />}
             />
             <Route
               path='/user/login'
