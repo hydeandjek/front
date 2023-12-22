@@ -72,12 +72,8 @@ const Header = () => {
   const onClickCoinLaundry = () => {
     redirection('/life/coinLaundry');
   };
-  const onClickDeliveryBox = () => {
-    redirection('/life/deliveryBox');
-  };
-
   const onClickEmergency = () => {
-    redirection('/Emergency');
+    redirection('/life/Emergency');
   };
 
   const onClickNavbarBrand = (e) => {
@@ -86,7 +82,7 @@ const Header = () => {
   };
 
   const onClickParcel = () => {
-    redirection('/Parcel');
+    redirection('/life/Parcel');
   };
 
   const onClickSolo = () => {
@@ -165,9 +161,8 @@ const Header = () => {
                 <DropdownItem onClick={onClickCoinLaundry}>
                   코인세탁소
                 </DropdownItem>
-                <DropdownItem onClick={onClickDeliveryBox}>
-                  무인택배함
-                </DropdownItem>
+                <DropdownItem onClick={onClickParcel}>무인택배함</DropdownItem>
+                <DropdownItem onClick={onClickEmergency}>응급실</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>

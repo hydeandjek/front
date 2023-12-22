@@ -9,11 +9,7 @@ import styles from './App.module.scss';
 import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
 import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import './style.module.scss';
-import styled from 'styled-components';
-import { Index } from './assets/constants';
-import Emergency from './Components/Emergency/Emergency';
-import axios from 'axios';
-import { useState } from 'react';
+import Emergency from './Components/Life/Emergency';
 import Recipes from './Components/Food/Recipe/Recipes';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
@@ -21,8 +17,7 @@ import SharedWarehouse from './Components/Express/SharedWarehouse';
 import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
-import DeliveryBox from './Components/Life/DeliveryBox';
-import Parcel from './Components/Parcel/Parcel';
+import Parcel from './Components/Life/Parcel';
 
 function App() {
   return (
@@ -40,7 +35,7 @@ function App() {
               element={<Emergency />}
             />
             <Route
-              path='/Parcel'
+              path='/life/Parcel'
               element={<Parcel />}
             />
             <Route
@@ -88,11 +83,7 @@ function App() {
               element={<CoinLaundry />}
             />
             <Route
-              path='/life/deliveryBox'
-              element={<DeliveryBox />}
-            />
-            <Route
-              path='/emergency'
+              path='/life/emergency'
               element={<Emergency />}
             />
           </Routes>

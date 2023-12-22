@@ -25,5 +25,6 @@ export const life = [
   { name: ' 편의점 ', path: '/life/convenienceStore' },
   { name: ' 약국 ', path: '/life/drugStore' },
   { name: ' 코인세탁소 ', path: '/life/coinLaundry' },
-  { name: ' 무인택배함 ', path: '/life/deliveryBox' },
+  { name: ' 무인택배함 ', path: '/life/Parcel' },
+  { name: ' 응급실 ', path: '/life/Emergency' },
 ];
