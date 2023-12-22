@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Map } from 'react-kakao-maps-sdk';
+import { life } from '../../assets/constants';
+import { NavLink } from 'react-router-dom';
+import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
 function Emergency() {
   const [data, setData] = useState(null);
@@ -97,12 +99,7 @@ function Emergency() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://dapi.kakao.com/v2/local/search/address.json?query=${searchAddress}`,
-        {
-          headers: {
-            Authorization: 'KakaoAK YOUR_KAKAO_REST_API_KEY',
-          },
-        }
+        `https://dapi.kakao.com/v2/local/search/address.json?query=${searchAddress}`
       );
 
       if (response.data.documents.length > 0) {
@@ -120,8 +117,32 @@ function Emergency() {
 
   return (
     <div>
+      <div
+        id='Emergency'
+        style={{ height: '50px' }}
+      >
+        <div className='rec_center2'>
+          Life
+          <div className='side2'>
+            <div className='sidebar2'>
+              {life.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <SideBarItem2 menu={menu} />
+                  </NavLink>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
       <div>
         <input
+          style={{ marginLeft: '360px' }}
           type='text'
           value={searchAddress}
           placeholder='입력해주세요.'
@@ -132,7 +153,12 @@ function Emergency() {
       <div className='mapBox'>
         <div
           id='map'
-          style={{ width: '900px', height: '550px' }}
+          style={{
+            width: '1000px',
+            height: '650px',
+            marginLeft: '360px',
+            marginTop: '50px',
+          }}
         ></div>
       </div>
       {data && (
@@ -142,12 +168,7 @@ function Emergency() {
               return item.DUTYADDR.includes(searchAddress);
             })
             .map((item, index) => (
-              <div key={index}>
-                <p>주소: {item.DUTYADDR}</p>
-                <p>전화번호: {item.DUTYTEL1}</p>
-                <p>병원명: {item.DUTYNAME}</p>
-                <hr />
-              </div>
+              <div key={index}></div>
             ))}
         </div>
       )}
