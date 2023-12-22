@@ -4,7 +4,6 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
 } from 'reactstrap';
 
 import slide1 from '../../../src/assets/img/final_img16.jpg';
@@ -66,29 +65,31 @@ function Home() {
   ));
 
   return (
-    <Carousel
-      activeIndex={activeIndex}
-      next={next}
-      previous={previous}
-      interval={false} // Remove automatic sliding, if desired
-    >
-      <CarouselIndicators
-        items={items}
+    <>
+      <Carousel
         activeIndex={activeIndex}
-        onClickHandler={goToIndex}
-      />
-      {slides}
-      <CarouselControl
-        direction='prev'
-        directionText='Previous'
-        onClickHandler={previous}
-      />
-      <CarouselControl
-        direction='next'
-        directionText='Next'
-        onClickHandler={next}
-      />
-    </Carousel>
+        next={next}
+        previous={previous}
+        interval={false} // Remove automatic sliding, if desired
+      >
+        <CarouselIndicators
+          items={items}
+          activeIndex={activeIndex}
+          onClickHandler={goToIndex}
+        />
+        {slides}
+        <CarouselControl
+          direction='prev'
+          directionText='Previous'
+          onClickHandler={previous}
+        />
+        <CarouselControl
+          direction='next'
+          directionText='Next'
+          onClickHandler={next}
+        />
+      </Carousel>
+    </>
   );
 }
 
