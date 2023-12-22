@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import 'reset-css';
+import { AuthContextProvider } from './utils/AuthContext';
+import { ChatContextProvider } from './utils/ChatContext';
+import ChatModal from './Components/Chat/UserChatModal/ChatModal';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
