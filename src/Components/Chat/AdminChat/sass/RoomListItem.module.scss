@@ -1,0 +1,36 @@
+li.list-item {
+    color: black;
+
+    &:hover {
+        background-color: #61564a;
+        color: #fff;
+    }
+
+    &:active {
+        background-color: #8d7d6b;
+        color: #fff;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        display: inline;
+    }
+}
+
+.badge {
+    width: 37px;
+}
+
+.message {
+    width: 200px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

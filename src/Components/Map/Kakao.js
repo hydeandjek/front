@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
+import axios from 'axios';
 
 import './Kakao.scss';
 import { map } from 'lodash';
 import SelectModal from '../Map/SelectModal';
+import { CLIENT_ID } from '../../config/kakao-config';
 
 const { kakao } = window;
 function Kakao({ Category }) {
@@ -42,12 +44,28 @@ function Kakao({ Category }) {
       });
 
       kakao.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(
-          '<div style="padding:5px; font-size:13px;">' +
-            place.place_name +
-            '</div>'
-        );
-        infowindow.open(map, marker);
+        const infowindowIsOpen = infowindow.getMap() !== null;
+
+        axios
+          .get('https://dapi.kakao.com/v2/local/search/keyword.json', {
+            params: {
+              query: place.place_name,
+            },
+            headers: {
+              Authorization: `KakaoAK ${CLIENT_ID}`,
+            },
+          })
+          .then((response) => {
+            const data = response.data;
+            const place = data.documents[0];
+            const content = `<div class="customoverlay"><a href="${place.place_url}" ><span class="title">${place.place_name}</span></a></div>`;
+            infowindow.setContent(content);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        infowindowIsOpen ? infowindow.close() : infowindow.open(map, marker);
       });
     }
   };

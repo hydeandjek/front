@@ -16,12 +16,14 @@ import styles from './sass/Login.module.scss';
 import { useNavigate } from 'react-router';
 import { API_BASE_URL as BASE, USER } from '../../../config/host-config';
 import AuthContext from '../../../utils/AuthContext';
+import ChatContext from '../../../utils/ChatContext';
 
 const Login = () => {
   const redirection = useNavigate();
 
   const API_BASE_URL = BASE + USER;
   const { isLoggedIn, onLogin } = useContext(AuthContext);
+  const { setIsOpen: setIsOpenChat } = useContext(ChatContext);
 
   const fetchLogin = async () => {
     // 이메일, 비밀번호 입력 태그 얻어오기
@@ -51,6 +53,7 @@ const Login = () => {
 
     // Context Api
     onLogin(token, userName, address, role);
+    setIsOpenChat(false);
 
     // 홈으로 리다이렉트
     redirection('/');
