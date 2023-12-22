@@ -8,7 +8,7 @@ import styles from './App.module.scss';
 import NaverLoginHandler from './Components/User/Login/NaverLoginHandler';
 import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import './style.module.scss';
-import Emergency from './Components/Emergency/Emergency';
+import Emergency from './Components/Life/Emergency';
 import Recipes from './Components/Food/Recipe/Recipes';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
@@ -17,7 +17,7 @@ import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
 import DeliveryBox from './Components/Life/DeliveryBox';
-import Parcel from './Components/Parcel/Parcel';
+import Parcel from './Components/Life/Parcel';
 import { ChatContextProvider } from './utils/ChatContext';
 import AdminChatMain from './Components/Chat/AdminChat/AdminChatMain';
 import ChatModal from './Components/Chat/UserChatModal/ChatModal';
@@ -35,11 +35,7 @@ function App() {
                 element={<Home />}
               />
               <Route
-                path='/Emergency'
-                element={<Emergency />}
-              />
-              <Route
-                path='/Parcel'
+                path='/life/Parcel'
                 element={<Parcel />}
               />
               <Route
@@ -91,7 +87,7 @@ function App() {
                 element={<DeliveryBox />}
               />
               <Route
-                path='/emergency'
+                path='/life/Emergency'
                 element={<Emergency />}
               />
               <Route
