@@ -1,5 +1,5 @@
 import { Client } from '@stomp/stompjs';
-import React, { memo, useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
 import { chatBackEndHostName, API_BASE_URL } from '../config/host-config';
 import AuthContext, { getLoginUserInfo } from './AuthContext';
@@ -11,10 +11,10 @@ const stompConfig = {
   heartbeatOutgoing: 4000,
 };
 
+// 채팅 연결
 let stompClient = new Client(stompConfig);
 
 // 새로운 전역 컨텍스트 생성
-// 채팅 연결
 const ChatContext = React.createContext({
   isOpen: false,
   connectState: 0, // 0: 연결 중 아님, 1: 연결 , 10: 연결 실패, 11: 토큰오류
@@ -26,7 +26,7 @@ const ChatContext = React.createContext({
   onDisconnectServer: () => {},
 });
 
-const _messageList = [];
+let _messageList = [];
 
 // 위에서 생성한 Context를 제공할 수 있는 provider
 export const ChatContextProvider = (props) => {
@@ -35,7 +35,11 @@ export const ChatContextProvider = (props) => {
   const [isOpen, _setIsOpen] = useState(false);
   const [connectState, _setConnectState] = useState(0);
   const [messageListChat, setMessageListChat] = useState(_messageList);
-  const [roomId, setRoomId] = useState(localStorage.getItem('CHAT_ROOMID'));
+  const [roomId, setRoomId] = useState(null);
+
+  useEffect(() => {
+    setRoomId(localStorage.getItem('CHAT_ROOMID'));
+  }, []);
 
   let conn_count = 1;
 
@@ -84,7 +88,7 @@ export const ChatContextProvider = (props) => {
   };
 
   useEffect(() => {
-    console.log(isOpen);
+    //console.log(isOpen);
     if (isOpen) {
       if (connectState) {
         setConnectState(0);
@@ -96,6 +100,7 @@ export const ChatContextProvider = (props) => {
     }
   }, [isOpen, userName]);
 
+  // 시간을 주지 않으면 경고 메시지가 뜸
   const setIsOpen = (flag) => {
     setTimeout(() => _setIsOpen(flag));
   };
@@ -111,22 +116,26 @@ export const ChatContextProvider = (props) => {
   const disconnectServer = () => {
     setConnectState(0);
     stompClient.deactivate();
+    setMessageListChat([]);
+    setRoomId(null);
   };
 
   const onMessageReceived = (e) => {
-    console.log(e);
+    //console.log(e);
     const json = JSON.parse(e.body);
     console.log('body:', json);
     const type = json.type;
-    console.log(type);
+    //console.log(type);
     if (type === 'TALK') {
       const userName = json.userName;
+      const userId = json.userId;
       const message = json.message;
+      const date = json.date;
 
-      const strMessage = `${userName}: ${message}`;
+      const strMessage = `${userName}(${date}): ${message}`;
       console.log(strMessage);
 
-      addMessageList(strMessage);
+      addMessageList({ userName, message, date, userId });
 
       //setMessageList((prev) => [...prev, strMessage]);
     }
@@ -140,30 +149,60 @@ export const ChatContextProvider = (props) => {
   const onConnected = async (frame) => {
     // roomId가 저장되어 있지 않다면 새롭게 얻기
     console.log('roomId: ', roomId);
+    let _roomId = roomId;
+
     if (!roomId) {
-      console.log(HeadersFetch);
-      const res = await fetch(`${API_BASE_URL}/api/chat/room`, {
+      // roomId 새롭게 얻기
+      _roomId = await getRoom(roomId);
+
+      console.log('roomId: ', _roomId);
+    } else {
+      // 이전 채팅 내용 가져오기
+      const res = await fetch(`${API_BASE_URL}/api/chat/room/${_roomId}`, {
         headers: HeadersFetch,
       });
 
-      const json = await res.json();
-      const _roomId = json.roomId;
-      console.log(_roomId);
-      localStorage.setItem('CHAT_ROOMID', _roomId);
-      setRoomId(_roomId);
+      if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        setMessageListChat(data);
+        _messageList = data;
+      } else {
+        // room이 없어졌으므로 새롭게 생성
+        _roomId = await getRoom(roomId);
+
+        console.log(await res.text());
+        console.log('roomId: ', _roomId);
+      }
     }
 
-    stompClient.subscribe('/topic/chat/room/' + roomId, onMessageReceived);
+    stompClient.subscribe('/topic/chat/room/' + _roomId, onMessageReceived);
   };
 
-  const sendMessageHandler = (message) => {};
+  const getRoom = async (roomId) => {
+    const res = await fetch(`${API_BASE_URL}/api/chat/room`, {
+      headers: HeadersFetch,
+    });
+
+    const json = await res.json();
+    const _roomId = json.roomId;
+    console.log(_roomId);
+    localStorage.setItem('CHAT_ROOMID', _roomId);
+    setRoomId(_roomId);
+
+    return _roomId;
+  };
+
+  const sendMessageHandler = (message) => {
+    sendMessageHandler2(userName, message);
+  };
 
   const sendMessageHandler2 = (name, message) => {
     console.log(isOpen);
     console.log(roomId);
 
     var chatMessage = {
-      userName: userName,
+      userName: name,
       message: message,
       status: 'MESSAGE',
       type: 'TALK',

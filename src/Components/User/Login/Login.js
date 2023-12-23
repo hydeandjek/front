@@ -49,10 +49,13 @@ const Login = () => {
       return;
     }
 
-    const { token, userName, email, address, role } = await res.json(); // 서버에서 온 json 읽기
+    const data = await res.json();
+    console.log(data);
+
+    const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
 
     // Context Api
-    onLogin(token, userName, address, role);
+    onLogin(token, userName, address, role, userId);
     setIsOpenChat(false);
 
     // 홈으로 리다이렉트

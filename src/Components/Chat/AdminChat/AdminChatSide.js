@@ -1,63 +1,46 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import styles from './sass/AdminChatSide.module.scss';
 import RoomListItem from './RoomListItem';
+import AdminChatContext from '../../../utils/AdminChatContext';
 
 const AdminChatSide = () => {
-  const lists = [
-    { userName: '김춘식', message: 'test1', unreadCount: 50, roomId: '1' },
-    { userName: '김춘식', message: 'test2', unreadCount: 101, roomId: '2' },
-    { userName: '김춘식', message: 'test3', unreadCount: 0, roomId: '3' },
-    {
-      userName: '김춘식',
-      message: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      unreadCount: 0,
-      roomId: '4',
-    },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-    { userName: '김춘식', message: 'test5', unreadCount: 0, roomId: '5' },
-  ];
+  const { roomList, activeRoomId, onSetActiveRoomId } =
+    useContext(AdminChatContext);
+  const [lists, setLists] = useState(roomList);
+
+  useEffect(() => {
+    //console.log(roomList);
+    onSetActiveRoomId('');
+  }, []);
+
+  useEffect(() => {
+    //console.log(roomList);
+    setLists(roomList);
+  }, [roomList]);
+
+  const clickHandler = (roomId) => {
+    //console.log('itemClicked', roomId);
+    onSetActiveRoomId(roomId);
+  };
+
   return (
     <div className={styles['side']}>
       <div className={styles['side-header']}>
         <p>채팅방</p>
       </div>
       <ListGroup className={styles['room-list']}>
-        {lists.map((l) => {
+        {lists.map((l, i) => {
+          const active = l.roomId === activeRoomId;
           return (
             <RoomListItem
+              key={i}
+              roomId={l.roomId}
               userName={l.userName}
               message={l.message}
               unreadCount={l.unreadCount}
+              active={active}
+              onClickItem={clickHandler}
             />
           );
         })}
@@ -67,3 +50,5 @@ const AdminChatSide = () => {
 };
 
 export default AdminChatSide;
+
+/*  */

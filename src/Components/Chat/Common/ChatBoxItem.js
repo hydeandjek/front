@@ -3,7 +3,7 @@ import styles from './sass/ChatBoxItem.module.scss';
 import classNames from 'classnames';
 
 const ChatBoxItem = ({ userName, message, date, isMe }) => {
-  console.log(isMe);
+  //console.log(isMe);
   return (
     <div
       className={classNames(styles['chat-item'], {
