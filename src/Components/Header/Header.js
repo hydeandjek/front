@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
 import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
+import axios from 'axios';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +46,8 @@ const Header = () => {
     onLogout();
     redirection('/user/login');
   };
+  // Recpie를 누르면 api 요청해서 뿌리는것
+  const page = 1;
   const onClickRecipe = () => {
     redirection('/recipes');
   };
@@ -113,7 +116,6 @@ const Header = () => {
                 onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
-                onClick={onClickLife}
               >
                 라이프
               </DropdownToggle>

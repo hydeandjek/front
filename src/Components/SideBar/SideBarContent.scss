@@ -1,5 +1,4 @@
 .sidebar-content {
-  border: 1px solid black;
   border-radius: 10%;
   margin: 50px;
   box-sizing: border-box;
@@ -14,12 +13,22 @@
   align-items: center;
   min-height: calc(100vh - 76px);
   height: 100%;
-  padding-top: 250px;
   border-right: 1px solid #b4b4b4;
   color: #000;
   font-size: 30px;
+  justify-content: center;
 }
-
+.content-item {
+  p {
+    text-align: center;
+  }
+  img {
+    border-radius: 10%;
+    z-index: 1;
+    width: 250px;
+    height: 250px;
+  }
+}
 .side {
   display: flex;
   padding: 30px;
@@ -40,4 +49,8 @@
   &:hover {
     background-color: rgba(75, 62, 62, 0.507);
   }
+}
+.left {
+  z-index: 1;
+  background-image: url('../../assets/img/Left.png');
 }
