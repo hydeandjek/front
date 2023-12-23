@@ -40,7 +40,7 @@ function App() {
                 element={<Emergency />}
               />
               <Route
-                path='/Parcel'
+                path='/life/Parcel'
                 element={<Parcel />}
               />
               <Route
@@ -92,7 +92,7 @@ function App() {
                 element={<DeliveryBox />}
               />
               <Route
-                path='/emergency'
+                path='/life/emergency'
                 element={<Emergency />}
               />
               <Route
