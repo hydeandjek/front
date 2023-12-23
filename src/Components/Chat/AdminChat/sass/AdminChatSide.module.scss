@@ -1,0 +1,20 @@
+.side {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.room-list {
+    overflow-y: scroll;
+}
+
+.side-header {
+    p {
+        margin-left: 1px;
+        width: 280px;
+        text-align: center;
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+    }
+}

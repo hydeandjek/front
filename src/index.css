@@ -30,7 +30,7 @@
   --black200: #434343;
   --black300: #686868;
   --black400: #e0e0e0;
-  min-height: 100vh;
+
   background-color: var(--mainBg-color);
 
   font-family: var(--mainEng-font), var(--mainKor-font);
@@ -43,6 +43,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
 
   @media (max-width: 800px) {
     font-size: 14px;
