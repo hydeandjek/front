@@ -12,6 +12,21 @@ li.list-item {
     }
 }
 
+li.list-item-active {
+    background-color: #61564a;
+    color: #fff;
+
+    &:hover {
+        background-color: #8d7d6b;
+        color: #fff;
+    }
+
+    &:active {
+        background-color: #61564a;
+        color: #fff;
+    }
+}
+
 .header {
     display: flex;
     justify-content: space-between;
