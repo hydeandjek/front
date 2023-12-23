@@ -24,7 +24,7 @@ const Recipes = (props) => {
 
   const onResClick = (menu) => {
     async function getData() {
-      const res = await axios.get('/api/menu/recipe/total/', 1).then((res) => {
+      const res = await axios.get(API_BASE_URL + '/api/menu/recipe/total/', 1).then((res) => {
         setData(res.data);
       });
       // console.log(res);
