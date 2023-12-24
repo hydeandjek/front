@@ -7,6 +7,7 @@ import Recipe from './Recipe';
 import axios from 'axios';
 import { get } from 'lodash';
 import { API_BASE_URL } from '../../../config/host-config';
+import PageChange from './PageChange';
 
 const Recipes = (props) => {
   const menus = [
@@ -33,7 +34,24 @@ const Recipes = (props) => {
     // console.log(getData());
   };
 
-  const page = 1;
+  const fetchData = async (pageNum = 1) => {
+    const res = await axios.get(
+      API_BASE_URL + '/api/menu/recipe/total/' + pageNum
+    );
+    // console.log('fetchData', res.data);
+    setData(res.data);
+  };
+  //
+  // ********** 페이지 변경 시 **************
+  const onArrowClick = (props) => {
+    // 페이지넘 받아올 것임.!!
+    // console.log('자식놈한테 데이터 받아올 함수!');
+    // console.log('자식놈한테 받은 데이타: ', props);
+    console.log(props);
+    // setData(props);
+    fetchData(props);
+  };
+
   const [data, setData] = useState();
   const [getRecipe, setGetRecipe] = useState();
 
@@ -46,13 +64,13 @@ const Recipes = (props) => {
   // }, [data]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get(
-        API_BASE_URL + '/api/menu/recipe/total/' + page
-      );
-      // console.log('fetchData', res.data);
-      setData(res.data);
-    };
+    // const fetchData = async (pageNum = 1) => {
+    //   const res = await axios.get(
+    //     API_BASE_URL + '/api/menu/recipe/total/' + pageNum
+    //   );
+    //   // console.log('fetchData', res.data);
+    //   setData(res.data);
+    // };
     fetchData();
   }, []);
 
@@ -82,7 +100,10 @@ const Recipes = (props) => {
         </div>
       </div>
       <div className='warp-content'>
-        <Recipe recipeData={data} />
+        <Recipe
+          recipeData={data}
+          onArrowClick={onArrowClick}
+        />
       </div>
     </div>
   );
