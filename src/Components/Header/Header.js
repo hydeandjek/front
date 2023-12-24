@@ -85,16 +85,15 @@ const Header = () => {
     redirection('/life/Parcel');
   };
 
-  const onClickSolo = () => {
-    redirection('/Solo');
-  };
-
-  const onClickPacking = () => {
-    redirection('/Packing');
-  };
-
   return (
-    <div>
+    <div
+      className='header_main'
+      style={{
+        position: 'absolute',
+        width: '100%',
+        zIndex: '100',
+      }}
+    >
       <Navbar
         light
         expand='md'

@@ -6,22 +6,45 @@ import {
   CarouselIndicators,
 } from 'reactstrap';
 
-import slide1 from '../../../src/assets/img/final_img16.jpg';
-import slide2 from '../../../src/assets/img/final_img14.jpg';
-import slide3 from '../../../src/assets/img/final_img15.jpg';
+import slide1 from '../../../src/assets/img/1a459042-2795-4e80-a443-6dd6f04af18d.png';
+import slide2 from '../../../src/assets/img/640bd914-f8d6-48da-88a5-3019f779a1fa.jpg';
+import slide3 from '../../../src/assets/img/b1089d49-a597-472b-bcc4-4b1e29074c22.jpg';
 
 const items = [
   {
     src: slide1,
-    key: 1,
+    alt: 'First slide',
+    caption: (
+      <p className='seoul-solo-service'>
+        <span className='text-wrapper'>
+          Seoul Solo Service
+          <br />
+        </span>
+        <span className='span'>
+          <br />
+          <br />
+          Recipe service
+          <br />
+          <br />
+          Nearby service <br />
+          <br />
+          Policy service <br />
+          <br />
+          Community service
+          <br />
+          <br />
+          S-chatting service
+        </span>
+      </p>
+    ),
   },
   {
     src: slide2,
-    key: 2,
   },
   {
     src: slide3,
-    key: 3,
+    alt: 'Third slide',
+    caption: '',
   },
 ];
 
@@ -50,27 +73,37 @@ function Home() {
     <CarouselItem
       onExiting={() => setAnimating(true)}
       onExited={() => setAnimating(false)}
-      key={item.key}
+      key={item.src}
     >
       <img
         src={item.src}
-        alt=''
+        alt={item.alt}
       />
-      {/* Optional: You can include CarouselCaption if needed */}
-      {/* <CarouselCaption
-        captionText={item.caption}
-        captionHeader={item.caption}
-      /> */}
+      <div
+        className='carousel-caption d-none d-md-block'
+        style={{
+          // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          fontSize: 'xx-large',
+          bottom: '75%',
+          right: '60%',
+          transform: 'translateY(50%)',
+        }}
+      >
+        {item.caption}
+      </div>
     </CarouselItem>
   ));
 
   return (
-    <>
+    <div
+      className='qqq'
+      style={{ transform: '500ms' }}
+    >
       <Carousel
         activeIndex={activeIndex}
         next={next}
         previous={previous}
-        interval={false} // Remove automatic sliding, if desired
+        interval={false}
       >
         <CarouselIndicators
           items={items}
@@ -89,7 +122,7 @@ function Home() {
           onClickHandler={next}
         />
       </Carousel>
-    </>
+    </div>
   );
 }
 
