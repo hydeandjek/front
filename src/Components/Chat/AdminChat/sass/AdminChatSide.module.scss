@@ -6,6 +6,10 @@
 
 .room-list {
     overflow-y: scroll;
+    min-height: 96%;
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 .side-header {
