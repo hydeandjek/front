@@ -8,11 +8,11 @@ import { NavLink } from 'react-router-dom';
 import SideBarContent from '../../SideBar/SideBarContent';
 import PageChange from './PageChange';
 import axios from 'axios';
+import { API_BASE_URL } from '../../../config/host-config';
 
 const Recipe = ({ recipeData, onArrowClick }) => {
-  // 화살표 클릭 시 상태변수 관리
-  let [leftClicked, setLeftClicked] = useState(1);
-  let [rightClicked, setRightClicked] = useState(1);
+  //페이지넘 상태 관리
+  const [pageNum, setPageNum] = useState(1);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -29,46 +29,64 @@ const Recipe = ({ recipeData, onArrowClick }) => {
   const res = [
     {
       id: 1,
+      seq: recipeData.COOKRCP01.row[0].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[0].RCP_PAT2,
       src: recipeData.COOKRCP01.row[0].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[0].RCP_NM,
     },
     {
       id: 2,
+      seq: recipeData.COOKRCP01.row[1].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[1].RCP_PAT2,
       src: recipeData.COOKRCP01.row[1].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[1].RCP_NM,
     },
     {
       id: 3,
+      seq: recipeData.COOKRCP01.row[2].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[2].RCP_PAT2,
       src: recipeData.COOKRCP01.row[2].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[2].RCP_NM,
     },
     {
       id: 4,
+      seq: recipeData.COOKRCP01.row[3].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[3].RCP_PAT2,
       src: recipeData.COOKRCP01.row[3].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[3].RCP_NM,
     },
     {
       id: 5,
+      seq: recipeData.COOKRCP01.row[4].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[4].RCP_PAT2,
       src: recipeData.COOKRCP01.row[4].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[4].RCP_NM,
     },
     {
       id: 6,
+      seq: recipeData.COOKRCP01.row[5].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[5].RCP_PAT2,
       src: recipeData.COOKRCP01.row[5].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[5].RCP_NM,
     },
     {
       id: 7,
+      seq: recipeData.COOKRCP01.row[6].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[6].RCP_PAT2,
       src: recipeData.COOKRCP01.row[6].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[6].RCP_NM,
     },
     {
       id: 8,
+      seq: recipeData.COOKRCP01.row[7].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[7].RCP_PAT2,
       src: recipeData.COOKRCP01.row[7].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[7].RCP_NM,
     },
     {
       id: 9,
+      seq: recipeData.COOKRCP01.row[8].RCP_SEQ,
+      cate: recipeData.COOKRCP01.row[8].RCP_PAT2,
       src: recipeData.COOKRCP01.row[8].ATT_FILE_NO_MAIN,
       name: recipeData.COOKRCP01.row[8].RCP_NM,
     },
@@ -78,29 +96,33 @@ const Recipe = ({ recipeData, onArrowClick }) => {
 
   const sendPageNum = async (e) => {
     if (e.target.id === 'left') {
-      setLeftClicked((prevClicked) => prevClicked - 1);
+      setPageNum((prevClicked) => prevClicked - 1);
     } else if (e.target.id === 'right') {
-      setRightClicked((prevClicked) => prevClicked + 1);
+      setPageNum((prevClicked) => prevClicked + 1);
     }
-    const totalClicked = rightClicked + leftClicked;
-    const pageNum = rightClicked + leftClicked;
+    // const totalClicked = rightClicked + leftClicked;
+    // const pageNum = rightClicked + leftClicked;
 
     // console.log('총 클릭한 횟수:', totalClicked);
     console.log('페이지 넘버:', pageNum);
 
     // 부모에서 선언된 함수를 호출하여 페이지넘을 매개변수로 보내자.
     await onArrowClick(pageNum);
+  };
 
-    // try {
-    //   const response = null;
-    //   if (pageNum !== 0) {
-
-    //     response = await axios.get('/api/menu/recipe/total/' + pageNum);
-    //   }
-    //   console.log('서버 응답:', response.data);
-    // } catch (error) {
-    //   console.error('서버 통신 에러:', error);
-    // }
+  const onRecipeDetail = async (cate, seq) => {
+    // 부모에서 선언된 함수를 호출하여 카테고리와 ID를 매개변수로 보내자.
+    console.log(`카테고리:${cate}, id: ${seq}인 레시피 상세 요청!`);
+    try {
+      // await onDetailClick();
+      const res = await axios.get(
+        API_BASE_URL + '/api/menu/recipe/detail/' + cate + '/' + seq
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error('레시피 상세보기 요청에 실패했습니다.', error);
+    }
   };
 
   return (
@@ -111,7 +133,10 @@ const Recipe = ({ recipeData, onArrowClick }) => {
           src={arrowL}
           alt='이전 페이지'
           onClick={sendPageNum}
-          style={{ opacity: isHovered ? 0.5 : 1 }}
+          style={{
+            opacity: isHovered ? 0.5 : 1,
+            display: pageNum === 1 ? 'none' : 'block',
+          }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />
@@ -125,6 +150,7 @@ const Recipe = ({ recipeData, onArrowClick }) => {
               src={content.src}
               key={index}
               name={content.name}
+              onClick={() => onRecipeDetail(content.cate, content.seq)}
             ></SideBarContent>
           );
         })}
