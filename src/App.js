@@ -25,6 +25,7 @@ import ChatModal from './Components/Chat/UserChatModal/ChatModal';
 import Emergency from './Components/Life/Emergency';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import Policy1 from './Components/Policy/Policy1';
 
 function App() {
   const images = [
@@ -123,6 +124,10 @@ function App() {
               <Route
                 path='/AdminChat'
                 element={<AdminChatMain />}
+              />
+              <Route
+                path='/policy/seoul'
+                element={<Policy1 />}
               />
             </Routes>
           </div>

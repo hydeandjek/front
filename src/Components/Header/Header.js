@@ -105,6 +105,10 @@ const Header = ({ styleHeader, styleBackground }) => {
     redirection('/AdminChat');
   };
 
+  const onClickSeoulPolicy = () => {
+    redirection('/policy/seoul');
+  };
+
   return (
     <div
       className='header_main'
@@ -189,7 +193,9 @@ const Header = ({ styleHeader, styleBackground }) => {
                 정책
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
+                <DropdownItem onClick={onClickSeoulPolicy}>
+                  서울시 정책
+                </DropdownItem>
                 <DropdownItem>메뉴2</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
