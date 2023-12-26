@@ -7,15 +7,30 @@ import '../SideBar/SideBar3/SideBarContent3';
 import { food } from '../../assets/constants';
 import axios from 'axios';
 import './Mealkit.scss';
+import PageChange from './Recipe/PageChange';
+import arrowR from '../../assets/img/Right.png';
+import arrowL from '../../assets/img/Left.png';
 
 const Mealkit = () => {
-  const page = 1;
+  // 화살표 클릭 시 상태변수 관리
+  let [pageNum, setPageNum] = useState(1);
+  
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+  
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   const [mealkits, setMealkits] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/mealKit/${page}`);
+        const response = await axios.get(`http://localhost:8181/mealKit/${pageNum}`);
         const data = response.data;
 
         setMealkits(data);
@@ -25,7 +40,19 @@ const Mealkit = () => {
     };
 
     fetchData();
-  }, []);
+  }, [pageNum]);
+
+  const sendPageNum = async (e) => {
+    if (e.target.id === 'right' && pageNum < 4) {
+      setPageNum(pageNum + 1);
+      console.log('오');
+    } else if (e.target.id === 'left' && pageNum > 1) {
+      setPageNum(pageNum - 1);
+      console.log('왼');
+    }
+
+    console.log('페이지 넘버:', pageNum);
+  };
 
   return (
     <>
@@ -50,6 +77,20 @@ const Mealkit = () => {
         </div>
 
         <div className='warp-content'>
+          <div className='arrowBox'>
+            {pageNum > 1 && (
+            <PageChange
+              id='left'
+              src={arrowL}
+              alt='이전 페이지'
+              onClick={sendPageNum}
+              style={{  opacity: isHovered ? 0.5 : 1 }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+             )}
+          </div>
+
           <div className='contentBox'>
             {mealkits.map((content, index) => {
               return (
@@ -62,6 +103,20 @@ const Mealkit = () => {
                   ></SideBarContent3>
                   );
                 })}
+          </div>
+
+          <div className='arrowBox'>
+            {pageNum < 4 && (
+            <PageChange
+              id='right'
+              src={arrowR}
+              alt='다음 페이지'
+              onClick={sendPageNum}
+              style={{ opacity: isHovered ? 0.5 : 1 }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+            )}
           </div>
         </div>
       </div>
