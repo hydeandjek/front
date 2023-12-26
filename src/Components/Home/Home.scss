@@ -1,21 +1,41 @@
-// App_wrap-content__8qryV{
-//     width: 100%;
-//     height: 100%;
-// }
-// .home-container {
-//     top: 0;
-//     left: 0;
-//     width: 100vw; /* Full viewport width */
-//     height: 100vh; /* Full viewport height */
-//     margin: 0;
-//   padding: 0;
-//   z-index: 0;
-// //   display: inline-block;
-// }
-
-// .full-width {
-//     width: 100%; 
-//     height: 100%;
-//     object-fit: cover; 
-//     display: inline-block;
-//   }
+.box {
+    height: 472px;
+    position: relative;
+    width: 672px;
+  }
+  
+  .box .main-content {
+    height: 472px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 674px;
+  }
+  
+  .box .seoul-solo-service {
+    -webkit-text-stroke: 2px #000000;
+    color: #ffffff;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 70px;
+    font-weight: 400;
+    height: 472px;
+    left: -2px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: -2px;
+    width: 672px;
+  }
+  
+  .box .text-wrapper {
+    color: #ffffff;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 70px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  
+  .box .span {
+    font-size: 30px;
+  }
+  

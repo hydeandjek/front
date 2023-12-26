@@ -16,12 +16,13 @@ import { useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
 import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
-import axios from 'axios';
+import ChatContext from '../../utils/ChatContext';
 
-const Header = () => {
+const Header = ({ styleHeader, styleBackground }) => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
-  const { userName, isLoggedIn, onLogout } = useContext(AuthContext);
+  const { userName, userRole, isLoggedIn, onLogout } = useContext(AuthContext);
+  const { onDisconnectServer } = useContext(ChatContext);
   const API_BASE_URL = BASE + USER;
 
   const toggle = () => setIsOpen(!isOpen);
@@ -44,6 +45,7 @@ const Header = () => {
 
     // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
     onLogout();
+    onDisconnectServer();
     redirection('/user/login');
   };
   // Recpie를 누르면 api 요청해서 뿌리는것
@@ -99,12 +101,20 @@ const Header = () => {
     redirection('/Packing');
   };
 
+  const onClickAdminChat = () => {
+    redirection('/AdminChat');
+  };
+
   return (
-    <div>
+    <div
+      className='header_main'
+      style={styleHeader}
+    >
       <Navbar
         light
         expand='md'
         className={styles.nav}
+        style={styleBackground}
       >
         <NavbarBrand
           href='#'
@@ -216,6 +226,11 @@ const Header = () => {
                       divider
                       className={styles['dropdown-divider']}
                     />
+                    {userRole === 'ADMIN' ? (
+                      <DropdownItem onClick={onClickAdminChat}>
+                        관리자 채팅
+                      </DropdownItem>
+                    ) : undefined}
                     <DropdownItem onClick={onClickLogout}>
                       로그아웃
                     </DropdownItem>
