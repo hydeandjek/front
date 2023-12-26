@@ -11,7 +11,8 @@ import { API_BASE_URL } from '../../../config/host-config';
 const Recipes = (props) => {
   const menus = [
     { id: 1, name: ' 레시피' },
-    { id: 2, name: ' 혼밥하기 좋은 맛집' },
+    { id: 2, name: ' 밀키트' },
+    { id: 3, name: ' 혼밥하기 좋은 맛집' },
   ];
   const [selectedMenu, setSelectedMenu] = useState();
 

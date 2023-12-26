@@ -10,6 +10,7 @@ import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import './style.module.scss';
 import Parcel from './Components/Life/Parcel';
 import Recipes from './Components/Food/Recipe/Recipes';
+import Mealkit from './Components/Food/Mealkit';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
 import SharedWarehouse from './Components/Express/SharedWarehouse';
@@ -62,6 +63,10 @@ function App() {
               <Route
                 path='/food/recipes'
                 element={<Recipes />}
+              />
+              <Route
+                path='/food/mealkit'
+                element={<Mealkit />}
               />
               <Route
                 path='/food/restaurant'
