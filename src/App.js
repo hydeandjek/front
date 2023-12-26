@@ -24,6 +24,11 @@ import ChatModal from './Components/Chat/UserChatModal/ChatModal';
 import Emergency from './Components/Life/Emergency';
 
 function App() {
+  const images = [
+    '640bd914-f8d6-48da-88a5-3019f779a1fa.jpg',
+    'b1089d49-a597-472b-bcc4-4b1e29074c22.jpg',
+  ];
+
   return (
     <AuthContextProvider>
       <ChatContextProvider>
@@ -31,10 +36,15 @@ function App() {
           <Header />
           <div className={styles['wrap-content']}>
             <Routes>
+              {/* <Route
+                path='/'
+                element={<HomeHeader />}
+              /> */}
               <Route
                 path='/'
                 element={<Home />}
               />
+
               <Route
                 path='/Emergency'
                 element={<Emergency />}

@@ -103,7 +103,14 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div
+      className='header_main'
+      style={{
+        position: 'absolute',
+        width: '100%',
+        zIndex: '100',
+      }}
+    >
       <Navbar
         light
         expand='md'
