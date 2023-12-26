@@ -9,6 +9,7 @@ import {
 import slide1 from '../../../src/assets/img/1a459042-2795-4e80-a443-6dd6f04af18d.png';
 import slide2 from '../../../src/assets/img/640bd914-f8d6-48da-88a5-3019f779a1fa.jpg';
 import slide3 from '../../../src/assets/img/b1089d49-a597-472b-bcc4-4b1e29074c22.jpg';
+import Header from '../Header/Header';
 
 const items = [
   {
@@ -95,34 +96,44 @@ function Home() {
   ));
 
   return (
-    <div
-      className='qqq'
-      style={{ transform: '500ms' }}
-    >
-      <Carousel
-        activeIndex={activeIndex}
-        next={next}
-        previous={previous}
-        interval={false}
+    <>
+      <Header
+        styleHeader={{
+          position: 'absolute',
+          width: '100%',
+          zIndex: '100',
+        }}
+        styleBackground={{ backgroundColor: 'transparent' }}
+      />
+      <div
+        className='qqq'
+        style={{ transform: '500ms' }}
       >
-        <CarouselIndicators
-          items={items}
+        <Carousel
           activeIndex={activeIndex}
-          onClickHandler={goToIndex}
-        />
-        {slides}
-        <CarouselControl
-          direction='prev'
-          directionText='Previous'
-          onClickHandler={previous}
-        />
-        <CarouselControl
-          direction='next'
-          directionText='Next'
-          onClickHandler={next}
-        />
-      </Carousel>
-    </div>
+          next={next}
+          previous={previous}
+          interval={false}
+        >
+          <CarouselIndicators
+            items={items}
+            activeIndex={activeIndex}
+            onClickHandler={goToIndex}
+          />
+          {slides}
+          <CarouselControl
+            direction='prev'
+            directionText='Previous'
+            onClickHandler={previous}
+          />
+          <CarouselControl
+            direction='next'
+            directionText='Next'
+            onClickHandler={next}
+          />
+        </Carousel>
+      </div>
+    </>
   );
 }
 
