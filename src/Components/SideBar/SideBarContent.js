@@ -1,12 +1,14 @@
 import React from 'react';
 import './SideBarContent.scss';
+import PageChange from '../Food/Recipe/PageChange';
 
-const SideBarContent = (content) => {
+const SideBarContent = ({ name, src }) => {
+  // console.log('src: ', src);
   return (
     <div className='sidebar-content'>
       <div className='content-item'>
-        <img src={content.src} />
-        <p>{content.name}</p>
+        <img src={src} />
+        <p>{name}</p>
       </div>
     </div>
   );
