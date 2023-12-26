@@ -8,6 +8,7 @@ import axios from 'axios';
 import { get } from 'lodash';
 import { API_BASE_URL } from '../../../config/host-config';
 import PageChange from './PageChange';
+import RecipeDetail from './RecipeDetail';
 
 const Recipes = (props) => {
   const menus = [

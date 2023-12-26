@@ -22,6 +22,7 @@ import { ChatContextProvider } from './utils/ChatContext';
 import AdminChatMain from './Components/Chat/AdminChat/AdminChatMain';
 import ChatModal from './Components/Chat/UserChatModal/ChatModal';
 import Emergency from './Components/Life/Emergency';
+import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
                 element={<NaverLoginHandler />}
               />
               <Route
-                path='/food/recipes'
+                path='/food/recipes/'
                 element={<Recipes />}
               />
               <Route
@@ -98,6 +99,10 @@ function App() {
               <Route
                 path='/AdminChat'
                 element={<AdminChatMain />}
+              />
+              <Route
+                path='/food/recipes/detail'
+                element={<RecipeDetail />}
               />
             </Routes>
           </div>
