@@ -32,19 +32,16 @@ function App() {
   return (
     <AuthContextProvider>
       <ChatContextProvider>
+        <Routes>
+          <Route
+            path='/'
+            element={<Home />}
+          />
+        </Routes>
         <div className='App'>
           <Header />
           <div className={styles['wrap-content']}>
             <Routes>
-              {/* <Route
-                path='/'
-                element={<HomeHeader />}
-              /> */}
-              <Route
-                path='/'
-                element={<Home />}
-              />
-
               <Route
                 path='/Emergency'
                 element={<Emergency />}

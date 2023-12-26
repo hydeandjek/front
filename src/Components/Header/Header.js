@@ -18,7 +18,7 @@ import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 import ChatContext from '../../utils/ChatContext';
 
-const Header = () => {
+const Header = ({ styleHeader, styleBackground }) => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
   const { userName, userRole, isLoggedIn, onLogout } = useContext(AuthContext);
@@ -105,16 +105,13 @@ const Header = () => {
   return (
     <div
       className='header_main'
-      style={{
-        position: 'absolute',
-        width: '100%',
-        zIndex: '100',
-      }}
+      style={styleHeader}
     >
       <Navbar
         light
         expand='md'
         className={styles.nav}
+        style={styleBackground}
       >
         <NavbarBrand
           href='#'
