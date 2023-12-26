@@ -13,7 +13,8 @@ import RecipeDetail from './RecipeDetail';
 const Recipes = (props) => {
   const menus = [
     { id: 1, name: ' 레시피' },
-    { id: 2, name: ' 혼밥하기 좋은 맛집' },
+    { id: 2, name: ' 밀키트' },
+    { id: 3, name: ' 혼밥하기 좋은 맛집' },
   ];
   const [selectedCate, setSelectedCate] = useState('');
 
@@ -29,7 +30,7 @@ const Recipes = (props) => {
 
   const onResClick = (menu) => {
     async function getData() {
-      const res = await axios.get('/api/menu/recipe/total/', 1).then((res) => {
+      const res = await axios.get(API_BASE_URL + '/api/menu/recipe/total/', 1).then((res) => {
         setData(res.data);
       });
       // console.log(res);

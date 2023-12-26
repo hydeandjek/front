@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AuthContextProvider } from './utils/AuthContext';
 import Home from './Components/Home/Home';
 import Header from './Components/Header/Header';
@@ -10,6 +10,7 @@ import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import './style.module.scss';
 import Parcel from './Components/Life/Parcel';
 import Recipes from './Components/Food/Recipe/Recipes';
+import Mealkit from './Components/Food/Mealkit';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
 import SharedWarehouse from './Components/Express/SharedWarehouse';
@@ -22,20 +23,41 @@ import { ChatContextProvider } from './utils/ChatContext';
 import AdminChatMain from './Components/Chat/AdminChat/AdminChatMain';
 import ChatModal from './Components/Chat/UserChatModal/ChatModal';
 import Emergency from './Components/Life/Emergency';
+import { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 
 function App() {
+  const images = [
+    '640bd914-f8d6-48da-88a5-3019f779a1fa.jpg',
+    'b1089d49-a597-472b-bcc4-4b1e29074c22.jpg',
+  ];
+
+  const [showHeader, setShowHeader] = useState(true);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setShowHeader(false);
+    } else {
+      setShowHeader(true);
+    }
+  }, [location]);
+
   return (
     <AuthContextProvider>
       <ChatContextProvider>
+        <Routes>
+          <Route
+            path='/'
+            element={<Home />}
+          />
+        </Routes>
+        {showHeader && <Header />}
         <div className='App'>
-          <Header />
-          <div className={styles['wrap-content']}>
+          <div className={classNames({ [styles['wrap-content']]: showHeader })}>
             <Routes>
-              <Route
-                path='/'
-                element={<Home />}
-              />
               <Route
                 path='/Emergency'
                 element={<Emergency />}
@@ -63,6 +85,10 @@ function App() {
               <Route
                 path='/food/recipes/'
                 element={<Recipes />}
+              />
+              <Route
+                path='/food/mealkit'
+                element={<Mealkit />}
               />
               <Route
                 path='/food/restaurant'
@@ -99,6 +125,10 @@ function App() {
               <Route
                 path='/AdminChat'
                 element={<AdminChatMain />}
+              />
+              <Route
+                path='/policy/seoul'
+                element={<Policy1 />}
               />
               <Route
                 path='/food/recipes/detail'

@@ -18,7 +18,7 @@ import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 import ChatContext from '../../utils/ChatContext';
 
-const Header = () => {
+const Header = ({ styleHeader, styleBackground }) => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
   const { userName, userRole, isLoggedIn, onLogout } = useContext(AuthContext);
@@ -54,6 +54,9 @@ const Header = () => {
   // food
   const onClickRecipe = () => {
     redirection('food/recipes');
+  };
+  const onClickMealkit = () => {
+    redirection('food/mealkit');
   };
   const onClickRestaurant = () => {
     redirection('food/restaurant');
@@ -102,12 +105,20 @@ const Header = () => {
     redirection('/AdminChat');
   };
 
+  const onClickSeoulPolicy = () => {
+    redirection('/policy/seoul');
+  };
+
   return (
-    <div>
+    <div
+      className='header_main'
+      style={styleHeader}
+    >
       <Navbar
         light
         expand='md'
         className={styles.nav}
+        style={styleBackground}
       >
         <NavbarBrand
           href='#'
@@ -132,7 +143,7 @@ const Header = () => {
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickRecipe}>레시피</DropdownItem>
-                <DropdownItem>즐겨찾기 한 맛집 리스트</DropdownItem>
+                <DropdownItem onClick={onClickMealkit}>밀키트</DropdownItem>
                 <DropdownItem onClick={onClickRestaurant}>
                   혼밥하기 좋은 식당
                 </DropdownItem>
@@ -182,7 +193,9 @@ const Header = () => {
                 정책
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
+                <DropdownItem onClick={onClickSeoulPolicy}>
+                  서울시 정책
+                </DropdownItem>
                 <DropdownItem>메뉴2</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
