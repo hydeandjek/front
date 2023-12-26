@@ -1,8 +1,7 @@
 export const food = [
-  { name: ' 혼밥하기 좋은 맛집 ', path: '/food/restaurant' },
-  { name: ' 즐겨찾기 한 맛집 리스트 ', path: '/likedlist' },
   { name: ' 레시피 ', path: '/food/recipes' },
-  { name: ' 설정 ', path: '/setting' },
+  { name: ' 밀키트 ', path: '/food/mealkit' },
+  { name: ' 혼밥하기 좋은 맛집 ', path: '/food/restaurant' },
 ];
 export const recipe = [
   { name: '집', path: '/', src: '' },

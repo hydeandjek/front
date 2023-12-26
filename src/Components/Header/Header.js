@@ -55,6 +55,9 @@ const Header = ({ styleHeader, styleBackground }) => {
   const onClickRecipe = () => {
     redirection('food/recipes');
   };
+  const onClickMealkit = () => {
+    redirection('food/mealkit');
+  };
   const onClickRestaurant = () => {
     redirection('food/restaurant');
   };
@@ -136,7 +139,7 @@ const Header = ({ styleHeader, styleBackground }) => {
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickRecipe}>레시피</DropdownItem>
-                <DropdownItem>즐겨찾기 한 맛집 리스트</DropdownItem>
+                <DropdownItem onClick={onClickMealkit}>밀키트</DropdownItem>
                 <DropdownItem onClick={onClickRestaurant}>
                   혼밥하기 좋은 식당
                 </DropdownItem>

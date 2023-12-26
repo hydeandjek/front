@@ -11,8 +11,7 @@ import axios from 'axios';
 
 const Recipe = ({ recipeData, onArrowClick }) => {
   // 화살표 클릭 시 상태변수 관리
-  let [leftClicked, setLeftClicked] = useState(1);
-  let [rightClicked, setRightClicked] = useState(1);
+  let [pageNum, setPageNum] = useState(1);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -76,14 +75,13 @@ const Recipe = ({ recipeData, onArrowClick }) => {
 
   // console.log('res: ', res);
 
+  const pageCount = Math.floor(recipeData.COOKRCP01.total_count / 9);
   const sendPageNum = async (e) => {
-    if (e.target.id === 'left') {
-      setLeftClicked((prevClicked) => prevClicked - 1);
-    } else if (e.target.id === 'right') {
-      setRightClicked((prevClicked) => prevClicked + 1);
+    if (e.target.id === 'right' && pageNum < pageCount) {
+      setPageNum( pageNum += 1);
+    } else if (e.target.id === 'left' && pageNum > 1) {
+      setPageNum( pageNum -= 1);
     }
-    const totalClicked = rightClicked + leftClicked;
-    const pageNum = rightClicked + leftClicked;
 
     // console.log('총 클릭한 횟수:', totalClicked);
     console.log('페이지 넘버:', pageNum);
@@ -106,15 +104,17 @@ const Recipe = ({ recipeData, onArrowClick }) => {
   return (
     <>
       <div className='arrowBox'>
-        <PageChange
-          id='left'
-          src={arrowL}
-          alt='이전 페이지'
-          onClick={sendPageNum}
-          style={{ opacity: isHovered ? 0.5 : 1 }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />
+        {pageNum > 1 && (
+          <PageChange
+            id='left'
+            src={arrowL}
+            alt='이전 페이지'
+            onClick={sendPageNum}
+            style={{ opacity: isHovered ? 0.5 : 1 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+        )}
       </div>
 
       <div className='contentBox'>
@@ -130,15 +130,17 @@ const Recipe = ({ recipeData, onArrowClick }) => {
         })}
       </div>
       <div className='arrowBox'>
-        <PageChange
-          id='right'
-          src={arrowR}
-          alt='다음 페이지'
-          onClick={sendPageNum}
-          style={{ opacity: isHovered ? 0.5 : 1 }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />
+        {pageNum < pageCount && (
+          <PageChange
+            id='right'
+            src={arrowR}
+            alt='다음 페이지'
+            onClick={sendPageNum}
+            style={{ opacity: isHovered ? 0.5 : 1 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          />
+        )}
       </div>
     </>
   );
