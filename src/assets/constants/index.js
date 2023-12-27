@@ -19,7 +19,8 @@ export const express = [
   { name: ' 이삿짐센터 ', path: '/express/expressCenter' },
   { name: ' 공유창고 ', path: '/express/sharedWarehouse' },
   { name: ' 자취 생필품 ', path: '/express/product' },
-  { name: ' 가전 제품 ', path: '/express/appliacne' },
+  { name: ' 가전 제품 ', path: '/express/appliance' },
+  { name: ' 가구 ', path: '/express/furniture' },
 ];
 export const life = [
   { name: ' 편의점 ', path: '/life/convenienceStore' },

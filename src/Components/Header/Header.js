@@ -75,6 +75,9 @@ const Header = ({ styleHeader, styleBackground }) => {
   const onClickAppliance = () => {
     redirection('/express/appliance');
   }
+  const onClickFurniture = () => {
+    redirection('/express/furniture');
+  }
 
   // life
   const onClickConvenienceStore = () => {
@@ -171,6 +174,7 @@ const Header = ({ styleHeader, styleBackground }) => {
                 </DropdownItem>
                 <DropdownItem onClick={onClickProduct}>자취 생필품</DropdownItem>
                 <DropdownItem onClick={onClickAppliance}>가전 제품</DropdownItem>
+                <DropdownItem onClick={onClickFurniture}>가구</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
