@@ -4,14 +4,14 @@ import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 import SideBarContent3 from '../SideBar/SideBar3/SideBarContent3';
 import '../SideBar/SideBar2/SideBarItem2.scss';
 import '../SideBar/SideBar3/SideBarContent3';
-import { food } from '../../assets/constants';
+import { express } from '../../assets/constants';
 import axios from 'axios';
-import './Mealkit.scss';
-import PageChange from './Recipe/PageChange';
+import './Appliance.scss';
+import PageChange from '../Food/Recipe/PageChange';
 import arrowR from '../../assets/img/Right.png';
 import arrowL from '../../assets/img/Left.png';
 
-const Mealkit = () => {
+const Appliance = () => {
   // 화살표 클릭 시 상태변수 관리
   let [pageNum, setPageNum] = useState(1);
   
@@ -25,15 +25,15 @@ const Mealkit = () => {
     setIsHovered(false);
   };
 
-  const [mealkits, setMealkits] = useState([]);
+  const [appliacnes, setAppliances] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/mealKit/${pageNum}`);
+        const response = await axios.get(`http://localhost:8181/appliance/${pageNum}`);
         const data = response.data;
 
-        setMealkits(data);
+        setAppliances(data);
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +42,7 @@ const Mealkit = () => {
     fetchData();
   }, [pageNum]);
 
-  const pageCount = Math.floor(36 / 9);
+  const pageCount = Math.floor(100 / 6);
   const sendPageNum = async (e) => {
     if (e.target.id === 'right' && pageNum < pageCount) {
       setPageNum(pageNum + 1);
@@ -59,10 +59,10 @@ const Mealkit = () => {
     <>
       <div id='warp-side'>
         <div className='rec_center2'>
-          FOOD
+          Express
           <div className='side2'>
             <div className='sidebar2'>
-              {food.map((menu, index) => {
+              {express.map((menu, index) => {
                 return (
                   <NavLink
                     style={{ textDecoration: 'none' }}
@@ -93,14 +93,14 @@ const Mealkit = () => {
           </div>
 
           <div className='contentBox'>
-            {mealkits.map((content, index) => {
+            {appliacnes.map((content, index) => {
               return (
                 <SideBarContent3
                 key={index}
-                  url={content.mealKitUrl}
-                  src={content.mealKitImg}
-                  name={content.mealKitName}
-                  price={content.mealKitPrice + '원'}
+                  url={content.applianceUrl}
+                  src={content.applianceImg}
+                  name={content.applianceName}
+                  price={content.appliancePrice}
                   ></SideBarContent3>
                   );
                 })}
@@ -125,4 +125,4 @@ const Mealkit = () => {
   );
 };
 
-export default Mealkit;
+export default Appliance;
