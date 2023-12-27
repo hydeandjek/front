@@ -26,6 +26,7 @@ import Emergency from './Components/Life/Emergency';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Policy1 from './Components/Policy/Policy1';
+import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 
 function App() {
   const images = [
@@ -82,7 +83,7 @@ function App() {
                 element={<NaverLoginHandler />}
               />
               <Route
-                path='/food/recipes'
+                path='/food/recipes/'
                 element={<Recipes />}
               />
               <Route
@@ -128,6 +129,10 @@ function App() {
               <Route
                 path='/policy/seoul'
                 element={<Policy1 />}
+              />
+              <Route
+                path='/food/recipes/detail'
+                element={<RecipeDetail />}
               />
             </Routes>
           </div>
