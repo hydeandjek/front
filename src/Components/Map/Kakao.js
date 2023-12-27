@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
+
 import axios from 'axios';
 
 import './Kakao.scss';
 import { map } from 'lodash';
 import SelectModal from '../Map/SelectModal';
-import { CLIENT_ID } from '../../config/kakao-config';
 
 const { kakao } = window;
 function Kakao({ Category }) {
@@ -52,7 +52,7 @@ function Kakao({ Category }) {
               query: place.place_name,
             },
             headers: {
-              Authorization: `KakaoAK ${CLIENT_ID}`,
+              // Authorization: `KakaoAK ${CLIENT_ID}`,
             },
           })
           .then((response) => {

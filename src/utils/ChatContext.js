@@ -95,7 +95,7 @@ export const ChatContextProvider = (props) => {
         stompClient.deactivate();
         setMessageListChat([]);
       }
-      stompClient.webSocketFactory = () => new SockJS(chatBackEndHostName);
+      // stompClient.webSocketFactory = () => new SockJS(chatBackEndHostName);
       stompClient.activate();
     }
   }, [isOpen, userName]);
