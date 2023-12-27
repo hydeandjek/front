@@ -29,9 +29,7 @@
   --black100: #2b2b2b;
   --black200: #434343;
   --black300: #686868;
-  --black400: #e0e0e0; 
-
-  min-height: 100vh;
+  --black400: #e0e0e0;
 
   background-color: var(--mainBg-color);
 
@@ -45,9 +43,29 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
 
-  @media (max-width: 800px) {
+  @media (max-width: 200px) {
     font-size: 14px;
     line-height: 1.4;
+  }
+  .carousel {
+    height: 100vh; /* 화면 전체 높이로 설정*/
+    width: 100%; /*화면 전체 너비로 설정 */
+    overflow: hidden; /*넘치는 부분은 숨김 처리*/
+  }
+
+  .carousel-item {
+    /* height: 100%; 화면 전체 높이로 설정 */
+    /* width: 100%; 화면 전체 너비로 설정 */
+    /* display: flex; 내부 요소를 가로로 정렬하기 위해 필요 */
+    align-items: center; /* 내부 요소를 수직 가운데 정렬하기 위해 필요 */
+    justify-content: center; /* 내부 요소를 수평 가운데 정렬하기 위해 필요 */
+  }
+
+  .carousel-item img {
+    object-fit: cover; /*이미지가 비율을 유지하며 화면 전체를 채우도록 설정*/
+    height: 100%; /*이미지를 화면 전체 높이로 설정*/
+    width: 100%; /*이미지를 화면 전체 너비로 설정*/
   }
 }

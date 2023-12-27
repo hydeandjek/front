@@ -16,11 +16,13 @@ import { useNavigate } from 'react-router-dom';
 import { BsList } from 'react-icons/bs';
 import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
+import ChatContext from '../../utils/ChatContext';
 
-const Header = () => {
+const Header = ({ styleHeader, styleBackground }) => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
-  const { userName, isLoggedIn, onLogout } = useContext(AuthContext);
+  const { userName, userRole, isLoggedIn, onLogout } = useContext(AuthContext);
+  const { onDisconnectServer } = useContext(ChatContext);
   const API_BASE_URL = BASE + USER;
 
   const toggle = () => setIsOpen(!isOpen);
@@ -43,12 +45,18 @@ const Header = () => {
 
     // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
     onLogout();
+    onDisconnectServer();
     redirection('/user/login');
   };
+  // Recpie를 누르면 api 요청해서 뿌리는것
+  const page = 1;
 
   // food
   const onClickRecipe = () => {
     redirection('food/recipes');
+  };
+  const onClickMealkit = () => {
+    redirection('food/mealkit');
   };
   const onClickRestaurant = () => {
     redirection('food/restaurant');
@@ -61,7 +69,7 @@ const Header = () => {
   const onClickSharedWarehouse = () => {
     redirection('/express/sharedWarehouse');
   };
-  
+
   // life
   const onClickConvenienceStore = () => {
     redirection('/life/convenienceStore');
@@ -72,12 +80,8 @@ const Header = () => {
   const onClickCoinLaundry = () => {
     redirection('/life/coinLaundry');
   };
-  const onClickDeliveryBox = () => {
-    redirection('/life/deliveryBox');
-  };
-  
   const onClickEmergency = () => {
-    redirection('/Emergency');
+    redirection('/life/Emergency');
   };
 
   const onClickNavbarBrand = (e) => {
@@ -85,12 +89,36 @@ const Header = () => {
     redirection('/');
   };
 
+  const onClickParcel = () => {
+    redirection('/life/Parcel');
+  };
+
+  const onClickSolo = () => {
+    redirection('/Solo');
+  };
+
+  const onClickPacking = () => {
+    redirection('/Packing');
+  };
+
+  const onClickAdminChat = () => {
+    redirection('/AdminChat');
+  };
+
+  const onClickSeoulPolicy = () => {
+    redirection('/policy/seoul');
+  };
+
   return (
-    <div>
+    <div
+      className='header_main'
+      style={styleHeader}
+    >
       <Navbar
         light
         expand='md'
         className={styles.nav}
+        style={styleBackground}
       >
         <NavbarBrand
           href='#'
@@ -110,13 +138,15 @@ const Header = () => {
               <DropdownToggle
                 nav
                 className={styles.menu_title}
-                >
+              >
                 FOOD
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickRecipe}>레시피</DropdownItem>
-                <DropdownItem>즐겨찾기 한 맛집 리스트</DropdownItem>
-                <DropdownItem onClick={onClickRestaurant}>혼밥하기 좋은 식당</DropdownItem>
+                <DropdownItem onClick={onClickMealkit}>밀키트</DropdownItem>
+                <DropdownItem onClick={onClickRestaurant}>
+                  혼밥하기 좋은 식당
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
@@ -127,24 +157,32 @@ const Header = () => {
                 Express
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem onClick={onClickExpressCenter}>이삿짐센터</DropdownItem>
-                <DropdownItem onClick={onClickSharedWarehouse}>공유창고</DropdownItem>
+                <DropdownItem onClick={onClickExpressCenter}>
+                  이삿짐센터
+                </DropdownItem>
+                <DropdownItem onClick={onClickSharedWarehouse}>
+                  공유창고
+                </DropdownItem>
                 <DropdownItem>자취지역추천</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
               <DropdownToggle
-                onClick={onClickEmergency}
                 nav
                 className={styles.menu_title}
               >
                 Life
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem onClick={onClickConvenienceStore}>편의점</DropdownItem>
+                <DropdownItem onClick={onClickConvenienceStore}>
+                  편의점
+                </DropdownItem>
                 <DropdownItem onClick={onClickDrugStore}>약국</DropdownItem>
-                <DropdownItem onClick={onClickCoinLaundry}>코인세탁소</DropdownItem>
-                <DropdownItem onClick={onClickDeliveryBox}>무인택배함</DropdownItem>
+                <DropdownItem onClick={onClickCoinLaundry}>
+                  코인세탁소
+                </DropdownItem>
+                <DropdownItem onClick={onClickParcel}>무인택배함</DropdownItem>
+                <DropdownItem onClick={onClickEmergency}>응급실</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
@@ -155,7 +193,9 @@ const Header = () => {
                 정책
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
+                <DropdownItem onClick={onClickSeoulPolicy}>
+                  서울시 정책
+                </DropdownItem>
                 <DropdownItem>메뉴2</DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
@@ -192,6 +232,11 @@ const Header = () => {
                       divider
                       className={styles['dropdown-divider']}
                     />
+                    {userRole === 'ADMIN' ? (
+                      <DropdownItem onClick={onClickAdminChat}>
+                        관리자 채팅
+                      </DropdownItem>
+                    ) : undefined}
                     <DropdownItem onClick={onClickLogout}>
                       로그아웃
                     </DropdownItem>

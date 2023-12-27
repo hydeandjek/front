@@ -7,12 +7,14 @@ import {
   Container,
   FormGroup,
   Input,
+  InputGroup,
   Label,
   Row,
 } from 'reactstrap';
 import styles from './sass/Join.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL as BASE, USER } from '../../../config/host-config';
+import swal from 'sweetalert';
 
 const { daum } = window;
 
@@ -25,6 +27,7 @@ const Join = () => {
     userName: '',
     password: '',
     email: '',
+    emailChk: '',
     address: '',
   });
 
@@ -34,6 +37,7 @@ const Join = () => {
     password: '',
     passwordCheck: '',
     email: '',
+    emailChk: '',
     address: '',
   });
 
@@ -43,8 +47,11 @@ const Join = () => {
     password: undefined,
     passwordCheck: undefined,
     email: undefined,
+    emailChk: undefined,
     address: true,
   });
+
+  const [emailToken, setEmailToken] = useState(null);
 
   const saveInputState = ({ key, inputValue, msg, flag }) => {
     // 메세지 세팅
@@ -201,13 +208,37 @@ const Join = () => {
 
     saveInputState({
       key: 'passwordCheck',
-      inputValue: 'pass',
+      inputValue: '',
       msg,
       flag,
     });
   };
 
-  // 4개의 입력란이 모두 검증에 통과했는지 여부를 검사
+  const emailChkHandler = (e) => {
+    const inputValue = e.target.value;
+    let flag = false;
+    let msg = '';
+
+    const emailChkRegex = /^[0-9]{6}$/;
+
+    if (!inputValue) {
+      msg = '인증번호는 필수입니다.';
+    } else if (!emailChkRegex.test(inputValue)) {
+      msg = '인증번호는 숫자로 6자입니다.';
+    } else {
+      msg = '';
+      flag = undefined;
+    }
+
+    saveInputState({
+      key: 'emailChk',
+      inputValue,
+      msg,
+      flag,
+    });
+  };
+
+  // 입력란이 모두 검증에 통과했는지 여부를 검사
   const isValid = () => {
     for (const key in correct) {
       const flag = correct[key];
@@ -219,7 +250,7 @@ const Join = () => {
 
   // 회원 가입 처리 서버 요청
   const fetchSignUpPost = async () => {
-    const res = await fetch(`${API_BASE_URL}/join}`, {
+    const res = await fetch(`${API_BASE_URL}/join`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(userValue),
@@ -282,25 +313,117 @@ const Join = () => {
     }).open();
   };
 
-  // 회원 가입 처리 서버 요청
-  const infofetchHandler = async () => {
-    console.log('회원가입 핸들러 작동');
-    console.log(userValue);
-    fetch(API_BASE_URL, {
+  // 이메일 체크
+  const emailAuthHandler = async () => {
+    if (!correct.email) {
+      saveInputState({
+        key: 'email',
+        inputValue: userValue.email,
+        msg: '이메일 인증을 하려면 올바른 이메일을 입력하세요',
+        flag: false,
+      });
+      return;
+    }
+
+    if (correct.emailChk) {
+      swal('', '이메일 인증이 완료되었습니다. 가입을 계속 진행하세요!', 'info');
+      return;
+    }
+
+    if (emailToken) {
+      swal('', '이메일 인증중입니다 인증코드를 입력하세요!', 'info');
+      return;
+    }
+
+    const jsonbody = {
+      email: userValue.email,
+    };
+
+    const res = await fetch(`${API_BASE_URL}/email-auth`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(userValue),
-    }).then((res) => {
-      if (res.status === 200) {
-        alert('회원가입에 성공했습니다.');
-        // 로그인 페이지로 리다이렉트
-        // window.location.href = './login'; 바닐라
-        redirection('/user/login');
-      } else {
-        alert('서버와의 통신이 원활하지 않습니다. 관리자에게 문의하세요.');
-      }
+      body: JSON.stringify(jsonbody),
     });
+
+    if (res.status === 200) {
+      const token = await res.text();
+      console.log(token);
+      setEmailToken(token);
+      swal('', '인증코드를 보냈습니다. 이메일을 확인하세요', 'success');
+      document.getElementById('email').setAttribute('readonly', 'true');
+    } else {
+      console.log(await res.text());
+      swal(
+        '오류',
+        '서버와의 통신이 원활하지 않습니다. 관리자에게 문의하세요.',
+        'error'
+      );
+    }
   };
+
+  const emailAuthChkHandler = async () => {
+    console.log(correct.emailChk);
+    if (userValue.emailChk.length === 0 || correct.emailChk === false) {
+      saveInputState({
+        key: 'emailChk',
+        inputValue: userValue.emailChk,
+        msg: '올바른 인증코드를 입력하세요',
+        flag: false,
+      });
+      return;
+    }
+
+    if (correct.emailChk) {
+      swal('', '이메일 인증이 완료되었습니다. 가입을 계속 진행하세요!', 'info');
+      return;
+    }
+
+    const jsonbody = {
+      token: emailToken,
+      authcode: userValue.emailChk,
+    };
+
+    console.log(jsonbody);
+
+    const res = await fetch(`${API_BASE_URL}/email-auth-check`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(jsonbody),
+    });
+
+    if (res.status === 200) {
+      const token = await res.text();
+      console.log(token);
+      setEmailToken(token);
+      swal(
+        '',
+        '이메일 인증이 완료되었습니다. 가입을 계속 진행하세요.',
+        'success'
+      );
+      saveInputState({
+        key: 'emailChk',
+        inputValue: `pass`,
+        msg: '',
+        flag: true,
+      });
+      document.getElementById('emailChk').setAttribute('readonly', 'true');
+    } else if (res.status === 400) {
+      console.log(await res.text());
+      swal(
+        '오류',
+        '인증코드를 잘못 입력했습니다. 확인후 다시 입력하세요.',
+        'error'
+      );
+    } else {
+      console.log(await res.text());
+      swal(
+        '오류',
+        '서버와의 통신이 원활하지 않습니다. 관리자에게 문의하세요.',
+        'error'
+      );
+    }
+  };
+
   return (
     <Container className={styles['join-container']}>
       <Row>
@@ -319,21 +442,59 @@ const Join = () => {
                   >
                     *이메일
                   </Label>
-                  <Input
-                    type='email'
-                    name='email'
-                    id='email'
-                    placeholder='이메일 주소'
-                    autoFocus
-                    required
-                    onChange={emailHandler}
-                    invalid={
-                      correct.email === undefined ? undefined : !correct.email
-                    }
-                    valid={correct.email}
-                  />
+                  <InputGroup>
+                    <Input
+                      type='email'
+                      name='email'
+                      id='email'
+                      placeholder='이메일 주소'
+                      autoFocus
+                      required
+                      onChange={emailHandler}
+                      invalid={
+                        correct.email === undefined ? undefined : !correct.email
+                      }
+                      valid={correct.email}
+                    />
+                    <Button
+                      id='email-button'
+                      className={styles['primary-button']}
+                      onClick={emailAuthHandler}
+                    >
+                      인증
+                    </Button>
+                  </InputGroup>
                   {correct.email || <span>{message.email}</span>}
                 </FormGroup>
+                {!!emailToken && (
+                  <FormGroup className='pb-2 mr-sm-2 mb-sm-0'>
+                    <InputGroup>
+                      <Input
+                        type='text'
+                        name='emailChk'
+                        id='emailChk'
+                        placeholder='인증번호를 입력하세요.'
+                        autoFocus
+                        required
+                        onChange={emailChkHandler}
+                        invalid={
+                          correct.emailChk === undefined
+                            ? undefined
+                            : !correct.emailChk
+                        }
+                        valid={correct.emailChk}
+                      />
+
+                      <Button
+                        className={styles['primary-button']}
+                        onClick={emailAuthChkHandler}
+                      >
+                        확인
+                      </Button>
+                    </InputGroup>
+                    {correct.emailChk || <span>{message.emailChk}</span>}
+                  </FormGroup>
+                )}
                 <FormGroup className='pb-2 mr-sm-2 mb-sm-0'>
                   <Label
                     for='password'
@@ -427,7 +588,7 @@ const Join = () => {
                     <Col className='col-3'>
                       <Button
                         type='button'
-                        className={styles['join-button']}
+                        className={styles['primary-button']}
                         onClick={onClickAddress}
                       >
                         주소입력
@@ -441,9 +602,8 @@ const Join = () => {
                     <Col>
                       <Button
                         type='submit'
-                        className={styles['join-button']}
+                        className={styles['primary-button']}
                         style={{ width: '100%' }}
-                        onClick={infofetchHandler}
                       >
                         회원가입
                       </Button>
