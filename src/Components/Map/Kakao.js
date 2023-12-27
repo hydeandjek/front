@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
-
 import axios from 'axios';
 
 import './Kakao.scss';
 import { map } from 'lodash';
 import SelectModal from '../Map/SelectModal';
+import { CLIENT_ID } from '../../config/kakao-config';
 
 const { kakao } = window;
 function Kakao({ Category }) {
@@ -44,7 +44,7 @@ function Kakao({ Category }) {
       });
 
       kakao.maps.event.addListener(marker, 'click', function () {
-        const infowindowIsOpen = infowindow.getMap() !== null;
+        // const infowindowIsOpen = infowindow.getMap() !== null;
 
         axios
           .get('https://dapi.kakao.com/v2/local/search/keyword.json', {
@@ -52,7 +52,7 @@ function Kakao({ Category }) {
               query: place.place_name,
             },
             headers: {
-              // Authorization: `KakaoAK ${CLIENT_ID}`,
+              Authorization: `KakaoAK ${CLIENT_ID}`,
             },
           })
           .then((response) => {
@@ -65,7 +65,8 @@ function Kakao({ Category }) {
             console.error(error);
           });
 
-        infowindowIsOpen ? infowindow.close() : infowindow.open(map, marker);
+        // infowindowIsOpen ? infowindow.close() :
+        infowindow.open(map, marker);
       });
     }
   };
@@ -78,7 +79,7 @@ function Kakao({ Category }) {
     <div id='kakao'>
       <div
         id='map'
-        style={{ width: '1020px', height: '720px' }}
+        style={{ height: '720px' }}
       ></div>
       <SelectModal handleSubmit={handleSubmit} />
     </div>

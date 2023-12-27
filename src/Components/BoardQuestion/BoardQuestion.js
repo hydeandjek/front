@@ -8,7 +8,7 @@ import { first } from 'lodash';
 // import '../SideBar/SideBar2/SideBarItem2.scss';
 // import '../SideBar/SideBar2/SideBarContent2.scss';
 // import '../Food/Recipe/Restaurant.scss';
-import { qnaboard } from '../../assets/constants';
+import { board } from '../../assets/constants/index.js';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
 import icon1 from '../../assets/img/icon1.png';
@@ -90,7 +90,7 @@ const BoardQuestion = () => {
   const boarddetailhandleClick = (selectedItem) => {
     // 선택된 아이템에 대한 로직을 수행
     // console.log(selectedItem);
-    redirection('/board/detail', { state: { board: selectedItem } });
+    redirection('/board/question/detaile', { state: { board: selectedItem } });
   };
 
   const QnaAddBoardHandler = async () => {
@@ -172,7 +172,7 @@ const BoardQuestion = () => {
     <>
       <div className='side2'>
         <div className='sidebar2'>
-          {qnaboard.map((menu, index) => {
+          {board.map((menu, index) => {
             return (
               <NavLink
                 style={{ textDecoration: 'none' }}
@@ -188,22 +188,6 @@ const BoardQuestion = () => {
       <div className='ppps'>
         <div id='community'>
           <h5>질문게시판</h5>
-          {/* <div className='rec_center2'>
-        FOOD
-        <div className='side2'>
-          <div className='sidebar2'>
-            {qnaboard.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                ></NavLink>
-              );
-            })}
-          </div>
-        </div>
-      </div> */}
 
           <div className='overlap-wrapper'>
             <div className='overlap'>

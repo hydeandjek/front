@@ -6,7 +6,7 @@
     React 환경에서 .env 내의 데이터를 읽어올 때는 반드시 REACT_APP_를 붙여 주셔야 합니다.
 */
 
-const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
+export const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`;

@@ -3,7 +3,7 @@ import styles from './sass/ChatBox.module.scss';
 import ChatContext from '../../../utils/ChatContext';
 import ChatBoxItem from './ChatBoxItem';
 import AuthContext from '../../../utils/AuthContext';
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import AdminChatContext from '../../../utils/AdminChatContext';
 
 const ChatBox = ({ style }) => {
@@ -48,22 +48,23 @@ const ChatBox = ({ style }) => {
       adminChatContext.onSendMessage(inputMessage);
       setInputMessage('');
     } else {
-      // if (!isLogin) {
-      //   // 메시지 창
-      //   swal(
-      //     '로그인 필요',
-      //     '해당 서비스를 이용하려면 로그인이 필요합니다.',
-      //     'error'
-      //   ).then(() => {
-      //     // 입력란으로 포커스
-      //     setInputMessage('');
-      //     e.target.children[0].focus();
-      //   });
-      // return;
-    }
+      if (!isLogin) {
+        // 메시지 창
+        swal(
+          '로그인 필요',
+          '해당 서비스를 이용하려면 로그인이 필요합니다.',
+          'error'
+        ).then(() => {
+          // 입력란으로 포커스
+          setInputMessage('');
+          e.target.children[0].focus();
+        });
+        return;
+      }
 
-    userChatContext.onSendMessage(inputMessage);
-    setInputMessage('');
+      userChatContext.onSendMessage(inputMessage);
+      setInputMessage('');
+    }
   };
 
   return (

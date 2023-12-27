@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { API_BASE_URL, USER } from '../../../config/host-config';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../../utils/AuthContext';
 
 const KakaoLoginHandler = () => {
   const REQUEST_URL = API_BASE_URL + USER;
   const redirection = useNavigate();
+  const { onLogin } = useContext(AuthContext);
 
   console.log(
     '사용자가 동의화면을 통해 필수 정보 동의 후 kakao 서버에서 redirect를 진행함!'
@@ -18,11 +20,10 @@ const KakaoLoginHandler = () => {
     const kakaoLogin = async () => {
       const res = await fetch(`${REQUEST_URL}/kakaoLogin?code=${code}`);
       const { token, userName } = await res.json(); // 서버에서 온 json 읽기
-
-      console.log(token);
+      console.log('데이터요청!');
 
       // Context Api
-      //onLogin(token, userName);
+      onLogin(token, userName, '');
 
       // 홈으로 리다이렉트
       redirection('/');

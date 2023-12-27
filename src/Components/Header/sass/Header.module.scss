@@ -1,18 +1,22 @@
 nav.nav {
-    background-color: rgba(116, 99, 99, 0.1);
-    padding: 8px 100px;
+  background-color: rgba(116, 99, 99, 0.1);
+  padding: 8px 100px;
 }
 
 div.menu {
-    background-color: rgba(0, 0, 0, 0.5);
-
-    
+  background-color: rgba(0, 0, 0, 0.5);
 
     button {
         &:hover {
             background-color: rgba(0, 0, 0, 1);
             color: white;
         }
+
+        &:focus {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
         color: white;
     }
 }
@@ -28,8 +32,17 @@ div.menu {
         bottom: 10px;
         transform: scaleX(0);
         transition: all 0.3s;
-      }
-      &:hover::before {
-        transform: scaleX(.5);
-      }
     }
+
+    &:hover::before {
+        transform: scaleX(.5);
+    }
+}
+
+h6.dropdownitem-header {
+    color: #dddddd;
+}
+
+div.dropdown-divider {
+    background-color: white;
+}

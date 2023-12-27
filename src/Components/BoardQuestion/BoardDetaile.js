@@ -3,7 +3,7 @@ import { NavLink, redirect, useLocation, useNavigate } from 'react-router-dom';
 import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
 import BoardDetailItem from './BoardDetailItem';
 import './BoardDetail.scss';
-import { qnaboard } from '../../assets/constants';
+import { board } from '../../assets/constants/index.js';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
 const BoardDetaile = () => {
@@ -143,7 +143,7 @@ const BoardDetaile = () => {
     <>
       <div className='side2'>
         <div className='sidebar2'>
-          {qnaboard.map((menu, index) => {
+          {board.map((menu, index) => {
             return (
               <NavLink
                 style={{ textDecoration: 'none' }}

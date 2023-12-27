@@ -14,14 +14,16 @@ import {
 } from 'reactstrap';
 import styles from './sass/Login.module.scss';
 import { useNavigate } from 'react-router';
-import { API_BASE_URL as BASE, LOGIN, USER } from '../../../config/host-config';
+import { API_BASE_URL as BASE, USER } from '../../../config/host-config';
 import AuthContext from '../../../utils/AuthContext';
+import ChatContext from '../../../utils/ChatContext';
 
 const Login = () => {
   const redirection = useNavigate();
 
-  const API_BASE_URL = BASE + USER + LOGIN;
+  const API_BASE_URL = BASE + USER;
   const { isLoggedIn, onLogin } = useContext(AuthContext);
+  const { setIsOpen: setIsOpenChat } = useContext(ChatContext);
 
   const fetchLogin = async () => {
     // 이메일, 비밀번호 입력 태그 얻어오기
@@ -47,11 +49,14 @@ const Login = () => {
       return;
     }
 
-    const { token, userName, email, address, role, joinDate } =
-      await res.json(); // 서버에서 온 json 읽기
+    const data = await res.json();
+    console.log(data);
+
+    const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
 
     // Context Api
-    onLogin(token, userName, email, address, role, joinDate);
+    onLogin(token, userName, address, role, userId);
+    setIsOpenChat(false);
 
     // 홈으로 리다이렉트
     redirection('/');

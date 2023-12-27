@@ -14,6 +14,7 @@ if (clientHostName === 'localhost') {
 } else if (clientHostName === 'spring.com') {
   backEndHostName = 'https://api.spring.com';
 }
+
 export const chatBackEndHostName = `http://${ip}:8181/ws/chat`;
 
 export const API_BASE_URL = backEndHostName;

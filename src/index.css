@@ -1,21 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://websfont.github.io/nanumSquareNeo/nanumSquareNeo.css");
-@import url("https://websfont.github.io/gmarket/gmarket.css");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://websfont.github.io/nanumSquareNeo/nanumSquareNeo.css');
+@import url('https://websfont.github.io/gmarket/gmarket.css');
 
 .mont {
-    font-family: "Montserrat";
+  font-family: 'Montserrat';
 }
 .nanum {
-    font-family: "nanumSquareNeo";
+  font-family: 'nanumSquareNeo';
 }
 .gmarket {
-    font-family: "gmarket";
+  font-family: 'gmarket';
 }
 
 .body_root {
-  --mainEng-font: "Montserrat";
-  --mainKor-font: "nanumSquareNeo";
-  --mainNum-font: "gmarket";
+  --mainEng-font: 'Montserrat';
+  --mainKor-font: 'nanumSquareNeo';
+  --mainNum-font: 'gmarket';
 
   --mainBg-color: #f3ede8;
   --subBg100: #cdc0b1;
@@ -31,8 +31,6 @@
   --black300: #686868;
   --black400: #e0e0e0;
 
-  height: 100vh;
-
   background-color: var(--mainBg-color);
 
   font-family: var(--mainEng-font), var(--mainKor-font);
@@ -45,9 +43,29 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
 
-  @media (max-width: 800px) {
-      font-size: 14px;
-      line-height: 1.4;
+  @media (max-width: 200px) {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .carousel {
+    height: 100vh; /* 화면 전체 높이로 설정*/
+    width: 100%; /*화면 전체 너비로 설정 */
+    overflow: hidden; /*넘치는 부분은 숨김 처리*/
+  }
+
+  .carousel-item {
+    /* height: 100%; 화면 전체 높이로 설정 */
+    /* width: 100%; 화면 전체 너비로 설정 */
+    /* display: flex; 내부 요소를 가로로 정렬하기 위해 필요 */
+    align-items: center; /* 내부 요소를 수직 가운데 정렬하기 위해 필요 */
+    justify-content: center; /* 내부 요소를 수평 가운데 정렬하기 위해 필요 */
+  }
+
+  .carousel-item img {
+    object-fit: cover; /*이미지가 비율을 유지하며 화면 전체를 채우도록 설정*/
+    height: 100%; /*이미지를 화면 전체 높이로 설정*/
+    width: 100%; /*이미지를 화면 전체 너비로 설정*/
   }
 }
