@@ -44,7 +44,7 @@ function Kakao({ Category }) {
       });
 
       kakao.maps.event.addListener(marker, 'click', function () {
-        const infowindowIsOpen = infowindow.getMap() !== null;
+        // const infowindowIsOpen = infowindow.getMap() !== null;
 
         axios
           .get('https://dapi.kakao.com/v2/local/search/keyword.json', {
@@ -65,7 +65,8 @@ function Kakao({ Category }) {
             console.error(error);
           });
 
-        infowindowIsOpen ? infowindow.close() : infowindow.open(map, marker);
+        // infowindowIsOpen ? infowindow.close() : 
+        infowindow.open(map, marker);
       });
     }
   };

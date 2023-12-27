@@ -69,6 +69,12 @@ const Header = ({ styleHeader, styleBackground }) => {
   const onClickSharedWarehouse = () => {
     redirection('/express/sharedWarehouse');
   };
+  const onClickProduct = () => {
+    redirection('/express/product');
+  }
+  const onClickAppliance = () => {
+    redirection('/express/appliance');
+  }
 
   // life
   const onClickConvenienceStore = () => {
@@ -159,7 +165,8 @@ const Header = ({ styleHeader, styleBackground }) => {
                 <DropdownItem onClick={onClickSharedWarehouse}>
                   공유창고
                 </DropdownItem>
-                <DropdownItem>자취지역추천</DropdownItem>
+                <DropdownItem onClick={onClickProduct}>자취 생필품</DropdownItem>
+                <DropdownItem onClick={onClickAppliance}>가전 제품</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
