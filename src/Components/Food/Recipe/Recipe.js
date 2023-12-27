@@ -38,7 +38,7 @@ const Recipe = ({ recipeData, onArrowClick }) => {
   };
 
   // 상세 컴포넌트로 보낼 데이터 상태 관리
-  const [detailData, setDetailData] = useState([]);
+  // const [detailData, setDetailData] = useState([]);
 
   if (!recipeData) return;
 
@@ -147,8 +147,8 @@ const Recipe = ({ recipeData, onArrowClick }) => {
       console.log(data[0]);
 
       // if (data.length > 0) {
-      setDetailData(data[0]);
-      setIsClicked(true);
+      // setDetailData(data[0]);
+      // setIsClicked(true);
       // 경로 이동 시 데이터 전달 가능
       redirection('/food/recipes/detail', { state: { data } });
       // }
