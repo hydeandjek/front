@@ -79,7 +79,7 @@ function Kakao({ Category }) {
     <div id='kakao'>
       <div
         id='map'
-        style={{ width: '1020px', height: '720px' }}
+        style={{ height: '720px' }}
       ></div>
       <SelectModal handleSubmit={handleSubmit} />
     </div>
