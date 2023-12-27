@@ -14,6 +14,9 @@ import Mealkit from './Components/Food/Mealkit';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
 import SharedWarehouse from './Components/Express/SharedWarehouse';
+import Product from './Components/Express/Product';
+import Appliance from './Components/Express/Appliance';
+import Furniture from './Components/Express/Furniture';
 import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
@@ -101,6 +104,18 @@ function App() {
               <Route
                 path='/express/sharedWarehouse'
                 element={<SharedWarehouse />}
+              />
+              <Route
+                path='/express/product'
+                element={<Product />}
+              />
+              <Route
+                path='/express/appliance'
+                element={<Appliance />}
+              />
+              <Route
+                path='/express/furniture'
+                element={<Furniture />}
               />
               <Route
                 path='/life/convenienceStore'
