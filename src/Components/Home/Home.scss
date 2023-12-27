@@ -1,0 +1,41 @@
+.box {
+    height: 472px;
+    position: relative;
+    width: 672px;
+  }
+  
+  .box .main-content {
+    height: 472px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 674px;
+  }
+  
+  .box .seoul-solo-service {
+    -webkit-text-stroke: 2px #000000;
+    color: #ffffff;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 70px;
+    font-weight: 400;
+    height: 472px;
+    left: -2px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: -2px;
+    width: 672px;
+  }
+  
+  .box .text-wrapper {
+    color: #ffffff;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 70px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  
+  .box .span {
+    font-size: 30px;
+  }
+  
