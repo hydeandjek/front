@@ -104,6 +104,7 @@ function Home() {
           zIndex: '100',
         }}
         styleBackground={{ backgroundColor: 'transparent' }}
+        styleWhite={true}
       />
       <div
         className='qqq'

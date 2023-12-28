@@ -7,13 +7,10 @@ import { food } from '../../assets/constants';
 import './Restaurant.scss';
 import Kakao from '../Map/Kakao';
 
-
 const Restaurant = () => {
-
   return (
     <>
       <div id='restaurant'>
-
         <div className='rec_center2'>
           FOOD
           <div className='side2'>
@@ -39,5 +36,4 @@ const Restaurant = () => {
   );
 };
 
-
-export default Restaurant
+export default Restaurant;

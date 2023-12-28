@@ -21,12 +21,6 @@ const RecipeDetail = () => {
     if (data[0].RCP_NA_TIP) {
       setTipExist(true);
     }
-    // const totalPages = Math.ceil(stepsText.length / itemsPerPage);
-
-    // const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지의 시작 인덱스
-    // const endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
-    // const currentItems = stepsText.slice(startIndex, endIndex); // 현재 페이지에 보여줄 요리방법들
-    // console.log('currentItems', currentItems);
   }, []); // 빈 배열을 의미하는 두 번째 인자를 전달하여 컴포넌트가 처음 렌더링될 때만 실행되도록 함
 
   const l = useLocation();
@@ -47,6 +41,28 @@ const RecipeDetail = () => {
   const [itemsPerPage, setItemsPerPage] = useState(2); //
 
   // 요리방법 꺼내기
+  // const steps = Array.from(
+  //   new Set(
+  //     Object.keys(data[0]).filter(
+  //       (stepKey) => stepKey.startsWith('MANUAL') && data[0][stepKey]
+  //     )
+  //   )
+  // ).sort((a, b) => {
+  //   const aNumber = parseInt(a.slice(a.startsWith('MANUAL_IMG') ? 10 : 6), 10);
+  //   const bNumber = parseInt(b.slice(b.startsWith('MANUAL_IMG') ? 10 : 6), 10);
+  //   const aIsImage = a.startsWith('MANUAL_IMG');
+  //   const bIsImage = b.startsWith('MANUAL_IMG');
+
+  //   if (aIsImage && !bIsImage) {
+  //     return 1;
+  //   } else if (!aIsImage && bIsImage) {
+  //     return -1;
+  //   } else {
+  //     return aNumber - bNumber;
+  //   }
+  // }, []);
+
+  // 요리방법
   const steps = Array.from(
     new Set(
       Object.keys(data[0]).filter(
@@ -67,6 +83,26 @@ const RecipeDetail = () => {
       return aNumber - bNumber;
     }
   });
+  console.log(steps);
+
+  // 재료
+  const ingredientSep = data[0].RCP_PARTS_DTLS.split('\n');
+  console.log(ingredientSep); // ●치커리 샐러드 :~ 별 로 자름.
+
+  const menu = ingredientSep.map((ingre) => {
+    return ingre.split(':'); // ["●치커리 샐러드","●올리브마늘 드레싱"]
+  });
+  const ingreByMenu = ingredientSep.map((ingre) => {
+    return ingre.substring(ingre.indexOf(':') + 1).split(',');
+  });
+  console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
+  console.log(ingreByMenu);
+
+  const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
+
+  let stepsText = steps.filter((stepKey) => !stepKey.startsWith('MANUAL_IMG'));
+  stepsText = ['MANUAL01', 'M', ...stepsText];
+  console.log(stepsText);
 
   //const [perPage, setPerPage] = useState(3); // 한 페이지에 보여줄 요리방법 수
   // 다음 페이지로 이동하는 함수
@@ -117,24 +153,6 @@ const RecipeDetail = () => {
 
     setDataMenu(props);
   };
-
-  // 재료
-  const ingredientSep = data[0].RCP_PARTS_DTLS.split('\n');
-  // console.log(ingredientSep); // ●치커리 샐러드 :~ 별 로 자름.
-
-  const menu = ingredientSep.map((ingre) => {
-    return ingre.split(':'); // ["●치커리 샐러드","●올리브마늘 드레싱"]
-  });
-  const ingreByMenu = ingredientSep.map((ingre) => {
-    return ingre.substring(ingre.indexOf(':') + 1).split(',');
-  });
-  // console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
-  // console.log(ingreByMenu);
-  const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
-
-  let stepsText = steps.filter((stepKey) => !stepKey.startsWith('MANUAL_IMG'));
-  stepsText = ['MANUAL01', 'M', ...stepsText];
-  console.log(stepsText);
 
   const stepsImage = steps.filter((stepKey) =>
     stepKey.startsWith('MANUAL_IMG')

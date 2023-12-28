@@ -14,6 +14,9 @@ import Mealkit from './Components/Food/Mealkit';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
 import SharedWarehouse from './Components/Express/SharedWarehouse';
+import Product from './Components/Express/Product';
+import Appliance from './Components/Express/Appliance';
+import Furniture from './Components/Express/Furniture';
 import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
@@ -29,6 +32,9 @@ import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 import Loading from './Components/LoadingBar/Loading';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
+import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import Policy2 from './Components/Policy/Policy2';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -107,6 +113,18 @@ function App() {
                 element={<SharedWarehouse />}
               />
               <Route
+                path='/express/product'
+                element={<Product />}
+              />
+              <Route
+                path='/express/appliance'
+                element={<Appliance />}
+              />
+              <Route
+                path='/express/furniture'
+                element={<Furniture />}
+              />
+              <Route
                 path='/life/convenienceStore'
                 element={<ConvenienceStore />}
               />
@@ -135,8 +153,20 @@ function App() {
                 element={<Policy1 />}
               />
               <Route
+                path='/policy/place'
+                element={<Policy2 />}
+              />
+              <Route
                 path='/food/recipes/detail'
                 element={<RecipeDetail />}
+              />
+              <Route
+                path='/board/question'
+                element={<BoardQuestion />}
+              />
+              <Route
+                path='/board/question/detaile'
+                element={<BoardDetaile />}
               />
             </Routes>
           </div>
