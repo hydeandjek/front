@@ -17,10 +17,16 @@ const RecipeDetail = () => {
   const [selectedCate, setSelectedCate] = useState('');
   const [dataMenu, setDataMenu] = useState();
   const [pageNum, setPageNum] = useState(1);
+  const [tagExist, setTagExist] = useState(false);
+  const [ingredientList, setIngredientList] = useState([]);
+  const [steps, setSteps] = useState([]);
+  const [ingredientSep, setIngredientSep] = useState([]);
+
   const menus = [
     { id: 1, name: ' 레시피' },
     { id: 2, name: ' 혼밥하기 좋은 맛집' },
   ];
+
   //SidebarItem 클릭 시 처리할 함수
   const onMenuClick = (props) => {
     // console.log('자식놈한테 데이터 받아올 함수!');
@@ -30,7 +36,9 @@ const RecipeDetail = () => {
 
     setDataMenu(props);
   };
-  /*
+
+  useEffect(() => {
+    /*
 ATT_FILE_NO_MAIN
 : 
 "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00031_2.png"
@@ -197,44 +205,54 @@ RCP_WAY2 조리방법
 : 
 "기타"
   */
-  const [tagExist, setTagExist] = useState(false);
-  if (data[0].HASH_TAG) {
-    setTagExist(true);
-  }
-  // 재료
-  const ingredientSep = data[0].RCP_PARTS_DTLS.split('\n');
-  console.log(ingredientSep); // ●치커리 샐러드 :~ 별 로 자름.
-
-  const menu = ingredientSep.map((ingre) => {
-    return ingre.split(':'); // ["●치커리 샐러드","●올리브마늘 드레싱"]
-  });
-  const ingreByMenu = ingredientSep.map((ingre) => {
-    return ingre.substring(ingre.indexOf(':') + 1).split(',');
-  });
-  console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
-  console.log(ingreByMenu);
-  const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
-  // 요리방법
-  const steps = Array.from(
-    new Set(
-      Object.keys(data[0]).filter(
-        (stepKey) => stepKey.startsWith('MANUAL') && data[0][stepKey]
-      )
-    )
-  ).sort((a, b) => {
-    const aNumber = parseInt(a.slice(a.startsWith('MANUAL_IMG') ? 10 : 6), 10);
-    const bNumber = parseInt(b.slice(b.startsWith('MANUAL_IMG') ? 10 : 6), 10);
-    const aIsImage = a.startsWith('MANUAL_IMG');
-    const bIsImage = b.startsWith('MANUAL_IMG');
-
-    if (aIsImage && !bIsImage) {
-      return 1;
-    } else if (!aIsImage && bIsImage) {
-      return -1;
-    } else {
-      return aNumber - bNumber;
+    if (data[0].HASH_TAG) {
+      setTagExist(true);
     }
-  });
+    // 재료
+    const ingredientSep = data[0].RCP_PARTS_DTLS.split('\n');
+    console.log(ingredientSep); // ●치커리 샐러드 :~ 별 로 자름.
+
+    const menu = ingredientSep.map((ingre) => {
+      return ingre.split(':'); // ["●치커리 샐러드","●올리브마늘 드레싱"]
+    });
+    const ingreByMenu = ingredientSep.map((ingre) => {
+      return ingre.substring(ingre.indexOf(':') + 1).split(',');
+    });
+    console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
+    console.log(ingreByMenu);
+    setIngredientList(data[0].RCP_PARTS_DTLS.split(', '));
+    // 요리방법
+    setSteps(
+      Array.from(
+        new Set(
+          Object.keys(data[0]).filter(
+            (stepKey) => stepKey.startsWith('MANUAL') && data[0][stepKey]
+          )
+        )
+      ).sort((a, b) => {
+        const aNumber = parseInt(
+          a.slice(a.startsWith('MANUAL_IMG') ? 10 : 6),
+          10
+        );
+        const bNumber = parseInt(
+          b.slice(b.startsWith('MANUAL_IMG') ? 10 : 6),
+          10
+        );
+        const aIsImage = a.startsWith('MANUAL_IMG');
+        const bIsImage = b.startsWith('MANUAL_IMG');
+
+        if (aIsImage && !bIsImage) {
+          return 1;
+        } else if (!aIsImage && bIsImage) {
+          return -1;
+        } else {
+          return aNumber - bNumber;
+        }
+      })
+    );
+
+    console.log(steps);
+  }, []);
 
   const stepsText = steps.filter(
     (stepKey) => !stepKey.startsWith('MANUAL_IMG')
@@ -242,8 +260,6 @@ RCP_WAY2 조리방법
   const stepsImage = steps.filter((stepKey) =>
     stepKey.startsWith('MANUAL_IMG')
   );
-
-  console.log(steps);
 
   return (
     <>

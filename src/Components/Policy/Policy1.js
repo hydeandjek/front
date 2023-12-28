@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, ModalBody, ModalHeader, Table } from 'reactstrap';
 import './sass/Policy1.scss';
+import { policy } from '../../assets/constants';
+import { NavLink } from 'react-router-dom';
+import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
 const items = [
   {
@@ -9237,7 +9240,25 @@ const Policy2 = () => {
   };
 
   return (
-    <>
+    <div className='content-wrap'>
+      <div className='rec_center2'>
+        Policy
+        <div className='side2'>
+          <div className='sidebar2'>
+            {policy.map((menu, index) => {
+              return (
+                <NavLink
+                  style={{ textDecoration: 'none' }}
+                  to={menu.path}
+                  key={index}
+                >
+                  <SideBarItem2 menu={menu} />
+                </NavLink>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       <div className='policy2_content'>
         <Table
           striped
@@ -9270,7 +9291,7 @@ const Policy2 = () => {
         </Table>
       </div>
       <ContentModal />
-    </>
+    </div>
   );
 };
 
