@@ -7,18 +7,20 @@ import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 import { policy } from '../../assets/constants';
 
 const { kakao } = window;
+const PAGE_NUM = 10;
+const PAGE_LIST_NUM = 10;
 
 let __pagination = {
-  first: 1,
-  last: 10,
-  current: 1,
-  totalCount: 125,
-  hasNextPage: true,
-  hasPrevPage: false,
+  first: 0,
+  last: 0,
+  current: 0,
+  totalCount: 0,
+  hasNextPage: 0,
+  hasPrevPage: 0,
 };
 
 const Policy2 = () => {
-  const [_pagination, _setPagination] = useState(__pagination);
+  //const [_pagination, _setPagination] = useState(0);
   const API_URL = API_BASE_URL + '/api/public';
 
   let container; //= document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -230,70 +232,87 @@ const Policy2 = () => {
   };
 
   const fetchData = async (i) => {
-    const res = await axios.get(`${API_URL}/${i}`);
+    let res = await axios.get(`${API_URL}/${i}`);
     if (res.status === 200) {
       // 정상적으로 검색이 완료됐으면
       // 검색 목록과 마커를 표출합니다
       displayPlaces(await res.data);
-
-      // 페이지 번호를 표출합니다
-      displayPagination(__pagination);
     } else {
       console.log(await res.data);
     }
+
+    if (__pagination.current === 0) {
+      res = await axios.get(`${API_URL}/count`);
+      if (res.status === 200) {
+        const totalCount = await res.data;
+        setPagination({
+          first: 1,
+          last: 10,
+          current: 1,
+          totalCount: totalCount,
+          hasNextPage: true,
+          hasPrevPage: false,
+        });
+      }
+    } else {
+      console.log(await res.data);
+    }
+
+    // 페이지 번호를 표출합니다
+    displayPagination(__pagination);
   };
 
   const setPagination = (pagination) => {
     __pagination = { ...pagination };
-    _setPagination({ ...__pagination });
+    //_setPagination((prev) => prev + 1);
   };
 
   const gotoPage = (i) => {
-    if (i < 11) {
-      setPagination({
-        first: 1,
-        last: 10,
-        current: i,
-        totalCount: 125,
-        hasNextPage: true,
-        hasPrevPage: false,
-      });
-    } else {
-      setPagination({
-        first: 11,
-        last: 13,
-        current: i,
-        totalCount: 125,
-        hasNextPage: false,
-        hasPrevPage: true,
-      });
-    }
-
+    createPagination(i);
     fetchData(i);
   };
 
   const gotoNextPage = (i) => {
-    setPagination({
-      first: 11,
-      last: 13,
-      current: i,
-      totalCount: 125,
-      hasNextPage: false,
-      hasPrevPage: true,
-    });
+    createPagination(i);
     fetchData(i);
   };
 
   const gotoPrevPage = (i) => {
-    setPagination({
-      first: 1,
-      last: 10,
-      current: i,
-      totalCount: 125,
-      hasNextPage: true,
-      hasPrevPage: false,
-    });
+    createPagination(i);
     fetchData(i);
+  };
+
+  const createPagination = (i) => {
+    let totalCount = __pagination.totalCount;
+    //총 페이지 갯수 계산하기
+    let totalPage = Math.ceil(totalCount / PAGE_LIST_NUM);
+
+    const currentPage = i;
+    let pageGroup = Math.ceil(currentPage / PAGE_NUM);
+
+    let lastNumber = pageGroup * PAGE_LIST_NUM;
+    let real_last = false;
+    if (lastNumber > totalPage) {
+      lastNumber = totalPage;
+      real_last = true;
+    }
+    let firstNumber = pageGroup * PAGE_LIST_NUM - (PAGE_LIST_NUM - 1);
+
+    const last = lastNumber;
+    const first = firstNumber;
+
+    setPagination({
+      first,
+      last,
+      current: i,
+      totalCount: totalCount,
+      hasNextPage: !real_last,
+      hasPrevPage: first !== 1,
+    });
+
+    console.log(first, last, totalPage);
+
+    //console.log(curpage, __pagination);
   };
 
   useEffect(() => {
@@ -301,6 +320,8 @@ const Policy2 = () => {
 
     //지도 생성 및 객체 리턴
     map = new kakao.maps.Map(container, options);
+
+    //_setPagination((prev) => prev + 1);
 
     fetchData(1);
   }, []);
