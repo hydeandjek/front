@@ -35,6 +35,7 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
 import Policy2 from './Components/Policy/Policy2';
+import Cctv from './Components/Policy/Cctv';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -155,6 +156,10 @@ function App() {
               <Route
                 path='/policy/place'
                 element={<Policy2 />}
+              />
+              <Route
+                path='/policy/cctv'
+                element={<Cctv />}
               />
               <Route
                 path='/food/recipes/detail'

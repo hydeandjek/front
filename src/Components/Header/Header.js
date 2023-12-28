@@ -120,6 +120,10 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
   const onClickSeoulPlace = () => {
     redirection('/policy/place');
   };
+  
+  const onClickSeoulCctv = () => {
+    redirection('/policy/cctv');
+  };
 
   const qnaBoardHandler = () => {
     redirection('/board/question');
@@ -222,6 +226,9 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 </DropdownItem>
                 <DropdownItem onClick={onClickSeoulPlace}>
                   지원기관
+                </DropdownItem>
+                <DropdownItem onClick={onClickSeoulCctv}>
+                  CCTV
                 </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
