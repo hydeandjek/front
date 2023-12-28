@@ -9,8 +9,10 @@ import { get } from 'lodash';
 import { API_BASE_URL } from '../../../config/host-config';
 import PageChange from './PageChange';
 import RecipeDetail from './RecipeDetail';
+import Loading from '../../LoadingBar/Loading';
 
 const Recipes = (props) => {
+  const [loading, setLoading] = useState(false);
   const menus = [
     { id: 1, name: ' 레시피' },
     { id: 2, name: ' 밀키트' },
@@ -30,9 +32,11 @@ const Recipes = (props) => {
 
   const onResClick = (menu) => {
     async function getData() {
-      const res = await axios.get(API_BASE_URL + '/api/menu/recipe/total/', 1).then((res) => {
-        setData(res.data);
-      });
+      const res = await axios
+        .get(API_BASE_URL + '/api/menu/recipe/total/', 1)
+        .then((res) => {
+          setData(res.data);
+        });
       // console.log(res);
     }
     getData();
@@ -40,6 +44,7 @@ const Recipes = (props) => {
   };
 
   const fetchData = async (pageNum = 1) => {
+    setLoading(true);
     // 전체인지 카테고리별인지 구분하기
     if (!selectedCate) {
       // selectedCate===''이라면
@@ -47,11 +52,13 @@ const Recipes = (props) => {
         API_BASE_URL + '/api/menu/recipe/total/' + pageNum
       );
       setData(res.data);
+      setLoading(false);
     } else {
       const res = await axios.get(
         API_BASE_URL + '/api/menu/recipe/' + selectedCate + '/' + pageNum
       );
       setData(res.data);
+      setLoading(false);
     }
     // console.log('fetchData', res.data);
     // setData(res.data);
@@ -85,6 +92,7 @@ const Recipes = (props) => {
 
   return (
     <div className='warp-side'>
+      {loading ? <Loading /> : null}
       <div>
         <div className='rec_center'>
           <div>FOOD</div>

@@ -4,13 +4,29 @@ import SideBarItem from '../../SideBar/SideBarItem';
 import './RecipeDetail.scss';
 import { range } from 'lodash';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import Loading from '../../LoadingBar/Loading';
 
 const RecipeDetail = () => {
+  const [loading, setLoading] = useState(true);
+
   const [pageSwitch, setPageSwitch] = useState(false);
   const location = useNavigate();
 
   useEffect(() => {
     setPageSwitch(false);
+    console.log(data[0]);
+    if (data[0].HASH_TAG) {
+      setTagExist(true);
+    }
+    if (data[0].RCP_NA_TIP) {
+      setTipExist(true);
+    }
+    // const totalPages = Math.ceil(stepsText.length / itemsPerPage);
+
+    // const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지의 시작 인덱스
+    // const endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
+    // const currentItems = stepsText.slice(startIndex, endIndex); // 현재 페이지에 보여줄 요리방법들
+    // console.log('currentItems', currentItems);
   }, []); // 빈 배열을 의미하는 두 번째 인자를 전달하여 컴포넌트가 처음 렌더링될 때만 실행되도록 함
 
   const l = useLocation();
@@ -28,7 +44,8 @@ const RecipeDetail = () => {
 
   //////////////////////////////////////////
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const itemsPerPage = 3;
+  const [itemsPerPage, setItemsPerPage] = useState(2); //
+
   // 요리방법 꺼내기
   const steps = Array.from(
     new Set(
@@ -54,28 +71,35 @@ const RecipeDetail = () => {
   //const [perPage, setPerPage] = useState(3); // 한 페이지에 보여줄 요리방법 수
   // 다음 페이지로 이동하는 함수
   const handleClickNext = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    let curpage = 0;
+    setCurrentPage((prevPage) => {
+      curpage = prevPage + 2;
+      return curpage;
+    });
+    // setItemsPerPage(1);
+    console.log('handleClickPrev', curpage);
+    // setItemsPerPage(2);
     setPageSwitch(true);
   };
 
   // 이전 페이지로 이동하는 함수
   const handleClickPrev = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-    setPageSwitch(false);
+    let curpage = 0;
+    setCurrentPage((prevPage) => {
+      curpage = prevPage - 2;
+      return curpage;
+    });
+    // setItemsPerPage(1);
+    console.log('handleClickPrev', curpage);
+    if (curpage === 1) {
+      setPageSwitch(false);
+    } else {
+      setPageSwitch(true);
+    }
   };
 
   const [tagExist, setTagExist] = useState(false);
   const [tipExist, setTipExist] = useState(false);
-
-  useEffect(() => {
-    console.log(data[0]);
-    if (data[0].HASH_TAG) {
-      setTagExist(true);
-    }
-    if (data[0].RCP_NA_TIP) {
-      setTipExist(true);
-    }
-  }, []);
 
   const [selectedCate, setSelectedCate] = useState('');
   const [dataMenu, setDataMenu] = useState();
@@ -108,19 +132,21 @@ const RecipeDetail = () => {
   // console.log(ingreByMenu);
   const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
 
-  const stepsText = steps.filter(
-    (stepKey) => !stepKey.startsWith('MANUAL_IMG')
-  );
+  let stepsText = steps.filter((stepKey) => !stepKey.startsWith('MANUAL_IMG'));
+  stepsText = ['MANUAL01', 'M', ...stepsText];
+  console.log(stepsText);
+
   const stepsImage = steps.filter((stepKey) =>
     stepKey.startsWith('MANUAL_IMG')
   );
-  const totalPages = Math.ceil(stepsText.length / itemsPerPage);
 
-  console.log(steps);
+  const totalPages = Math.ceil(stepsText.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지의 시작 인덱스
   const endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
   const currentItems = stepsText.slice(startIndex, endIndex); // 현재 페이지에 보여줄 요리방법들
+  const currentItems2 = stepsText.slice(startIndex + 2, endIndex + 2); // 현재 페이지에 보여줄 요리방법들
+  console.log('curPage', currentPage);
   console.log('currentItems', currentItems);
 
   const Page1 = () => (
@@ -171,7 +197,7 @@ const RecipeDetail = () => {
         <h3 className='recipe-page__section-title'>칼로리</h3>
         <li className='li'>{data[0].INFO_ENG}(Kcal)</li>
       </div>
-      <div className='recipe-page__section'>
+      {/* <div className='recipe-page__section'>
         <h3 className='recipe-page__section-title'>요리방법</h3>
         <ol className='recipe-page__instructions'>
           {currentItems.map((stepKey, index) => {
@@ -193,6 +219,7 @@ const RecipeDetail = () => {
                 <div>
                   {imageUrl && (
                     <img
+                      className='recipe-page__image_way'
                       src={imageUrl}
                       alt={`Step ${stepNumber}`}
                     />
@@ -202,7 +229,7 @@ const RecipeDetail = () => {
             );
           })}
         </ol>
-      </div>
+      </div> */}
       {currentPage < totalPages && (
         <div className='pagination-buttons next'>
           <a onClick={handleClickNext}>다음 페이지</a>
@@ -223,6 +250,8 @@ const RecipeDetail = () => {
             const stepId = `step_${index + 1}`;
             // console.log(stepId);
             // const stepNumber = index + 1;
+            console.log('stepKey', stepKey);
+
             const stepNumber = parseInt(
               stepKey.slice(stepKey.startsWith('MANUAL_IMG') ? 10 : 6),
               10
@@ -238,6 +267,7 @@ const RecipeDetail = () => {
                 <div>
                   {imageUrl && (
                     <img
+                      className='recipe-page__image_way'
                       src={imageUrl}
                       alt={`Step ${stepNumber}`}
                     />
@@ -261,6 +291,40 @@ const RecipeDetail = () => {
       className='recipe-page__right'
       style={{ width: '700px', height: '850px' }}
     >
+      <div className='recipe-page__section2'>
+        <h3 className='recipe-page__section-title2'></h3>
+        <ol className='recipe-page__instructions2'>
+          {currentItems2.map((stepKey, index) => {
+            const stepId = `step_${index + 1}`;
+            // console.log(stepId);
+            // const stepNumber = index + 1;
+            const stepNumber = parseInt(
+              stepKey.slice(stepKey.startsWith('MANUAL_IMG') ? 10 : 6),
+              10
+            );
+            const imageKey = `MANUAL_IMG${stepNumber
+              .toString()
+              .padStart(2, '0')}`;
+            const imageUrl = data[0][imageKey];
+
+            return (
+              <div key={stepKey}>
+                {data[0][stepKey] !== imageUrl && <h3>{data[0][stepKey]}</h3>}
+                <div>
+                  {imageUrl && (
+                    <img
+                      className='recipe-page__image_way'
+                      src={imageUrl}
+                      alt={`Step ${stepNumber}`}
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </ol>
+      </div>
+
       {currentPage < totalPages && (
         <div className='pagination-buttons next'>
           <a onClick={handleClickNext}>다음 페이지</a>
@@ -268,6 +332,8 @@ const RecipeDetail = () => {
       )}
     </div>
   );
+
+  const Page5 = () => {};
 
   return (
     <>

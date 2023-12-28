@@ -12,8 +12,10 @@ import { API_BASE_URL } from '../../../config/host-config';
 import RecipeDetail from './RecipeDetail';
 import { AuthContextProvider } from '../../../utils/AuthContext';
 import { ChatContextProvider } from '../../../utils/ChatContext';
+import Loading from '../../LoadingBar/Loading';
 
 const Recipe = ({ recipeData, onArrowClick }) => {
+  const [loading, setLoading] = useState(false);
   //화면 전환 위해
   const redirection = useNavigate();
 
@@ -127,7 +129,8 @@ const Recipe = ({ recipeData, onArrowClick }) => {
   };
 
   const onRecipeDetail = async (name, cate, seq) => {
-    // 부모에서 선언된 함수를 호출하여 카테고리와 ID를 매개변수로 보내자.
+    setLoading(true);
+
     console.log(
       `메뉴명: ${name}, 카테고리:${cate}, id: ${seq}인 레시피 상세 요청!`
     );
@@ -152,13 +155,15 @@ const Recipe = ({ recipeData, onArrowClick }) => {
       // 경로 이동 시 데이터 전달 가능
       redirection('/food/recipes/detail', { state: { data } });
       // }
+      setLoading(false);
     } catch (error) {
       console.error('레시피 상세보기 요청에 실패했습니다.', error);
     }
   };
-
+  // Loading이 true면 컴포넌트를 띄우고, false면 null(빈 값)처리 하여 컴포넌트 숨김
   return (
     <>
+      {loading ? <Loading /> : null}
       <div className='arrowBox'>
         {pageNum > 1 && (
           <PageChange
@@ -175,7 +180,6 @@ const Recipe = ({ recipeData, onArrowClick }) => {
           />
         )}
       </div>
-
       <div className='contentBox'>
         {res.map((content, index) => {
           // console.log('src in map: ', content.src);

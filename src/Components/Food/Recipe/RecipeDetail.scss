@@ -11,7 +11,8 @@
   align-items: flex-start;
   background-color: #ffffff;
 
-  perspective: 1000px;
+  // perspective: 1000px;
+  overflow: hidden;
 }
 
 // 왼편
@@ -22,13 +23,16 @@
   padding: 20px;
   height: 100%;
 
-  z-index: 1;
-  transform-origin: left center;
-  transition-duration: 1s;
-  transition-timing-function: ease-in;
+  // z-index: 1;
+  // transform-origin: left center;
+  // transition-duration: 1s;
+  // transition-timing-function: ease-in;
   // 클릭 시
   // transform: rotateY(-180deg);
   // opacity: 0.4;
+  transition: transform 0.3s ease;
+  transform-origin: left center;
+  transform-style: preserve-3d;
 }
 
 .recipe-page__image {
@@ -62,11 +66,18 @@
   padding: 20px;
   height: 100%;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4), -2px 0 2px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  // z-index: 0;
 
-  z-index: 0;
+  transition: transform 0.3s ease;
+  transform-origin: left center;
+  transform-style: preserve-3d;
 }
 
 .recipe-page__section-title {
+  margin-top: 50px;
   font-size: 18px;
   font-weight: bold;
   list-style-type: none;
@@ -92,13 +103,20 @@
   margin-bottom: 5px;
 }
 
+.recipe-page__image_way {
+  width: 100%; /* 원하는 가로 크기로 설정 */
+  height: auto; /* 세로 크기는 가로 크기에 맞게 자동 조정됩니다 */
+  max-width: 400px; /* 사진의 최대 가로 크기를 지정합니다 */
+  object-fit: cover; /* 사진이 컨테이너에 꽉 차도록 설정합니다 */
+}
+
 // 페이지네이션
 
 .pagination-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 100px;
   margin-bottom: 5px;
 }
 
