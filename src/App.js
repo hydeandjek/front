@@ -32,6 +32,7 @@ import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import Policy2 from './Components/Policy/Policy2';
 
 function App() {
   const images = [
@@ -146,6 +147,10 @@ function App() {
               <Route
                 path='/policy/seoul'
                 element={<Policy1 />}
+              />
+              <Route
+                path='/policy/place'
+                element={<Policy2 />}
               />
               <Route
                 path='/food/recipes/detail'

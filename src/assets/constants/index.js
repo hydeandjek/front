@@ -33,3 +33,8 @@ export const board = [
   { name: ' 카테고리 게시판 ', path: '/' },
   { name: ' 질문 게시판 ', path: '/board/question' },
 ];
+
+export const policy = [
+  { name: '서울시 정책', path: '/policy/seoul' },
+  { name: '지원기관', path: '/policy/place' },
+];
