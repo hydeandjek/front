@@ -12,15 +12,20 @@ const RecipeDetail = () => {
   const [pageSwitch, setPageSwitch] = useState(false);
   const location = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [itemsPerPage, setItemsPerPage] = useState(2); //
+
   useEffect(() => {
     setPageSwitch(false);
-    console.log(data[0]);
+    //console.log(data[0]);
     if (data[0].HASH_TAG) {
       setTagExist(true);
     }
     if (data[0].RCP_NA_TIP) {
       setTipExist(true);
     }
+
+    setCurrentPage(1);
   }, []); // 빈 배열을 의미하는 두 번째 인자를 전달하여 컴포넌트가 처음 렌더링될 때만 실행되도록 함
 
   const l = useLocation();
@@ -29,7 +34,6 @@ const RecipeDetail = () => {
   if (!!l.state) {
     data = l.state.data;
   }
-  console.log(data);
 
   if (!data) {
     location('/food/recipes');
@@ -37,8 +41,6 @@ const RecipeDetail = () => {
   }
 
   //////////////////////////////////////////
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [itemsPerPage, setItemsPerPage] = useState(2); //
 
   // 요리방법 꺼내기
   // const steps = Array.from(
@@ -83,55 +85,52 @@ const RecipeDetail = () => {
       return aNumber - bNumber;
     }
   });
-  console.log(steps);
+  //console.log(steps);
 
   // 재료
   const ingredientSep = data[0].RCP_PARTS_DTLS.split('\n');
-  console.log(ingredientSep); // ●치커리 샐러드 :~ 별 로 자름.
+  //console.log(ingredientSep); // ●치커리 샐러드 :~ 별 로 자름.
 
-  const menu = ingredientSep.map((ingre) => {
-    return ingre.split(':'); // ["●치커리 샐러드","●올리브마늘 드레싱"]
-  });
-  const ingreByMenu = ingredientSep.map((ingre) => {
-    return ingre.substring(ingre.indexOf(':') + 1).split(',');
-  });
-  console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
-  console.log(ingreByMenu);
+  // const menu = ingredientSep.map((ingre) => {
+  //   return ingre.split(':'); // ["●치커리 샐러드","●올리브마늘 드레싱"]
+  // });
+  // const ingreByMenu = ingredientSep.map((ingre) => {
+  //   return ingre.substring(ingre.indexOf(':') + 1).split(',');
+  // });
+  //console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
+  //console.log(ingreByMenu);
 
   const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
 
   let stepsText = steps.filter((stepKey) => !stepKey.startsWith('MANUAL_IMG'));
-  stepsText = ['MANUAL01', 'M', ...stepsText];
+  stepsText = ['x', 'x', ...stepsText];
   console.log(stepsText);
 
   //const [perPage, setPerPage] = useState(3); // 한 페이지에 보여줄 요리방법 수
   // 다음 페이지로 이동하는 함수
   const handleClickNext = () => {
-    let curpage = 0;
     setCurrentPage((prevPage) => {
-      curpage = prevPage + 2;
+      const curpage = prevPage + 1;
+      setPageSwitch(true);
+
       return curpage;
     });
-    // setItemsPerPage(1);
-    console.log('handleClickPrev', curpage);
-    // setItemsPerPage(2);
-    setPageSwitch(true);
   };
 
   // 이전 페이지로 이동하는 함수
   const handleClickPrev = () => {
-    let curpage = 0;
     setCurrentPage((prevPage) => {
-      curpage = prevPage - 2;
+      const curpage = prevPage - 1;
+
+      console.log('handleClickPrev', curpage);
+      if (curpage === 1) {
+        setPageSwitch(false);
+      } else {
+        setPageSwitch(true);
+      }
+
       return curpage;
     });
-    // setItemsPerPage(1);
-    console.log('handleClickPrev', curpage);
-    if (curpage === 1) {
-      setPageSwitch(false);
-    } else {
-      setPageSwitch(true);
-    }
   };
 
   const [tagExist, setTagExist] = useState(false);
@@ -154,18 +153,24 @@ const RecipeDetail = () => {
     setDataMenu(props);
   };
 
-  const stepsImage = steps.filter((stepKey) =>
-    stepKey.startsWith('MANUAL_IMG')
-  );
+  // const stepsImage = steps.filter((stepKey) =>
+  //   stepKey.startsWith('MANUAL_IMG')
+  // );
 
-  const totalPages = Math.ceil(stepsText.length / itemsPerPage);
+  const totalPages = Math.ceil(stepsText.length / itemsPerPage) - 1;
 
-  const startIndex = (currentPage - 1) * itemsPerPage; // 현재 페이지의 시작 인덱스
-  const endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
-  const currentItems = stepsText.slice(startIndex, endIndex); // 현재 페이지에 보여줄 요리방법들
-  const currentItems2 = stepsText.slice(startIndex + 2, endIndex + 2); // 현재 페이지에 보여줄 요리방법들
-  console.log('curPage', currentPage);
-  console.log('currentItems', currentItems);
+  let startIndex = currentPage - 1; // 현재 페이지의 시작 인덱스
+  startIndex = currentPage < 2 ? startIndex : (currentPage - 2) * 4 + 2;
+  let endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
+
+  console.log('startIndex', startIndex);
+  const currentItems = stepsText.slice(startIndex, startIndex + 2); // 현재 페이지에 보여줄 요리방법들
+  const currentItems2 = stepsText.slice(startIndex + 2, startIndex + 4); // 현재 페이지에 보여줄 요리방법들
+  console.log(data[0]);
+
+  console.log(currentPage);
+  console.log(totalPages);
+  console.log(currentPage < totalPages);
 
   const Page1 = () => (
     <div
@@ -215,39 +220,6 @@ const RecipeDetail = () => {
         <h3 className='recipe-page__section-title'>칼로리</h3>
         <li className='li'>{data[0].INFO_ENG}(Kcal)</li>
       </div>
-      {/* <div className='recipe-page__section'>
-        <h3 className='recipe-page__section-title'>요리방법</h3>
-        <ol className='recipe-page__instructions'>
-          {currentItems.map((stepKey, index) => {
-            const stepId = `step_${index + 1}`;
-            // console.log(stepId);
-            // const stepNumber = index + 1;
-            const stepNumber = parseInt(
-              stepKey.slice(stepKey.startsWith('MANUAL_IMG') ? 10 : 6),
-              10
-            );
-            const imageKey = `MANUAL_IMG${stepNumber
-              .toString()
-              .padStart(2, '0')}`;
-            const imageUrl = data[0][imageKey];
-
-            return (
-              <div key={stepKey}>
-                {data[0][stepKey] !== imageUrl && <h3>{data[0][stepKey]}</h3>}
-                <div>
-                  {imageUrl && (
-                    <img
-                      className='recipe-page__image_way'
-                      src={imageUrl}
-                      alt={`Step ${stepNumber}`}
-                    />
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </ol>
-      </div> */}
       {currentPage < totalPages && (
         <div className='pagination-buttons next'>
           <a onClick={handleClickNext}>다음 페이지</a>
@@ -350,8 +322,6 @@ const RecipeDetail = () => {
       )}
     </div>
   );
-
-  const Page5 = () => {};
 
   return (
     <>
