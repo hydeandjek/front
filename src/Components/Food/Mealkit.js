@@ -14,13 +14,13 @@ import arrowL from '../../assets/img/Left.png';
 const Mealkit = () => {
   // 화살표 클릭 시 상태변수 관리
   let [pageNum, setPageNum] = useState(1);
-  
+
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
@@ -30,7 +30,9 @@ const Mealkit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/mealKit/${pageNum}`);
+        const response = await axios.get(
+          `http://localhost:8181/mealKit/${pageNum}`
+        );
         const data = response.data;
 
         setMealkits(data);
@@ -80,43 +82,43 @@ const Mealkit = () => {
         <div className='warp-content'>
           <div className='arrowBox'>
             {pageNum > 1 && (
-            <PageChange
-              id='left'
-              src={arrowL}
-              alt='이전 페이지'
-              onClick={sendPageNum}
-              style={{  opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
-             )}
+              <PageChange
+                id='left'
+                src={arrowL}
+                alt='이전 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            )}
           </div>
 
           <div className='contentBox'>
             {mealkits.map((content, index) => {
               return (
                 <SideBarContent3
-                key={index}
+                  key={index}
                   url={content.mealKitUrl}
                   src={content.mealKitImg}
                   name={content.mealKitName}
                   price={content.mealKitPrice + '원'}
-                  ></SideBarContent3>
-                  );
-                })}
+                ></SideBarContent3>
+              );
+            })}
           </div>
 
           <div className='arrowBox'>
             {pageNum < pageCount && (
-            <PageChange
-              id='right'
-              src={arrowR}
-              alt='다음 페이지'
-              onClick={sendPageNum}
-              style={{ opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+              <PageChange
+                id='right'
+                src={arrowR}
+                alt='다음 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
             )}
           </div>
         </div>

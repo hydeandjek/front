@@ -65,7 +65,7 @@ function Kakao({ Category }) {
             console.error(error);
           });
 
-        // infowindowIsOpen ? infowindow.close() : 
+        // infowindowIsOpen ? infowindow.close() :
         infowindow.open(map, marker);
       });
     }

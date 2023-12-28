@@ -29,3 +29,7 @@ export const life = [
   { name: ' 무인택배함 ', path: '/life/Parcel' },
   { name: ' 응급실 ', path: '/life/Emergency' },
 ];
+export const board = [
+  { name: ' 카테고리 게시판 ', path: '/' },
+  { name: ' 질문 게시판 ', path: '/board/question' },
+];

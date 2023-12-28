@@ -46,7 +46,7 @@ const Header = ({ styleHeader, styleBackground }) => {
     // AuthContext의 onLogout 함수를 호출하여 로그인 상태를 업데이트 합니다.
     onLogout();
     onDisconnectServer();
-    redirection('/user/login');
+    redirection('user/login');
   };
   // Recpie를 누르면 api 요청해서 뿌리는것
   const page = 1;
@@ -71,13 +71,13 @@ const Header = ({ styleHeader, styleBackground }) => {
   };
   const onClickProduct = () => {
     redirection('/express/product');
-  }
+  };
   const onClickAppliance = () => {
     redirection('/express/appliance');
-  }
+  };
   const onClickFurniture = () => {
     redirection('/express/furniture');
-  }
+  };
 
   // life
   const onClickConvenienceStore = () => {
@@ -116,6 +116,10 @@ const Header = ({ styleHeader, styleBackground }) => {
 
   const onClickSeoulPolicy = () => {
     redirection('/policy/seoul');
+  };
+
+  const qnaBoardHandler = () => {
+    redirection('/board/question');
   };
 
   return (
@@ -172,8 +176,12 @@ const Header = ({ styleHeader, styleBackground }) => {
                 <DropdownItem onClick={onClickSharedWarehouse}>
                   공유창고
                 </DropdownItem>
-                <DropdownItem onClick={onClickProduct}>자취 생필품</DropdownItem>
-                <DropdownItem onClick={onClickAppliance}>가전 제품</DropdownItem>
+                <DropdownItem onClick={onClickProduct}>
+                  자취 생필품
+                </DropdownItem>
+                <DropdownItem onClick={onClickAppliance}>
+                  가전 제품
+                </DropdownItem>
                 <DropdownItem onClick={onClickFurniture}>가구</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
@@ -220,7 +228,9 @@ const Header = ({ styleHeader, styleBackground }) => {
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem onClick={qnaBoardHandler}>
+                  질문게시판
+                </DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>

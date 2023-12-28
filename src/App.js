@@ -30,6 +30,8 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
+import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
+import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
 
 function App() {
   const images = [
@@ -148,6 +150,14 @@ function App() {
               <Route
                 path='/food/recipes/detail'
                 element={<RecipeDetail />}
+              />
+              <Route
+                path='/board/question'
+                element={<BoardQuestion />}
+              />
+              <Route
+                path='/board/question/detaile'
+                element={<BoardDetaile />}
               />
             </Routes>
           </div>

@@ -268,12 +268,30 @@ const Join = () => {
   const joinHandler = async (e) => {
     e.preventDefault();
 
+    // if (isValid()) {
+    //   // 회원 가입 서버 요청
+    //   fetchSignUpPost();
+    // } else {
+    //   alert('입력하지 않은 항목을 입력하세요');
     if (isValid()) {
       // 회원 가입 서버 요청
       fetchSignUpPost();
     } else {
       alert('입력하지 않은 항목을 입력하세요');
 
+      //   for (const key in correct) {
+      //     const flag = correct[key];
+      //     if (flag === undefined) {
+      //       setCorrect((prev) => {
+      //         const c = {
+      //           ...prev,
+      //         };
+      //         c[key] = false;
+      //         return c;
+      //       });
+      //     }
+      //   }
+      // }
       for (const key in correct) {
         const flag = correct[key];
         if (flag === undefined) {
