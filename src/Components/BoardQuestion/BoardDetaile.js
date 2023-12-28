@@ -26,9 +26,6 @@ const BoardDetaile = () => {
 
   const yourData = location.state?.board;
 
-  // console.log(yourData);
-  //   console.log(REQUEST_URL + '/' + yourData);
-
   const fetchData = async () => {
     try {
       const res = await fetch(REQUEST_URL + '/' + yourData, {
@@ -53,7 +50,6 @@ const BoardDetaile = () => {
 
   const fetchCommentData = async () => {
     try {
-      // console.log(REQUEST_URL + '/' + yourData + '/reply');
       const responseComment = await fetch(
         REQUEST_URL + '/' + yourData + '/reply',
         {
@@ -79,6 +75,7 @@ const BoardDetaile = () => {
 
         setComment(CommentData);
       } else {
+        setComment([]);
         console.log('No data received from the server.');
       }
     } catch (error) {
@@ -94,7 +91,6 @@ const BoardDetaile = () => {
   }, [refresh]);
 
   const boardDelHandler = async (boardId) => {
-    console.log('wefwf', REQUEST_URL + '/' + boardId);
     const boardDel = await fetch(REQUEST_URL + '/' + boardId, {
       method: 'DELETE',
       headers: requestHeader,
@@ -121,7 +117,6 @@ const BoardDetaile = () => {
       document.getElementsByClassName('text-wrappera302')[0];
     const titleAdd = titleAddElement ? titleAddElement.value : '';
     const contentAdd = contentAddElement ? contentAddElement.value : '';
-    console.log(REQUEST_URL + '/' + boardId);
     if (!titleAdd || !contentAdd) {
       alert('제목과 내용을 모두 입력해주세요.');
       return; // 요청을 보내지 않고 함수를 종료

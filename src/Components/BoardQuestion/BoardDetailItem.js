@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
 import './BoardDetail.scss';
 
@@ -36,7 +36,7 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
       setRefreshA(!refreshA);
 
       const result = await responseMody.json();
-      console.log(result);
+      // console.log(result);
       // setChangeComment(result);
       fetchCommentData();
       setCommentMody(!commentmody);
@@ -48,8 +48,6 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
   // console.log(item);
 
   const commentDelHandler = async (commentId, boardId) => {
-    console.log(REQUEST_URL + '/' + boardId + '/reply/' + commentId);
-    console.log(requestHeader);
     const commentDel = await fetch(
       REQUEST_URL + '/' + boardId + '/reply/' + commentId,
       {

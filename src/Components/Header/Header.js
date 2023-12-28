@@ -118,6 +118,10 @@ const Header = ({ styleHeader, styleBackground }) => {
     redirection('/policy/seoul');
   };
 
+  const qnaBoardHandler = () => {
+    redirection('/board/question');
+  };
+
   return (
     <div
       className='header_main'
@@ -224,7 +228,9 @@ const Header = ({ styleHeader, styleBackground }) => {
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem>메뉴1</DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
+                <DropdownItem onClick={qnaBoardHandler}>
+                  질문게시판
+                </DropdownItem>
                 <DropdownItem>메뉴3</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
