@@ -39,6 +39,8 @@ const BoardQuestion = () => {
 
       const result = await res.json();
 
+      const i = 1;
+
       if (result.length > 0) {
         const processedData = result.map((item) => ({
           rowNumber: item.rowNumber,
