@@ -36,6 +36,8 @@ import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
 import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
+import CategoryBoard from './Components/BoardCategory/CategoryBoard';
+import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -172,6 +174,14 @@ function App() {
               <Route
                 path='/board/question/detaile'
                 element={<BoardDetaile />}
+              />
+              <Route
+                path='/board/onelife'
+                element={<CategoryBoard />}
+              />
+              <Route
+                path='/board/onelife/detail'
+                element={<CateBoardDetail />}
               />
             </Routes>
           </div>

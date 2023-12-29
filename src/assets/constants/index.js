@@ -30,7 +30,7 @@ export const life = [
   { name: ' 응급실 ', path: '/life/Emergency' },
 ];
 export const board = [
-  { name: ' 카테고리 게시판 ', path: '/' },
+  { name: ' 카테고리 게시판 ', path: '/board/onelife' },
   { name: ' 질문 게시판 ', path: '/board/question' },
 ];
 
@@ -38,4 +38,12 @@ export const policy = [
   { name: '서울시 정책', path: '/policy/seoul' },
   { name: '지원기관', path: '/policy/place' },
   { name: 'CCTV', path: '/policy/cctv' },
+];
+export const boardonelife = [
+  { name: '전체' },
+  { name: '레시피' },
+  { name: '주거' },
+  { name: '라이프' },
+  { name: '정책' },
+  { name: '중고거래' },
 ];
