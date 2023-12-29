@@ -37,4 +37,5 @@ export const board = [
 export const policy = [
   { name: '서울시 정책', path: '/policy/seoul' },
   { name: '지원기관', path: '/policy/place' },
+  { name: 'CCTV', path: '/policy/cctv' },
 ];

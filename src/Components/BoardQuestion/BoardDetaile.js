@@ -136,6 +136,7 @@ const BoardDetaile = () => {
 
   return (
     <>
+    <board id='board' >
       <div className='side2'>
         <div className='sidebar2'>
           {board.map((menu, index) => {
@@ -240,6 +241,7 @@ const BoardDetaile = () => {
           />
         ))}
       </div>
+    </board>
     </>
   );
 };
