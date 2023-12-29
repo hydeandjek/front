@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 
-const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
+const CategoryBoardDetailItem = ({
+  item,
+  fetchCategoryCommentData,
+  category,
+}) => {
   const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
   const userName = localStorage.getItem('LOGIN_USERNAME');
   const [commentmody, setCommentMody] = useState(false);
@@ -12,6 +16,8 @@ const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
   };
 
+  console.log(item);
+
   //  댓글 바꾸기
   const commentdetailhandle = async (commentId, boardId) => {
     // 선택된 아이템에 대한 로직을 수행
@@ -19,6 +25,10 @@ const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
       document.getElementsByClassName('changeComment')[0];
     const CommentAdd = CommentAddElement ? CommentAddElement.value : '';
 
+    if (!CommentAdd) {
+      alert('수정 내용을 입력하세요');
+      return;
+    }
     try {
       const responseMody = await fetch(
         QUESTION_URL + '/' + category + '/' + boardId + '/reply/' + commentId,
@@ -56,11 +66,13 @@ const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
   return (
     <div
       key={item.boardId}
-      className='content-text-wrapper1v'
+      className='content-textwrapper1v'
     >
       {/* <div className='text-wrapper a1'>{item.boardId}</div> */}
       <div className='vvoo'>
-        <div className='text-wrappera34'>{item.userName}</div>
+        <div className='text-wrappera34'>
+          {item.userName.substring(0, 2)}***
+        </div>
         <div className='text-wrappera35'>({item.regDate})</div>
       </div>
 

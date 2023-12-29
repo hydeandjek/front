@@ -5,6 +5,8 @@ import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 // import SideBarItem from './OneLifeSideBarItem.js';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2.js';
 import OneLifeSideBarItem from './OneLifeSideBarItem.js';
+import './CategoryBoard.scss';
+import CateBoardDetail from './CateBoardDetail.js';
 
 const CategoryBoard = () => {
   const redirection = useNavigate();
@@ -90,7 +92,7 @@ const CategoryBoard = () => {
 
   useEffect(() => {
     fetchDataHandler('entire');
-  }, []);
+  }, [refresh]);
 
   // 상세보기 요청
   const oneBoarddetailhandler = (boardId, category) => {
@@ -120,39 +122,13 @@ const CategoryBoard = () => {
                   to={menu.path}
                   key={index}
                 >
-                  {!controller ? (
-                    <OneLifeSideBarItem
-                      menu={menu}
-                      fetchDataHandler={fetchDataHandler}
-                    />
-                  ) : (
-                    <SideBarItem2
-                      menu={menu}
-                      handler={controllOneHandler}
-                    />
-                  )}
+                  <OneLifeSideBarItem
+                    menu={menu}
+                    fetchDataHandler={fetchDataHandler}
+                  />
                 </NavLink>
               );
             })}
-
-            {/* <div className='side'>
-              <div className='sidebar'>
-                {menus.map((menu, index) => {
-                  return (
-                    <NavLink
-                      style={{ textDecoration: 'none' }}
-                      to={menu.path}
-                      key={index}
-                    >
-                      <oneLifeSideBarItem
-                        category={menu}
-                        onMenuClick={onMenuClick}
-                      />
-                    </NavLink>
-                  );
-                })}
-              </div>
-            </div> */}
           </div>
         </div>
         <div className='ppps'>
@@ -164,8 +140,8 @@ const CategoryBoard = () => {
                 <div className='content-text-wrapper'>
                   <div className='text-wrapper a1'>No</div>
                   {/* <div className='text-wrapper a2'>게시판</div> */}
-                  <div className='text-wrapper a3'>카테고리</div>
-                  <div className='text-wrapper a3a'>제목</div>
+                  <div className='text-wrapper a2'>카테고리</div>
+                  <div className='text-wrapper a3'>제목</div>
                   <div className='text-wrapper a4'>글쓴이</div>
                   <div className='text-wrapper a5'>작성일자</div>
                 </div>
@@ -212,11 +188,13 @@ const CategoryBoard = () => {
                         oneBoarddetailhandler(item.id, item.category)
                       }
                     >
-                      <div className='text-wrapper a1'>{item.rowNum}</div>
-                      <div className='text-wrapper a3'>{item.category}</div>
-                      <div className='text-wrapper a3'>{item.title}</div>
-                      <div className='text-wrapper a4'>{item.userName}</div>
-                      <div className='text-wrappera5'>{item.regDate}</div>
+                      <div className='text-wrappera1f'>{item.rowNum}</div>
+                      <div className='text-wrappera2f'>{item.category}</div>
+                      <div className='text-wrappera3f'>{item.title}</div>
+                      <div className='text-wrappera4f'>
+                        {item.userName.substring(0, 2)}**
+                      </div>
+                      <div className='text-wrappera5f'>{item.regDate}</div>
                     </div>
                   ))}
                 </div>
@@ -255,6 +233,7 @@ const CategoryBoard = () => {
           </div>
         </div>
       </div>
+      {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
     </>
   );
 };

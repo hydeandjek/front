@@ -162,108 +162,110 @@ const BoardQuestion = () => {
 
   return (
     <>
-    <board id='board'>
-      <div className='App_wrap-content__1j7ZVa'>
-        <div className='side22'>
-          <div className='sidebar2'>
-            {board.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                >
-                  <SideBarItem2 menu={menu} />
-                </NavLink>
-              );
-            })}
+      <board id='board'>
+        <div className='App_wrap-content__1j7ZVa'>
+          <div className='side2'>
+            <div className='sidebar2'>
+              {board.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <SideBarItem2 menu={menu} />
+                  </NavLink>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <div className='ppps'>
-          <div id='community'>
-            <h5>질문게시판</h5>
+          <div className='ppps'>
+            <div id='community'>
+              <h5>질문게시판</h5>
 
-            <div className='overlap-wrapper'>
-              <div className='overlap'>
-                <div className='content-text-wrapper'>
-                  <div className='text-wrapper a1'>No</div>
-                  {/* <div className='text-wrapper a2'>게시판</div> */}
-                  <div className='text-wrapper a3'>제목</div>
-                  <div className='text-wrapper a4'>글쓴이</div>
-                  <div className='text-wrapper a5'>작성일자</div>
-                </div>
-                <div className='createBoard'>
-                  <div className='createBoardA'>
-                    <input
-                      type='text'
-                      placeholder='제목을 입력하세요'
-                      className='title'
-                    />
-                    <input
-                      type='text'
-                      placeholder='내용을 입력하세요'
-                      className='content'
-                    />
+              <div className='overlap-wrapper'>
+                <div className='overlap'>
+                  <div className='content-text-wrapper'>
+                    <div className='text-wrapper a1'>No</div>
+                    {/* <div className='text-wrapper a2'>게시판</div> */}
+                    <div className='text-wrapper a3'>제목</div>
+                    <div className='text-wrapper a4'>글쓴이</div>
+                    <div className='text-wrapper a5'>작성일자</div>
                   </div>
-                  <div className='createBoardB'>
-                    <button
-                      onClick={QnaAddBoardHandler}
-                      className='btnBoard'
-                    >
-                      등록
-                    </button>
-                  </div>
-                </div>
-
-                <div className='overlap-group1'>
-                  {data.slice(startIndex, endIndex).map((item) => (
-                    <div
-                      key={item.boardId}
-                      className='content-text-wrapper1'
-                      onClick={() => boarddetailhandleClick(item.boardId)}
-                    >
-                      <div className='text-wrapper a1'>{item.rowNumber}</div>
-                      <div className='text-wrapper a3'>{item.title}</div>
-                      <div className='text-wrapper a4'>{item.userName}</div>
-                      <div className='text-wrappera5'>{item.regDate}</div>
+                  <div className='createBoard'>
+                    <div className='createBoardA'>
+                      <input
+                        type='text'
+                        placeholder='제목을 입력하세요'
+                        className='title'
+                      />
+                      <input
+                        type='text'
+                        placeholder='내용을 입력하세요'
+                        className='content'
+                      />
                     </div>
-                  ))}
+                    <div className='createBoardB'>
+                      <button
+                        onClick={QnaAddBoardHandler}
+                        className='btnBoard'
+                      >
+                        등록
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className='overlap-group1'>
+                    {data.slice(startIndex, endIndex).map((item) => (
+                      <div
+                        key={item.boardId}
+                        className='content-text-wrapper1'
+                        onClick={() => boarddetailhandleClick(item.boardId)}
+                      >
+                        <div className='text-wrapper a1'>{item.rowNumber}</div>
+                        <div className='text-wrapper a3'>{item.title}</div>
+                        <div className='text-wrapper a4'>
+                          {item.userName.substring(0, 2)}***
+                        </div>
+                        <div className='text-wrappera5'>{item.regDate}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='PageBtn'>
-            <button
-              className='before'
-              onClick={beforePageHandler}
-            >
-              <img
-                src={icon1}
-                alt='버튼 이미지'
-                className='buttonImage'
-              ></img>
-            </button>
-            <div className='aabtn'>
-              <div className='bbbtn'>{renderPageButtons()}</div>
-            </div>
-            {countNum ? (
-              <button>끝</button>
-            ) : (
+            <div className='PageBtn'>
               <button
-                className='after'
-                onClick={afterPageHandler}
+                className='before'
+                onClick={beforePageHandler}
               >
                 <img
-                  src={icon2}
+                  src={icon1}
                   alt='버튼 이미지'
                   className='buttonImage'
                 ></img>
               </button>
-            )}
+              <div className='aabtn'>
+                <div className='bbbtn'>{renderPageButtons()}</div>
+              </div>
+              {countNum ? (
+                <button>끝</button>
+              ) : (
+                <button
+                  className='after'
+                  onClick={afterPageHandler}
+                >
+                  <img
+                    src={icon2}
+                    alt='버튼 이미지'
+                    className='buttonImage'
+                  ></img>
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </board>
+      </board>
     </>
   );
 };

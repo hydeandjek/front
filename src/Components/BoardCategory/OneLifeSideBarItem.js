@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import '../SideBar/SideBarItem.scss';
 
-function OneLifeSideBarItem({ menu, fetchDataHandler }) {
+function OneLifeSideBarItem({
+  menu,
+  fetchDataHandler,
+  fetchCategoryCommentData,
+}) {
   const rec = [
     { id: 'entire', name: '전체', src: '' },
     { id: 'recipe', name: '레시피', src: '' },
@@ -16,27 +21,24 @@ function OneLifeSideBarItem({ menu, fetchDataHandler }) {
   // console.log(menu);
 
   const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
-  const [showRecipe, setShowRecipe] = useState(false);
+  const [showother, setShowOther] = useState(false);
 
   // const pageNum = 1;
   let content;
-
-  if (menu === '카테고리 게시판') {
-  } else {
-  }
 
   const onClickRec = async (e) => {
     const clickedContent = e.target.textContent.trim();
     console.log(clickedContent);
 
     if (clickedContent === '카테고리 게시판') {
-      if (!showRecipe) {
-        setShowRecipe(!showRecipe);
+      console.log('111카테고리 게시판');
+      if (!showother) {
+        setShowOther(!showother);
       } else {
-        setShowRecipe(false); // 다른 메뉴 클릭 시 레시피 메뉴 숨기기
+        setShowOther(false); // 다른 메뉴 클릭 시 레시피 메뉴 숨기기
       }
     } else {
-      setShowRecipe(false); // 다른 메뉴 클릭 시 레시피 메뉴 숨기기
+      setShowOther(false); // 다른 메뉴 클릭 시 레시피 메뉴 숨기기
     }
   };
 
@@ -46,34 +48,28 @@ function OneLifeSideBarItem({ menu, fetchDataHandler }) {
     console.log(e);
 
     fetchDataHandler(e);
+    fetchCategoryCommentData(e);
   };
 
   return (
     <div className='sidebar-item'>
       <ul onClick={onClickRec}>{menu.name}</ul>
-      <div className='recipe-menu'>
-        {showRecipe}
-        {rec.map((item, index) => (
-          <div
-            className='category'
-            onClick={(e) => onClickMenu(item.id)}
-            style={{ textDecoration: 'none' }}
-            to={item.path}
-            key={index}
-          >
-            {item.name}
-          </div>
-        ))}
-      </div>
+      {showother && menu.name.trim() === '카테고리 게시판' && (
+        <div className='recipe-menu'>
+          {rec.map((item, index) => (
+            <div
+              className='category'
+              onClick={(e) => onClickMenu(item.id)}
+              style={{ textDecoration: 'none' }}
+              to={item.path}
+              key={index}
+            >
+              {item.name}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-
-    // <div>
-    //   {/* 다른 JSX */}
-    //   <p>이 부분은 다른 JSX의 일부입니다.</p>
-    //   {content}
-    //   <p>이 부분도 다른 JSX의 일부입니다.</p>
-    //   {/* 다른 JSX */}
-    // </div>
   );
 }
 
