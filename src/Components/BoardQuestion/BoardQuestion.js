@@ -163,6 +163,7 @@ const BoardQuestion = () => {
 
   return (
     <>
+    <board id='board'>
       <div className='App_wrap-content__1j7ZVa'>
         <div className='side2'>
           <div className='sidebar2'>
@@ -261,6 +262,7 @@ const BoardQuestion = () => {
           </div>
         </div>
       </div>
+    </board>
     </>
   );
 };

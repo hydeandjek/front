@@ -1,29 +1,29 @@
-.content-wrap {
+#cctv .content-wrap {
     display: flex;
     flex-direction: row;
 }
 
-.map_wrap,
-.map_wrap * {
+#cctv .map_wrap,
+#cctv .map_wrap * {
     margin: 0;
     padding: 0;
     font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
     font-size: 12px;
 }
 
-.map_wrap a,
-.map_wrap a:hover,
-.map_wrap a:active {
+#cctv .map_wrap a,
+#cctv .map_wrap a:hover,
+#cctv .map_wrap a:active {
     color: #000;
     text-decoration: none;
 }
 
-#map {
+#cctv #map {
     margin: 0 10px;
 
 }
 
-.map_wrap {
+#cctv .map_wrap {
     display: flex;
     flex-direction: row;
     width: 1200px;
@@ -31,9 +31,9 @@
     margin: 0 50px;
 }
 
-#menu_wrap {
-    width: 300px;
-    height: 800px;
+#cctv #menu_wrap {
+    width: 250px;
+    height: 720px;
 
     margin: 10px 0 30px 10px;
     padding: 5px;
@@ -42,13 +42,19 @@
     z-index: 1;
     font-size: 12px;
     border-radius: 10px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 54%;
+    left: 85%;
+    transform: translate(-50%, -50%);
 }
 
-.bg_white {
+#cctv .bg_white {
     background: #fff;
 }
 
-#menu_wrap hr {
+#cctv #menu_wrap hr {
     display: block;
     height: 1px;
     border: 0;
@@ -56,23 +62,23 @@
     margin: 3px 0;
 }
 
-#menu_wrap .option {
+#cctv #menu_wrap .option {
     text-align: center;
 }
 
-#menu_wrap .option p {
+#cctv #menu_wrap .option p {
     margin: 10px 0;
 }
 
-#menu_wrap .option button {
+#cctv #menu_wrap .option button {
     margin-left: 5px;
 }
 
-#placesList li {
+#cctv #placesList li {
     list-style: none;
 }
 
-#placesList .item {
+#cctv #placesList .item {
     position: relative;
     border-bottom: 1px solid #888;
     overflow: hidden;
@@ -80,36 +86,36 @@
     min-height: 65px;
 }
 
-#placesList .item span {
+#cctv #placesList .item span {
     display: block;
     margin-top: 4px;
 }
 
-#placesList .item h5,
-#placesList .item .info {
+#cctv #placesList .item h5,
+#cctv #placesList .item .info {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
-#placesList .item .info {
+#cctv #placesList .item .info {
     padding: 10px 0 10px 55px;
 }
 
-#placesList .info .gray {
+#cctv #placesList .info .gray {
     color: #8a8a8a;
 }
 
-#placesList .info .jibun {
+#cctv #placesList .info .jibun {
     padding-left: 26px;
     background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
 }
 
-#placesList .info .tel {
+#cctv #placesList .info .tel {
     color: #009900;
 }
 
-#placesList .item .markerbg {
+#cctv #placesList .item .markerbg {
     float: left;
     position: absolute;
     width: 36px;
@@ -118,78 +124,162 @@
     background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
 }
 
-#placesList .item .marker_1 {
+#cctv #placesList .item .marker_1 {
     background-position: 0 -10px;
 }
 
-#placesList .item .marker_2 {
+#cctv #placesList .item .marker_2 {
     background-position: 0 -56px;
 }
 
-#placesList .item .marker_3 {
+#cctv #placesList .item .marker_3 {
     background-position: 0 -102px
 }
 
-#placesList .item .marker_4 {
+#cctv #placesList .item .marker_4 {
     background-position: 0 -148px;
 }
 
-#placesList .item .marker_5 {
+#cctv #placesList .item .marker_5 {
     background-position: 0 -194px;
 }
 
-#placesList .item .marker_6 {
+#cctv #placesList .item .marker_6 {
     background-position: 0 -240px;
 }
 
-#placesList .item .marker_7 {
+#cctv #placesList .item .marker_7 {
     background-position: 0 -286px;
 }
 
-#placesList .item .marker_8 {
+#cctv #placesList .item .marker_8 {
     background-position: 0 -332px;
 }
 
-#placesList .item .marker_9 {
+#cctv #placesList .item .marker_9 {
     background-position: 0 -378px;
 }
 
-#placesList .item .marker_10 {
+#cctv #placesList .item .marker_10 {
     background-position: 0 -423px;
 }
 
-#placesList .item .marker_11 {
+#cctv #placesList .item .marker_11 {
     background-position: 0 -470px;
 }
 
-#placesList .item .marker_12 {
+#cctv #placesList .item .marker_12 {
     background-position: 0 -516px;
 }
 
-#placesList .item .marker_13 {
+#cctv #placesList .item .marker_13 {
     background-position: 0 -562px;
 }
 
-#placesList .item .marker_14 {
+#cctv #placesList .item .marker_14 {
     background-position: 0 -608px;
 }
 
-#placesList .item .marker_15 {
+#cctv #placesList .item .marker_15 {
     background-position: 0 -654px;
 }
 
-#pagination {
+#cctv #pagination {
     margin: 10px auto;
     text-align: center;
 }
 
-#pagination a {
+#cctv #pagination a {
     display: inline-block;
     margin-right: 10px;
 }
 
-#pagination .on {
+#cctv #pagination .on {
     font-weight: bold;
     cursor: default;
-    color: #777;
+    color: blue;
 }
+
+#cctv #selectModal .address-select-modal {
+    width: 228px;
+    height: 30px;
+    top: 50%;
+    left: 44%;
+    position: relative;
+    transform: translate(-50%, -50%);
+}
+
+#cctv #selectModal .address-search-icon {
+    height: 30px;
+    left: 1340px;
+    position: absolute;
+    top: 31px;
+    width: 30px;
+    z-index: 1;
+}
+
+#cctv #selectModal .gu-select {
+    height: 30px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 112px;
+}
+
+#cctv #selectModal .dong-select {
+    height: 30px;
+    left: 116px;
+    position: absolute;
+    top: 0;
+    width: 112px;
+}
+
+#cctv #selectModal .overlap-group {
+    background-color: #d9d9d9;
+    height: 30px;
+    position: relative;
+    width: 110px;
+}
+
+#cctv #selectModal .select-icon {
+    height: 24px;
+    left: 86px;
+    position: absolute;
+    top: 3px;
+    width: 24px;
+}
+
+#cctv #selectModal .text-wrapper {
+    color: #5e5e5e;
+    font-family: 'Nanum Gothic Coding', Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    height: 30px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 110px;
+    border-radius: 10px;
+}
+  
+#cctv #selectModal {
+    width: 280px;
+    height: 30px;
+    position: absolute;
+    top: 10%;
+    left: 63%;
+    transform: translateX(-50%, -50%);
+}
+
+#cctv #selectModal .address-search-icon {
+    width: 30px;
+    height: 30px;
+    top: -100%;
+    left: calc(100% - 38px);
+    position: relative;
+    z-index: 1;
+}
+  

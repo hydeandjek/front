@@ -61,6 +61,7 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
   };
 
   return (
+    <board id='board'>
     <div
       key={item.boardId}
       className='content-text-wrapper1v'
@@ -118,6 +119,7 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
         )}
       </div>
     </div>
+    </board>
   );
 };
 
