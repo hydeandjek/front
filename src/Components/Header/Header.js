@@ -121,6 +121,9 @@ const Header = ({ styleHeader, styleBackground }) => {
   const qnaBoardHandler = () => {
     redirection('/board/question');
   };
+  const categoryBoardHandler = () => {
+    redirection('/board/onelife');
+  };
 
   return (
     <div
@@ -227,7 +230,9 @@ const Header = ({ styleHeader, styleBackground }) => {
                 커뮤니티
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
+                <DropdownItem onClick={categoryBoardHandler}>
+                  1인 가구 게시판
+                </DropdownItem>
                 <DropdownItem onClick={qnaBoardHandler}>
                   질문게시판
                 </DropdownItem>

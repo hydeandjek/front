@@ -32,6 +32,8 @@ import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import CategoryBoard from './Components/BoardCategory/CategoryBoard';
+import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 
 function App() {
   const images = [
@@ -158,6 +160,14 @@ function App() {
               <Route
                 path='/board/question/detaile'
                 element={<BoardDetaile />}
+              />
+              <Route
+                path='/board/onelife'
+                element={<CategoryBoard />}
+              />
+              <Route
+                path='/board/onelife/detail'
+                element={<CateBoardDetail />}
               />
             </Routes>
           </div>

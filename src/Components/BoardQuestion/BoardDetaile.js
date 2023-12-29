@@ -139,7 +139,7 @@ const BoardDetaile = () => {
   return (
     <>
       <div className='App_wrap-content__1j7ZVa'>
-        <div className='side2'>
+        <div className='side22'>
           <div className='sidebar2'>
             {board.map((menu, index) => {
               return (
