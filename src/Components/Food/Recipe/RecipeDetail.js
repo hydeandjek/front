@@ -100,7 +100,7 @@ const RecipeDetail = () => {
   //console.log(menu); // [["치커리 30g(10줄기), ~"],["올리브유 10g(2작은술), ~"]]
   //console.log(ingreByMenu);
 
-  const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
+  //const ingredientList = data[0].RCP_PARTS_DTLS.split(', ');
 
   let stepsText = steps.filter((stepKey) => !stepKey.startsWith('MANUAL_IMG'));
   stepsText = ['x', 'x', ...stepsText];
@@ -161,16 +161,10 @@ const RecipeDetail = () => {
 
   let startIndex = currentPage - 1; // 현재 페이지의 시작 인덱스
   startIndex = currentPage < 2 ? startIndex : (currentPage - 2) * 4 + 2;
-  let endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
+  //let endIndex = startIndex + itemsPerPage; // 현재 페이지의 끝 인덱스
 
-  console.log('startIndex', startIndex);
-  const currentItems = stepsText.slice(startIndex, startIndex + 2); // 현재 페이지에 보여줄 요리방법들
-  const currentItems2 = stepsText.slice(startIndex + 2, startIndex + 4); // 현재 페이지에 보여줄 요리방법들
-  console.log(data[0]);
-
-  console.log(currentPage);
-  console.log(totalPages);
-  console.log(currentPage < totalPages);
+  const currentItems = stepsText.slice(startIndex, startIndex + 2); // 왼쪽 페이지에 보여줄 요리방법들
+  const currentItems2 = stepsText.slice(startIndex + 2, startIndex + 4); // 오른쪽 페이지에 보여줄 요리방법들
 
   const Page1 = () => (
     <div

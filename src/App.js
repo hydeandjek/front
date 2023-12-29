@@ -35,6 +35,9 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
 import Policy2 from './Components/Policy/Policy2';
+import Cctv from './Components/Policy/Cctv';
+import CategoryBoard from './Components/BoardCategory/CategoryBoard';
+import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 import { ErrorBoundary } from 'react-error-boundary';
 import NotFound from './Components/Error/Error';
 
@@ -171,6 +174,10 @@ function App() {
                   element={<Policy2 />}
                 />
                 <Route
+                  path='/policy/cctv'
+                  element={<Cctv />}
+                />
+                <Route
                   path='/food/recipes/detail'
                   element={<RecipeDetail />}
                 />
@@ -186,6 +193,14 @@ function App() {
                   path='/*'
                   element={<NotFound />}
                 /> */}
+                <Route
+                  path='/board/onelife'
+                  element={<CategoryBoard />}
+                />
+                <Route
+                  path='/board/onelife/detail'
+                  element={<CateBoardDetail />}
+                />
               </Routes>
             </div>
           </div>

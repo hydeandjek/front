@@ -5,9 +5,6 @@ import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { first } from 'lodash';
 
-// import '../SideBar/SideBar2/SideBarItem2.scss';
-// import '../SideBar/SideBar2/SideBarContent2.scss';
-// import '../Food/Recipe/Restaurant.scss';
 import { board } from '../../assets/constants/index.js';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
@@ -38,6 +35,8 @@ const BoardQuestion = () => {
       }
 
       const result = await res.json();
+
+      const i = 1;
 
       if (result.length > 0) {
         const processedData = result.map((item) => ({
@@ -163,8 +162,9 @@ const BoardQuestion = () => {
 
   return (
     <>
+    <board id='board'>
       <div className='App_wrap-content__1j7ZVa'>
-        <div className='side2'>
+        <div className='side22'>
           <div className='sidebar2'>
             {board.map((menu, index) => {
               return (
@@ -240,6 +240,7 @@ const BoardQuestion = () => {
               <img
                 src={icon1}
                 alt='버튼 이미지'
+                className='buttonImage'
               ></img>
             </button>
             <div className='aabtn'>
@@ -255,12 +256,14 @@ const BoardQuestion = () => {
                 <img
                   src={icon2}
                   alt='버튼 이미지'
+                  className='buttonImage'
                 ></img>
               </button>
             )}
           </div>
         </div>
       </div>
+    </board>
     </>
   );
 };

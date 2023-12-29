@@ -120,9 +120,16 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
   const onClickSeoulPlace = () => {
     redirection('/policy/place');
   };
+  
+  const onClickSeoulCctv = () => {
+    redirection('/policy/cctv');
+  };
 
   const qnaBoardHandler = () => {
     redirection('/board/question');
+  };
+  const categoryBoardHandler = () => {
+    redirection('/board/onelife');
   };
 
   return (
@@ -223,6 +230,9 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 <DropdownItem onClick={onClickSeoulPlace}>
                   지원기관
                 </DropdownItem>
+                <DropdownItem onClick={onClickSeoulCctv}>
+                  CCTV
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
@@ -233,7 +243,9 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 커뮤니티
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
-                <DropdownItem>메뉴1</DropdownItem>
+                <DropdownItem onClick={categoryBoardHandler}>
+                  1인 가구 게시판
+                </DropdownItem>
                 <DropdownItem onClick={qnaBoardHandler}>
                   질문게시판
                 </DropdownItem>

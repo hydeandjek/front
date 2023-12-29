@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
-import './BoardDetail.scss';
+import React, { useState } from 'react';
+import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 
-const BoardDetailItem = ({ item, fetchCommentData }) => {
+const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
+  const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
   const userName = localStorage.getItem('LOGIN_USERNAME');
   const [commentmody, setCommentMody] = useState(false);
   const [refreshA, setRefreshA] = useState(false);
-  const [changeComment, setChangeComment] = useState([]);
-
-  const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
-
-  // console.log('aaaa');
-
   const requestHeader = {
     'content-type': 'application/json',
     // JWT에 대한 인증 토큰이라는 타입을 선언
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
   };
 
+  //  댓글 바꾸기
   const commentdetailhandle = async (commentId, boardId) => {
     // 선택된 아이템에 대한 로직을 수행
     const CommentAddElement =
@@ -26,7 +21,7 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
 
     try {
       const responseMody = await fetch(
-        REQUEST_URL + '/' + boardId + '/reply/' + commentId,
+        QUESTION_URL + '/' + category + '/' + boardId + '/reply/' + commentId,
         {
           method: 'PUT', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
           headers: requestHeader,
@@ -38,30 +33,27 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
       const result = await responseMody.json();
       // console.log(result);
       // setChangeComment(result);
-      fetchCommentData();
+      fetchCategoryCommentData();
       setCommentMody(!commentmody);
     } catch (error) {
       console.error('Fetch error:', error);
     }
   };
 
-  // console.log(item);
-
-  const commentDelHandler = async (commentId, boardId) => {
+  //  댓글 삭제
+  const CatecommentDelHandler = async (commentId, boardId) => {
     const commentDel = await fetch(
-      REQUEST_URL + '/' + boardId + '/reply/' + commentId,
+      QUESTION_URL + '/' + category + '/' + boardId + '/reply/' + commentId,
       {
         method: 'DELETE', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
         headers: requestHeader,
       }
     );
     setRefreshA(true);
-    // // fetchData()
-    fetchCommentData();
+    fetchCategoryCommentData();
   };
 
   return (
-    <board id='board'>
     <div
       key={item.boardId}
       className='content-text-wrapper1v'
@@ -86,7 +78,9 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
             <div
               className='button text-wrappera16'
               // className='button'
-              onClick={() => commentDelHandler(item.commentId, item.boardId)}
+              onClick={() =>
+                CatecommentDelHandler(item.commentId, item.boardId)
+              }
             >
               삭제
             </div>
@@ -119,8 +113,7 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
         )}
       </div>
     </div>
-    </board>
   );
 };
 
-export default BoardDetailItem;
+export default CategoryBoardDetailItem;

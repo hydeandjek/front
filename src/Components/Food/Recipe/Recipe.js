@@ -9,9 +9,6 @@ import SideBarContent from '../../SideBar/SideBarContent';
 import PageChange from './PageChange';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../config/host-config';
-import RecipeDetail from './RecipeDetail';
-import { AuthContextProvider } from '../../../utils/AuthContext';
-import { ChatContextProvider } from '../../../utils/ChatContext';
 import Loading from '../../LoadingBar/Loading';
 
 const Recipe = ({ recipeData, onArrowClick }) => {
