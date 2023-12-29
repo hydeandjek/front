@@ -56,10 +56,6 @@ function App() {
           <div className={classNames({ [styles['wrap-content']]: showHeader })}>
             <Routes>
               <Route
-                path='/Emergency'
-                element={<Emergency />}
-              />
-              <Route
                 path='/life/Parcel'
                 element={<Parcel />}
               />

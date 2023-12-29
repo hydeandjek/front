@@ -19,3 +19,6 @@ export const chatBackEndHostName = `http://${ip}:8181/ws/chat`;
 
 export const API_BASE_URL = backEndHostName;
 export const USER = '/api/user';
+export const LOGIN = '/signin';
+export const QUESTIONBOARD = '/api/qna-board';
+export const CATEGORYBOARD = '/api/onelife-board';
