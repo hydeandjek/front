@@ -20,12 +20,11 @@ const NaverLoginHandler = () => {
     // 컴포넌트가 렌더링 될 때 인가 코드를 백엔드로 전송하는 fetch 요청
     const NaverLogin = async () => {
       const res = await fetch(`${REQUEST_URL}/naverLogin?code=${code}`);
-      const { token, userName } = await res.json(); // 서버에서 온 json 읽기
-
-      console.log(token, userName);
+      const data = await res.json();
+      const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
 
       // Context Api
-      onLogin(token, userName, '');
+      onLogin(token, userName, address, role, userId);
 
       // 홈으로 리다이렉트
       redirection('/');
