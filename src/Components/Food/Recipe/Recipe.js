@@ -39,8 +39,31 @@ const Recipe = ({ recipeData, onArrowClick }) => {
     setHoveredRecipe(null);
   };
 
-  // 상세 컴포넌트로 보낼 데이터 상태 관리
-  // const [detailData, setDetailData] = useState([]);
+  // 좋아요
+  const [isWishAdd, setIsWishAdd] = useState(false);
+
+  const onLikeAddHandler = (e) => {
+    setIsWishAdd(!isWishAdd);
+    if (!isWishAdd) {
+      // setWishCount(wishCount +1)
+      fetch(API_BASE_URL + '/api/menu/recipe/like', {
+        method: 'POST',
+        body: JSON.stringify({
+          user_id: 8,
+          recipe_id: e.target.RCP_NM,
+        }),
+      });
+    } else if (isWishAdd) {
+      // setWishCount(wishCount -1)
+      fetch('http://localhost:8000/product/dip', {
+        method: 'POST',
+        body: JSON.stringigy({
+          user_id: 8,
+          recipe_id: e.target.RCP_NM,
+        }),
+      });
+    }
+  };
 
   if (!recipeData) return;
 
@@ -128,7 +151,14 @@ const Recipe = ({ recipeData, onArrowClick }) => {
     await onArrowClick(pageNum);
   };
 
-  const onRecipeDetail = async (name, cate, seq) => {
+  const onRecipeDetail = async (name, cate, seq, e) => {
+    if (
+      e.target.classList.contains('heart-icon') &&
+      e.target.tagName === 'DIV'
+    ) {
+      console.log('heart-icon 클래스명을 가진 div 태그가 클릭되었습니다.');
+      return;
+    }
     setLoading(true);
 
     console.log(
@@ -188,8 +218,8 @@ const Recipe = ({ recipeData, onArrowClick }) => {
               src={content.src}
               key={index}
               name={content.name}
-              onClick={() =>
-                onRecipeDetail(content.name, content.cate, content.seq)
+              onClick={(e) =>
+                onRecipeDetail(content.name, content.cate, content.seq, e)
               }
               style={{ opacity: hoveredRecipe === index ? 0.5 : 1 }}
               onMouseEnter={() => handleMouseEnter(index)}
