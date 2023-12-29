@@ -10,9 +10,13 @@ import KakaoLoginHandler from './Components/User/Login/KakaoLoginHandler';
 import './style.module.scss';
 import Parcel from './Components/Life/Parcel';
 import Recipes from './Components/Food/Recipe/Recipes';
+import Mealkit from './Components/Food/Mealkit';
 import Restaurant from './Components/Food/Restaurant';
 import ExpressCenter from './Components/Express/ExpressCenter';
 import SharedWarehouse from './Components/Express/SharedWarehouse';
+import Product from './Components/Express/Product';
+import Appliance from './Components/Express/Appliance';
+import Furniture from './Components/Express/Furniture';
 import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
@@ -24,8 +28,20 @@ import ChatModal from './Components/Chat/UserChatModal/ChatModal';
 import Emergency from './Components/Life/Emergency';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
+import Policy1 from './Components/Policy/Policy1';
+import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
+import Loading from './Components/LoadingBar/Loading';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
+import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import Policy2 from './Components/Policy/Policy2';
+import Cctv from './Components/Policy/Cctv';
+import CategoryBoard from './Components/BoardCategory/CategoryBoard';
+import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   const images = [
     '640bd914-f8d6-48da-88a5-3019f779a1fa.jpg',
     'b1089d49-a597-472b-bcc4-4b1e29074c22.jpg',
@@ -76,8 +92,12 @@ function App() {
                 element={<NaverLoginHandler />}
               />
               <Route
-                path='/food/recipes'
+                path='/food/recipes/'
                 element={<Recipes />}
+              />
+              <Route
+                path='/food/mealkit'
+                element={<Mealkit />}
               />
               <Route
                 path='/food/restaurant'
@@ -90,6 +110,18 @@ function App() {
               <Route
                 path='/express/sharedWarehouse'
                 element={<SharedWarehouse />}
+              />
+              <Route
+                path='/express/product'
+                element={<Product />}
+              />
+              <Route
+                path='/express/appliance'
+                element={<Appliance />}
+              />
+              <Route
+                path='/express/furniture'
+                element={<Furniture />}
               />
               <Route
                 path='/life/convenienceStore'
@@ -114,6 +146,38 @@ function App() {
               <Route
                 path='/AdminChat'
                 element={<AdminChatMain />}
+              />
+              <Route
+                path='/policy/seoul'
+                element={<Policy1 />}
+              />
+              <Route
+                path='/policy/place'
+                element={<Policy2 />}
+              />
+              <Route
+                path='/policy/cctv'
+                element={<Cctv />}
+              />
+              <Route
+                path='/food/recipes/detail'
+                element={<RecipeDetail />}
+              />
+              <Route
+                path='/board/question'
+                element={<BoardQuestion />}
+              />
+              <Route
+                path='/board/question/detaile'
+                element={<BoardDetaile />}
+              />
+              <Route
+                path='/board/onelife'
+                element={<CategoryBoard />}
+              />
+              <Route
+                path='/board/onelife/detail'
+                element={<CateBoardDetail />}
               />
             </Routes>
           </div>

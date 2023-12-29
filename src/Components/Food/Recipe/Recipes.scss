@@ -1,3 +1,14 @@
+.not-sidebar {
+  flex-direction: row;
+}
+.warp-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
 .warp-content {
   display: flex;
   width: 100%;

@@ -1,0 +1,36 @@
+/* Error.css */
+
+.error-page {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.error-page-content {
+  text-align: center;
+}
+
+.error-page-heading {
+  font-size: 32px;
+  color: #333;
+}
+
+.error-page-message {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.error-page-image {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.error-page-link {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+}

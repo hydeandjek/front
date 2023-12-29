@@ -12,6 +12,7 @@ const PageChange = (props) => {
       onClick={props.onClick}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
+      style={props.style}
     />
   );
 };
