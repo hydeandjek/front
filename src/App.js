@@ -30,12 +30,18 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
+import Loading from './Components/LoadingBar/Loading';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import Policy2 from './Components/Policy/Policy2';
+import Cctv from './Components/Policy/Cctv';
 import CategoryBoard from './Components/BoardCategory/CategoryBoard';
 import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   const images = [
     '640bd914-f8d6-48da-88a5-3019f779a1fa.jpg',
     'b1089d49-a597-472b-bcc4-4b1e29074c22.jpg',
@@ -148,6 +154,14 @@ function App() {
               <Route
                 path='/policy/seoul'
                 element={<Policy1 />}
+              />
+              <Route
+                path='/policy/place'
+                element={<Policy2 />}
+              />
+              <Route
+                path='/policy/cctv'
+                element={<Cctv />}
               />
               <Route
                 path='/food/recipes/detail'

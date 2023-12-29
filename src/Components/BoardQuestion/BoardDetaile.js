@@ -138,8 +138,8 @@ const BoardDetaile = () => {
 
   return (
     <>
-      <div className='App_wrap-content__1j7ZVa'>
-        <div className='side22'>
+      <board id='board'>
+        <div className='side2'>
           <div className='sidebar2'>
             {board.map((menu, index) => {
               return (
@@ -161,7 +161,9 @@ const BoardDetaile = () => {
               <div className='content-text-wrapperaaa'>
                 <div className='aaa'>
                   <div className='text-wrappera4'>{data.userName}</div>
-                  <div className='text-wrappera5'>{regDate}</div>
+                  <div className='text-wrappera5'>
+                    {new Date(data.regDate).toISOString().split('T')[0]}
+                  </div>
                 </div>
                 <div className='iii'>
                   <button
@@ -215,7 +217,7 @@ const BoardDetaile = () => {
             <div className='content-text-wrapperaa'>
               <div className='aa'>
                 <div className='text-wrappera4'>{data.userName}</div>
-                <div className='text-wrappera5'>{regDate}</div>
+                <div className='text-wrappera5'>{data.regDate}</div>
               </div>
               <div className='text-wrappera2'>{data.title}</div>
               <div className='text-wrappera3'>{data.content}</div>
@@ -241,7 +243,7 @@ const BoardDetaile = () => {
             />
           ))}
         </div>
-      </div>
+      </board>
     </>
   );
 };

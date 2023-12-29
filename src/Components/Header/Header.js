@@ -7,8 +7,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button,
-  Dropdown,
 } from 'reactstrap';
 import NavHoverDropDown from './NavHoverDropDown';
 import styles from './sass/Header.module.scss';
@@ -17,8 +15,9 @@ import { BsList } from 'react-icons/bs';
 import AuthContext, { getLoginUserInfo } from '../../utils/AuthContext';
 import { API_BASE_URL as BASE, USER } from '../../config/host-config';
 import ChatContext from '../../utils/ChatContext';
+import classNames from 'classnames';
 
-const Header = ({ styleHeader, styleBackground }) => {
+const Header = ({ styleHeader, styleBackground, styleWhite }) => {
   const [isOpen, setIsOpen] = useState(false);
   const redirection = useNavigate();
   const { userName, userRole, isLoggedIn, onLogout } = useContext(AuthContext);
@@ -118,6 +117,14 @@ const Header = ({ styleHeader, styleBackground }) => {
     redirection('/policy/seoul');
   };
 
+  const onClickSeoulPlace = () => {
+    redirection('/policy/place');
+  };
+  
+  const onClickSeoulCctv = () => {
+    redirection('/policy/cctv');
+  };
+
   const qnaBoardHandler = () => {
     redirection('/board/question');
   };
@@ -127,7 +134,9 @@ const Header = ({ styleHeader, styleBackground }) => {
 
   return (
     <div
-      className='header_main'
+      className={classNames('header_main', {
+        [styles['header-white']]: styleWhite,
+      })}
       style={styleHeader}
     >
       <Navbar
@@ -218,8 +227,12 @@ const Header = ({ styleHeader, styleBackground }) => {
                 <DropdownItem onClick={onClickSeoulPolicy}>
                   서울시 정책
                 </DropdownItem>
-                <DropdownItem>메뉴2</DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
+                <DropdownItem onClick={onClickSeoulPlace}>
+                  지원기관
+                </DropdownItem>
+                <DropdownItem onClick={onClickSeoulCctv}>
+                  CCTV
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>

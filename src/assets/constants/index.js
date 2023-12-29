@@ -33,6 +33,12 @@ export const board = [
   { name: ' 카테고리 게시판 ', path: '/board/onelife' },
   { name: ' 질문 게시판 ', path: '/board/question' },
 ];
+
+export const policy = [
+  { name: '서울시 정책', path: '/policy/seoul' },
+  { name: '지원기관', path: '/policy/place' },
+  { name: 'CCTV', path: '/policy/cctv' },
+];
 export const boardonelife = [
   { name: '전체' },
   { name: '레시피' },
