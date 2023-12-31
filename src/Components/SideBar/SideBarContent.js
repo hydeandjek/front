@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './SideBarContent.scss';
 import PageChange from '../Food/Recipe/PageChange';
 import RecipeDetail from '../Food/Recipe/RecipeDetail';
@@ -8,6 +8,7 @@ import heartImage_liked from '../../assets/img/like.png';
 import { API_BASE_URL } from '../../config/host-config';
 import { getLoginUserInfo } from '../../utils/login-utill';
 import AuthContext from '../../utils/AuthContext';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 const SideBarContent = ({
   name,
@@ -17,6 +18,10 @@ const SideBarContent = ({
   onMouseEnter,
   onMouseLeave,
 }) => {
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {}, []);
+
   const redirection = useNavigate();
   const { onLogout } = useContext(AuthContext);
   // 로그인 인증 토큰 얻어오기
@@ -63,13 +68,17 @@ const SideBarContent = ({
         if (!json) {
           return;
         } else if (json.done === true) {
+          setLiked(true);
           alert('찜했어요!');
-          document.querySelector('.heart-icon').style.backgroundImage =
-            'url("../../assets/img/like.png")';
+          document.querySelector('.heart-icon').style.backgroundImage = {
+            heartImage_liked,
+          };
         } else {
+          setLiked(false);
           alert('찜이 취소되었습니다.');
-          document.querySelector('.heart-icon').style.backgroundImage =
-            'url("../../assets/img/notLike.png")';
+          document.querySelector('.heart-icon').style.backgroundImage = {
+            heartImage,
+          };
         }
       });
     // .catch((err) => {
@@ -102,6 +111,13 @@ const SideBarContent = ({
         <p onClick={onclick}>{name}</p>
         <div
           className='heart-icon'
+          // style={{
+          //   backgroundImage: `url(${
+          //     liked
+          //       ? '../../assets/img/like.png'
+          //       : '../../assets/img/notLike.png'
+          //   })`,
+          // }}
           onClick={() => onLikeAddHandler(name, isWishAdd)}
         ></div>
       </div>
