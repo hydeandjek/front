@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import LikeItem from './LikeItem';
 import { NavLink } from 'react-router-dom';
-import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
-import '../SideBar/SideBar2/SideBarItem2.scss';
-import { mypage } from '../../assets/constants';
+import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2';
+import '../../SideBar/SideBar2/SideBarItem2.scss';
+import { mypage } from '../../../assets/constants';
 
 function LikeList() {
   const [items, setItems] = useState([

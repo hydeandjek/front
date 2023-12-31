@@ -48,9 +48,9 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('user/login');
   };
 
-  const onClickMyPage = () => {
-    redirection('/user/myPage');
-  };
+  // const onClickMyPage = () => {
+  //   redirection('/user/myPage');
+  // };
   // Recpie를 누르면 api 요청해서 뿌리는것
   const page = 1;
 
@@ -96,6 +96,10 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/life/Emergency');
   };
 
+  const onClickDonation = () => {
+    redirection('/board/donation');
+  };
+
   const onClickNavbarBrand = (e) => {
     e.preventDefault();
     redirection('/');
@@ -105,13 +109,13 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/life/Parcel');
   };
 
-  const onClickSolo = () => {
-    redirection('/Solo');
-  };
+  // const onClickSolo = () => {
+  //   redirection('/Solo');
+  // };
 
-  const onClickPacking = () => {
-    redirection('/Packing');
-  };
+  // const onClickPacking = () => {
+  //   redirection('/Packing');
+  // };
 
   const onClickAdminChat = () => {
     redirection('/AdminChat');
@@ -236,7 +240,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 nav
                 className={styles.menu_title}
               >
-                정책
+                policy
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickSeoulPolicy}>
@@ -253,7 +257,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 nav
                 className={styles.menu_title}
               >
-                커뮤니티
+                Community
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={categoryBoardHandler}>
@@ -262,7 +266,9 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 <DropdownItem onClick={qnaBoardHandler}>
                   질문게시판
                 </DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
+                <DropdownItem onClick={onClickDonation}>
+                  나눔 게시판
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
           </div>

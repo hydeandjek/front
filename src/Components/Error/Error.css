@@ -1,7 +1,8 @@
 /* Error.css */
 
 .error-page {
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
+  background-color: #f3ede8;
   display: flex;
   justify-content: center;
   align-items: center;
