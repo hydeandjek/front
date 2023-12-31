@@ -1,0 +1,31 @@
+#donationBoard {
+    display: flex;
+    width: 100%;
+}
+
+#donationBoard .warp-content {
+    display: flex;
+    width: 80%;
+    margin: 10px;
+    justify-content: left;
+    align-items: center;
+    overflow-x: auto;
+}
+
+#donationBoard .contentBox {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;
+    overflow-x: scroll;
+    width: 100%;
+    will-change: transform;
+}
+
+#donationBoard .contentBox::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidebar-item2 a {
+    text-decoration: none;
+  }
+  

@@ -32,6 +32,7 @@ export const life = [
 export const board = [
   { name: ' 카테고리 게시판 ', path: '/' },
   { name: ' 질문 게시판 ', path: '/board/question' },
+  { name: ' 나눔 게시판 ', path: '/board/donation' },
 ];
 
 export const policy = [

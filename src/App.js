@@ -36,6 +36,11 @@ import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
 import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
 import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
+import DonaList from './Components/DonationBoard/Donation/DonaList';
+import DonaRegist from './Components/DonationBoard/Donation/DonaRegist';
+import DonaDetail from './Components/DonationBoard/Donation/DonaDetail';
+import ApproList from './Components/DonationBoard/Approval/ApproList';
+import ApproDetail from './Components/DonationBoard/Approval/ApproDetail';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -172,6 +177,26 @@ function App() {
               <Route
                 path='/board/question/detaile'
                 element={<BoardDetaile />}
+              />
+              <Route 
+                path='/board/donation'
+                element={<DonaList />}
+              />
+              <Route 
+                path='/board/donation/regist'
+                element={<DonaRegist />}
+              />
+              <Route 
+                path='/board/donation/detail'
+                element={<DonaDetail />}
+              />
+              <Route 
+                path='/board/approval'
+                element={<ApproList />}
+              />
+              <Route 
+                path='/board/approval/detail'
+                element={<ApproDetail />}
               />
             </Routes>
           </div>
