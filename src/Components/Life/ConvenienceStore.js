@@ -8,11 +8,9 @@ import './ConvenienceStore.scss';
 import Kakao from '../Map/Kakao';
 
 const ConvenienceStore = () => {
-
   return (
     <>
       <div id='convenienceStore'>
-
         <div className='rec_center2'>
           Life
           <div className='side2'>
@@ -38,5 +36,4 @@ const ConvenienceStore = () => {
   );
 };
 
-
-export default ConvenienceStore
+export default ConvenienceStore;

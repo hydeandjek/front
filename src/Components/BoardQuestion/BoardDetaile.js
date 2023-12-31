@@ -19,6 +19,7 @@ const BoardDetaile = () => {
   const redirection = useNavigate();
   const [commentmody, setCommentMody] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [regDate, setRegDate] = useState(false);
 
   const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
 
@@ -40,6 +41,7 @@ const BoardDetaile = () => {
 
         setData(result);
         // 새로운 아이템 추가하고 상태 업데이트
+        setRegDate(new Date(result.regDate).toISOString().split('T')[0]);
       } else {
         console.log('No data received from the server.');
       }
@@ -136,112 +138,112 @@ const BoardDetaile = () => {
 
   return (
     <>
-    <board id='board' >
-      <div className='side2'>
-        <div className='sidebar2'>
-          {board.map((menu, index) => {
-            return (
-              <NavLink
-                style={{ textDecoration: 'none' }}
-                to={menu.path}
-                key={index}
-              >
-                <SideBarItem2 menu={menu} />
-              </NavLink>
-            );
-          })}
+      <board id='board'>
+        <div className='side2'>
+          <div className='sidebar2'>
+            {board.map((menu, index) => {
+              return (
+                <NavLink
+                  style={{ textDecoration: 'none' }}
+                  to={menu.path}
+                  key={index}
+                >
+                  <SideBarItem2 menu={menu} />
+                </NavLink>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className='rec1' />
-      <div className='overlap'>
-        {userName === data.userName ? (
-          <div>
-            <div className='content-text-wrapperaaa'>
-              <div className='aaa'>
-                <div className='text-wrappera4'>{data.userName}</div>
-                <div className='text-wrappera5'>
-                  {new Date(data.regDate).toISOString().split('T')[0]}
-                </div>
-              </div>
-              <div className='iii'>
-                <button
-                  className='text-wrappera20'
-                  onClick={() => setCommentMody(!commentmody)}
-                >
-                  <span>수정</span>
-                </button>
-                <button
-                  className='text-wrappera30'
-                  onClick={(e) => boardDelHandler(data.boardId)}
-                >
-                  <span>삭제</span>
-                </button>
-              </div>
-              {commentmody ? (
-                <>
-                  <div className='OOO'>
-                    <div className='lll'>
-                      <input
-                        type='text'
-                        placeholder={data.title}
-                        className='text-wrappera202'
-                      />
-
-                      <input
-                        type='text'
-                        placeholder={data.content}
-                        className='text-wrappera302'
-                      />
-                    </div>
-                    <div>
-                      <button
-                        className='text-wrappera22'
-                        onClick={() => QnaChangeBoardHandler(data.boardId)}
-                      >
-                        등록
-                      </button>
-                    </div>
+        <div className='rec1' />
+        <div className='overlap'>
+          {userName === data.userName ? (
+            <div>
+              <div className='content-text-wrapperaaa'>
+                <div className='aaa'>
+                  <div className='text-wrappera4'>{data.userName}</div>
+                  <div className='text-wrappera5'>
+                    {new Date(data.regDate).toISOString().split('T')[0]}
                   </div>
-                </>
-              ) : (
-                <>
-                  <div className='text-wrappera2'>{data.title}</div>
-                  <div className='text-wrappera3'>{data.content}</div>
-                </>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className='content-text-wrapperaa'>
-            <div className='aa'>
-              <div className='text-wrappera4'>{data.userName}</div>
-              <div className='text-wrappera5'>{data.regDate}</div>
-            </div>
-            <div className='text-wrappera2'>{data.title}</div>
-            <div className='text-wrappera3'>{data.content}</div>
-          </div>
-        )}
+                </div>
+                <div className='iii'>
+                  <button
+                    className='text-wrappera20'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    <span>수정</span>
+                  </button>
+                  <button
+                    className='text-wrappera30'
+                    onClick={(e) => boardDelHandler(data.boardId)}
+                  >
+                    <span>삭제</span>
+                  </button>
+                </div>
+                {commentmody ? (
+                  <>
+                    <div className='OOO'>
+                      <div className='lll'>
+                        <input
+                          type='text'
+                          placeholder={data.title}
+                          className='text-wrappera202'
+                        />
 
-        {/* <div className='aaaaaaa'></div> */}
+                        <input
+                          type='text'
+                          placeholder={data.content}
+                          className='text-wrappera302'
+                        />
+                      </div>
+                      <div>
+                        <button
+                          className='text-wrappera22'
+                          onClick={() => QnaChangeBoardHandler(data.boardId)}
+                        >
+                          등록
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className='text-wrappera2'>{data.title}</div>
+                    <div className='text-wrappera3'>{data.content}</div>
+                  </>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className='content-text-wrapperaa'>
+              <div className='aa'>
+                <div className='text-wrappera4'>{data.userName}</div>
+                <div className='text-wrappera5'>{data.regDate}</div>
+              </div>
+              <div className='text-wrappera2'>{data.title}</div>
+              <div className='text-wrappera3'>{data.content}</div>
+            </div>
+          )}
 
-        <div className='content-text-wrapper00'>
-          {' '}
-          <input
-            type='text'
-            placeholder='댓글을 입력하고 다른 곳을 클릭해주세요~'
-            className='comment'
-            onBlur={(e) => commentaddhandle(e.target.value, data.boardId)}
-          />
+          {/* <div className='aaaaaaa'></div> */}
+
+          <div className='content-text-wrapper00'>
+            {' '}
+            <input
+              type='text'
+              placeholder='댓글을 입력하고 다른 곳을 클릭해주세요~'
+              className='comment'
+              onBlur={(e) => commentaddhandle(e.target.value, data.boardId)}
+            />
+          </div>
+
+          {comment.map((item) => (
+            <BoardDetailItem
+              item={item}
+              fetchCommentData={fetchCommentData}
+            />
+          ))}
         </div>
-
-        {comment.map((item) => (
-          <BoardDetailItem
-            item={item}
-            fetchCommentData={fetchCommentData}
-          />
-        ))}
-      </div>
-    </board>
+      </board>
     </>
   );
 };

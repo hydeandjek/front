@@ -63,9 +63,5 @@
     justify-content: center; /* 내부 요소를 수평 가운데 정렬하기 위해 필요 */
   }
 
-  .carousel-item img {
-    object-fit: cover; /*이미지가 비율을 유지하며 화면 전체를 채우도록 설정*/
-    height: 100%; /*이미지를 화면 전체 높이로 설정*/
-    width: 100%; /*이미지를 화면 전체 너비로 설정*/
-  }
+  
 }

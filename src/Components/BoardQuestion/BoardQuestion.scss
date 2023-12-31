@@ -94,14 +94,6 @@
   text-align: center;
 }
 
-#board .overlap .text-wrappera5 {
-  right: 0px;
-  width: 150px;
-  // text-align: center;
-  font-size: 10px;
-  margin-top: 8px;
-}
-
 // ---------------------------------------------------
 #board #community .content-text {
   height: 60px;
@@ -141,6 +133,12 @@
 #board .createBoard .createBoardA .content {
   height: 90px;
   width: 680px;
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: none;
+  border: 1px solid orange;
 }
 
 #board .overlap .createBoardB .btnBoard {
