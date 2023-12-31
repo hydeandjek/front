@@ -38,9 +38,17 @@ import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
 import CategoryBoard from './Components/BoardCategory/CategoryBoard';
 import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
+import { ErrorBoundary } from 'react-error-boundary';
+import NotFound from './Components/Error/Error';
 
 function App() {
   const [loading, setLoading] = useState(true);
+
+  const errorHandler = (error, info) => {
+    console.log('에러 발생:', error);
+    console.log('에러 정보:', info);
+    // 에러 처리 로직 추가 가능
+  };
 
   const images = [
     '640bd914-f8d6-48da-88a5-3019f779a1fa.jpg',
@@ -61,127 +69,142 @@ function App() {
   return (
     <AuthContextProvider>
       <ChatContextProvider>
-        <Routes>
-          <Route
-            path='/'
-            element={<Home />}
-          />
-        </Routes>
-        {showHeader && <Header />}
-        <div className='App'>
-          <div className={classNames({ [styles['wrap-content']]: showHeader })}>
-            <Routes>
-              <Route
-                path='/life/Parcel'
-                element={<Parcel />}
-              />
-              <Route
-                path='/user/login'
-                element={<Login />}
-              />
-              <Route
-                path='/user/join'
-                element={<Join />}
-              />
-              <Route
-                path='/oauth/redirected/kakao'
-                element={<KakaoLoginHandler />}
-              />
-              <Route
-                path='/oauth/redirected/naver'
-                element={<NaverLoginHandler />}
-              />
-              <Route
-                path='/food/recipes/'
-                element={<Recipes />}
-              />
-              <Route
-                path='/food/mealkit'
-                element={<Mealkit />}
-              />
-              <Route
-                path='/food/restaurant'
-                element={<Restaurant />}
-              />
-              <Route
-                path='/express/expressCenter'
-                element={<ExpressCenter />}
-              />
-              <Route
-                path='/express/sharedWarehouse'
-                element={<SharedWarehouse />}
-              />
-              <Route
-                path='/express/product'
-                element={<Product />}
-              />
-              <Route
-                path='/express/appliance'
-                element={<Appliance />}
-              />
-              <Route
-                path='/express/furniture'
-                element={<Furniture />}
-              />
-              <Route
-                path='/life/convenienceStore'
-                element={<ConvenienceStore />}
-              />
-              <Route
-                path='/life/drugStore'
-                element={<DrugStore />}
-              />
-              <Route
-                path='/life/coinLaundry'
-                element={<CoinLaundry />}
-              />
-              <Route
-                path='/life/deliveryBox'
-                element={<DeliveryBox />}
-              />
-              <Route
-                path='/life/emergency'
-                element={<Emergency />}
-              />
-              <Route
-                path='/AdminChat'
-                element={<AdminChatMain />}
-              />
-              <Route
-                path='/policy/seoul'
-                element={<Policy1 />}
-              />
-              <Route
-                path='/policy/place'
-                element={<Policy2 />}
-              />
-              <Route
-                path='/policy/cctv'
-                element={<Cctv />}
-              />
-              <Route
-                path='/food/recipes/detail'
-                element={<RecipeDetail />}
-              />
-              <Route
-                path='/board/question'
-                element={<BoardQuestion />}
-              />
-              <Route
-                path='/board/question/detaile'
-                element={<BoardDetaile />}
-              />
-              <Route
-                path='/board/onelife'
-                element={<CategoryBoard />}
-              />
-              <Route
-                path='/board/onelife/detail'
-                element={<CateBoardDetail />}
-              />
-            </Routes>
+        <ErrorBoundary
+          FallbackComponent={Error}
+          onError={errorHandler}
+        >
+          <Routes>
+            <Route
+              path='/'
+              element={<Home />}
+            />
+          </Routes>
+          {showHeader && <Header />}
+          <div className='App'>
+            <div
+              className={classNames({ [styles['wrap-content']]: showHeader })}
+            >
+              <Routes>
+                <Route
+                  path='/Emergency'
+                  element={<Emergency />}
+                />
+                <Route
+                  path='/life/Parcel'
+                  element={<Parcel />}
+                />
+                <Route
+                  path='/user/login'
+                  element={<Login />}
+                />
+                <Route
+                  path='/user/join'
+                  element={<Join />}
+                />
+                <Route
+                  path='/oauth/redirected/kakao'
+                  element={<KakaoLoginHandler />}
+                />
+                <Route
+                  path='/oauth/redirected/naver'
+                  element={<NaverLoginHandler />}
+                />
+                <Route
+                  path='/food/recipes/'
+                  element={<Recipes />}
+                />
+                <Route
+                  path='/food/mealkit'
+                  element={<Mealkit />}
+                />
+                <Route
+                  path='/food/restaurant'
+                  element={<Restaurant />}
+                />
+                <Route
+                  path='/express/expressCenter'
+                  element={<ExpressCenter />}
+                />
+                <Route
+                  path='/express/sharedWarehouse'
+                  element={<SharedWarehouse />}
+                />
+                <Route
+                  path='/express/product'
+                  element={<Product />}
+                />
+                <Route
+                  path='/express/appliance'
+                  element={<Appliance />}
+                />
+                <Route
+                  path='/express/furniture'
+                  element={<Furniture />}
+                />
+                <Route
+                  path='/life/convenienceStore'
+                  element={<ConvenienceStore />}
+                />
+                <Route
+                  path='/life/drugStore'
+                  element={<DrugStore />}
+                />
+                <Route
+                  path='/life/coinLaundry'
+                  element={<CoinLaundry />}
+                />
+                <Route
+                  path='/life/deliveryBox'
+                  element={<DeliveryBox />}
+                />
+                <Route
+                  path='/life/emergency'
+                  element={<Emergency />}
+                />
+                <Route
+                  path='/AdminChat'
+                  element={<AdminChatMain />}
+                />
+                <Route
+                  path='/policy/seoul'
+                  element={<Policy1 />}
+                />
+                <Route
+                  path='/policy/place'
+                  element={<Policy2 />}
+                />
+                <Route
+                  path='/policy/cctv'
+                  element={<Cctv />}
+                />
+                <Route
+                  path='/food/recipes/detail'
+                  element={<RecipeDetail />}
+                />
+                <Route
+                  path='/board/question'
+                  element={<BoardQuestion />}
+                />
+                <Route
+                  path='/board/question/detaile'
+                  element={<BoardDetaile />}
+                />
+                {/* <Route
+                  path='/*'
+                  element={<NotFound />}
+                /> */}
+                <Route
+                  path='/board/onelife'
+                  element={<CategoryBoard />}
+                />
+                <Route
+                  path='/board/onelife/detail'
+                  element={<CateBoardDetail />}
+                />
+              </Routes>
+            </div>
           </div>
-        </div>
+        </ErrorBoundary>
         <ChatModal />
       </ChatContextProvider>
     </AuthContextProvider>
