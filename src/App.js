@@ -20,7 +20,6 @@ import Furniture from './Components/Express/Furniture';
 import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
-import DeliveryBox from './Components/Life/DeliveryBox';
 
 import { ChatContextProvider } from './utils/ChatContext';
 import AdminChatMain from './Components/Chat/AdminChat/AdminChatMain';
@@ -38,6 +37,9 @@ import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
 import CategoryBoard from './Components/BoardCategory/CategoryBoard';
 import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
+import LikeList from './Components/MyPage/LikeList';
+import MyPost from './Components/MyPage/MyPost';
+import Modify from './Components/User/MyPage/Modify';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -136,10 +138,6 @@ function App() {
                 element={<CoinLaundry />}
               />
               <Route
-                path='/life/deliveryBox'
-                element={<DeliveryBox />}
-              />
-              <Route
                 path='/life/emergency'
                 element={<Emergency />}
               />
@@ -178,6 +176,18 @@ function App() {
               <Route
                 path='/board/onelife/detail'
                 element={<CateBoardDetail />}
+              />
+              <Route
+                path='/mypage/likelist'
+                element={<LikeList />}
+              />
+              <Route
+                path='/mypage/mypost'
+                element={<MyPost />}
+              />
+              <Route
+                path='/mypage/modify'
+                element={<Modify />}
               />
             </Routes>
           </div>
