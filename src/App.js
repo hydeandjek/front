@@ -40,6 +40,11 @@ import CategoryBoard from './Components/BoardCategory/CategoryBoard';
 import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 import { ErrorBoundary } from 'react-error-boundary';
 import NotFound from './Components/Error/Error';
+import DonaList from './Components/DonationBoard/Donation/DonaList';
+import DonaRegist from './Components/DonationBoard/Donation/DonaRegist';
+import DonaDetail from './Components/DonationBoard/Donation/DonaDetail';
+import ApproList from './Components/DonationBoard/Approval/ApproList';
+import ApproDetail from './Components/DonationBoard/Approval/ApproDetail';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -201,6 +206,26 @@ function App() {
                   path='/board/onelife/detail'
                   element={<CateBoardDetail />}
                 />
+                <Route 
+                path='/board/donation'
+                element={<DonaList />}
+              />
+              <Route 
+                path='/board/donation/regist'
+                element={<DonaRegist />}
+              />
+              <Route 
+                path='/board/donation/detail'
+                element={<DonaDetail />}
+              />
+              <Route 
+                path='/board/approval'
+                element={<ApproList />}
+              />
+              <Route 
+                path='/board/approval/detail'
+                element={<ApproDetail />}
+              />
               </Routes>
             </div>
           </div>
