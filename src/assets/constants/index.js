@@ -48,3 +48,9 @@ export const boardonelife = [
   { name: '정책' },
   { name: '중고거래' },
 ];
+
+export const mypage = [
+  { name: '회원정보수정', path: '/mypage/modify' },
+  { name: '찜목록', path: '/mypage/likelist' },
+  { name: '나의게시글', path: '/mypage/mypost' },
+];
