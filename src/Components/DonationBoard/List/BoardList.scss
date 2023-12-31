@@ -1,0 +1,60 @@
+#donationBoard .boardContent {
+  background-color: white;
+  border-radius: 15px;
+
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  flex: 0 0 auto;
+  
+  margin-left: 40px;
+  width: 250px;
+  height: 600px;
+
+  position: relative;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+  }
+  a:hover {
+    transform: scale(0.98);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    width: 250px;
+    height: 350px;
+  }
+  p:nth-child(2) {
+    position: sticky;
+    top: 350px;
+    text-align: left;
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+  }
+  p:nth-child(3) {
+    text-align: left;
+    margin: 0;
+    padding: 10px;
+  }
+  p:nth-child(4), p:last-child {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    margin: 0;
+    padding: 10px;
+  }
+  p:last-child {
+    text-align: right;
+    border-top: 1px solid black;
+  }
+}

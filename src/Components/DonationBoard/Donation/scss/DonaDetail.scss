@@ -1,0 +1,133 @@
+#donationBoard {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .detailBoard{
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    .warp-content {
+        display: flex;
+        width: 80%;
+        margin: 10px;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .detailBox {
+        width: 70%;
+        height: 100%;
+        background-color: white;
+        border-radius: 10px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .userIdBox {
+        position: relative;
+        top: 1.5%;
+        left: 3%;
+        width: 60%;
+        text-align: left;
+    }
+    .userIdBox p:last-child {
+        font-size: 10px;
+    }
+
+    .titleBox,
+    .detailContentBox {
+        text-align: left;
+        margin: 26px 26px 0 26px;
+    }
+    
+    .titleBox {
+        flex-shrink: 0;
+        font-size: 30px;
+    }
+
+    .imageBox {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: left;
+        overflow-x: hidden;
+        width: 90%;
+        will-change: transform;
+
+        margin: 26px 26px 0 26px;
+        padding: 26px;
+
+        border-bottom: 1px solid silver;
+    }
+    .imageBox::-webkit-scrollbar{ display: none; }
+
+    .imageBox p {
+        position: absolute;
+        top: -10%;
+        left: 0;
+    }
+
+    .commentBtn {
+        background-color: white;
+    }
+
+    .Btn {
+        position: absolute;
+        top: 2.5%;
+        right: 32%;
+        display: flex;
+    }
+
+    .prevBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .prevBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .prevBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
+
+    .deleteBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        margin-left: 10px;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }      
+    .deleteBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .deleteBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
+
+    
+}

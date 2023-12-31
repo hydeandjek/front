@@ -1,0 +1,35 @@
+#donationBoard .detailContent {
+    background-color: white;
+    border-radius: 15px;
+  
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    flex: 0 0 auto;
+    
+    margin-left: 40px;
+    width: 250px;
+    height: 350px;
+  
+    position: relative;
+  
+    a {
+      text-decoration: none;
+      color: inherit;
+  
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 15px;
+    }
+    a:hover {
+      transform: scale(0.98);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    img {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+  
+      width: 250px;
+      height: 350px;
+    }
+  }
+  
