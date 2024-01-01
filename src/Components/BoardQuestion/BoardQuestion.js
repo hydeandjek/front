@@ -10,6 +10,7 @@ import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
 import icon1 from '../../assets/img/icon1.png';
 import icon2 from '../../assets/img/icon2.png';
+import { Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const BoardQuestion = () => {
   const [data, setData] = useState([]);
@@ -20,7 +21,9 @@ const BoardQuestion = () => {
   const [countNum, setCountNum] = useState(false);
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  const [refresh, setRefresh] = useState(false);
+  const [realCurrentPage, setRealCurrentPage] = useState(1);
+
+  const [showWrite, setShowWrite] = useState(false);
 
   const requestHeader = {
     'content-type': 'application/json',
@@ -50,25 +53,26 @@ const BoardQuestion = () => {
 
         // 데이터를 상태에 업데이트
         setData(processedData);
+
+        if (Addcate === 0) {
+          const vvv = data[data.length - 1].rowNumber;
+
+          const naa = Math.floor(vvv / 10) * 10;
+
+          const pageIndex = (processedData.length + 1) / 50; // 51번째 데이터가 속한 페이지
+
+          console.log(naa);
+          setStartIndex(naa);
+          setEndIndex(naa + 10);
+          setCurrentPage(Math.ceil(pageIndex));
+        } else {
+          setStartIndex(0);
+          setEndIndex(10);
+          setCurrentPage(1);
+          // setRefresh(!refresh);
+        }
       } else {
         console.log('No data received from the server.');
-      }
-      if (Addcate === 0) {
-        const vvv = data[data.length - 1].rowNumber;
-
-        const naa = Math.floor(vvv / 10) * 10;
-
-        const pageIndex = (processedData.length + 1) / 50; // 51번째 데이터가 속한 페이지
-
-        console.log(naa);
-        setStartIndex(naa);
-        setEndIndex(naa + 10);
-        setCurrentPage(Math.ceil(pageIndex));
-      } else {
-        setStartIndex(0);
-        setEndIndex(10);
-        setCurrentPage(1);
-        // setRefresh(!refresh);
       }
     } catch (error) {
       console.error('Fetch error:', error);
@@ -77,29 +81,29 @@ const BoardQuestion = () => {
 
   useEffect(() => {
     fetchData();
-  }, [refresh]); // Empty dependency array means this effect runs once after initial render
+  }, []); // Empty dependency array means this effect runs once after initial render
 
-  const processedData = data.map((item) => ({
-    boardId: item.boardId,
-    title: item.title,
-    userId: item.userId,
-    regDate: item.regDate,
-  }));
-  const renderedData = processedData.map((item) => (
-    <div
-      key={item.boardId}
-      className='content-text-wrapper'
-    >
-      <div className='text-wrapper a1'>{item.boardId}</div>
-      <div className='text-wrapper a3'>{item.title}</div>
-      <div className='text-wrapper a4'>{item.userId}</div>
-      <div className='text-wrapper a5'>{item.regDate}</div>
-    </div>
-  ));
+  // const processedData = data.map((item) => ({
+  //   boardId: item.boardId,
+  //   title: item.title,
+  //   userId: item.userId,
+  //   regDate: item.regDate,
+  // }));
+  // const renderedData = processedData.map((item) => (
+  //   <div
+  //     key={item.boardId}
+  //     className='content-text-wrapper'
+  //   >
+  //     <div className='text-wrapper a1'>{item.boardId}</div>
+  //     <div className='text-wrapper a3'>{item.title}</div>
+  //     <div className='text-wrapper a4'>{item.userId}</div>
+  //     <div className='text-wrapper a5'>{item.regDate}</div>
+  //   </div>
+  // ));
 
   const boarddetailhandleClick = (selectedItem) => {
     // 선택된 아이템에 대한 로직을 수행
-    redirection('/board/question/detaile', { state: { board: selectedItem } });
+    redirection('/board/question/detail', { state: { board: selectedItem } });
   };
 
   const QnaAddBoardHandler = async () => {
@@ -149,148 +153,162 @@ const BoardQuestion = () => {
 
   const pageNumHandler = (pageNumber) => {
     const buttonText = pageNumber.target.innerText;
-    // setCurrentPage(pageNumber);
+    //setCurrentPage(pageNumber);
     setStartIndex((buttonText - 1) * 10);
     setEndIndex(buttonText * 10);
+    setRealCurrentPage(Number(buttonText));
   };
 
-  const renderPageButtons = () => {
+  const RenderPageButtons = () => {
     const startNumber = (currentPage - 1) * itemsPerPage + 1;
     const endNumber = startNumber + itemsPerPage - 1;
     let pageNumber;
 
     return Array.from({ length: itemsPerPage }).map((_, index) => {
       if (data.length <= (startNumber + index - 1) * 10) {
-        return;
+        return <></>;
       } else {
         pageNumber = startNumber + index;
       }
+
+      console.log(realCurrentPage, pageNumber);
+      console.log(realCurrentPage === pageNumber);
       return (
-        <button
-          key={pageNumber}
-          className={`a num${index + 1}`}
-          onClick={pageNumHandler}
-        >
-          {pageNumber}
-        </button>
+        <>
+          {realCurrentPage === pageNumber ? (
+            <PaginationItem active>
+              <PaginationLink
+                key={pageNumber}
+                onClick={pageNumHandler}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          ) : (
+            <PaginationItem>
+              <PaginationLink
+                key={pageNumber}
+                onClick={pageNumHandler}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+        </>
       );
     });
   };
 
-  const refreshHandler = () => {
-    setRefresh(!refresh);
-  };
+  console.log(realCurrentPage);
 
   return (
     <>
-      <board id='board1'>
-        {/* <div className='App_wrap-content__1j7ZVa'> */}
-        <div className='rec_center2c'>
-          <div className='side2'>
-            <div
-              className='sidebar2'
-              onClick={refreshHandler}
-            >
-              {board.map((menu, index) => {
-                return (
-                  <NavLink
-                    style={{ textDecoration: 'none' }}
-                    to={menu.path}
-                    key={index}
-                  >
-                    <SideBarItem2 menu={menu} />
-                  </NavLink>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-        <div className='ppps'>
-          <div id='community'>
-            <h5>질문게시판</h5>
-
-            <div className='overlap-wrapper'>
-              <div className='overlap'>
-                <div className='content-text-wrapper'>
-                  <div className='text-wrapper a1'>No</div>
-                  {/* <div className='text-wrapper a2'>게시판</div> */}
-                  <div className='text-wrapper a3'>제목</div>
-                  <div className='text-wrapper a4'>글쓴이</div>
-                  <div className='text-wrapper a5'>작성일자</div>
-                </div>
-                <div className='createBoard'>
-                  <div className='createBoardA'>
-                    <input
-                      type='text'
-                      placeholder='제목을 입력하세요'
-                      className='title'
-                    />
-                    <input
-                      type='text'
-                      placeholder='내용을 입력하세요'
-                      className='content'
-                    />
-                  </div>
-                  <div className='createBoardB'>
-                    <button
-                      onClick={QnaAddBoardHandler}
-                      className='btnBoard'
+      <board id='qna-board'>
+        <div className='App_wrap-content__1j7ZVa'>
+          <div className='rec_center2'>
+            Community
+            <div className='side2'>
+              <div className='sidebar2'>
+                {board.map((menu, index) => {
+                  return (
+                    <NavLink
+                      style={{ textDecoration: 'none' }}
+                      to={menu.path}
+                      key={index}
                     >
-                      등록
-                    </button>
-                  </div>
-                </div>
-
-                <div className='overlap-group1'>
-                  {data.slice(startIndex, endIndex).map((item) => (
-                    <div
-                      key={item.boardId}
-                      className='content-text-wrapper1'
-                      onClick={() => boarddetailhandleClick(item.boardId)}
-                    >
-                      <div className='text-wrapper a1'>{item.rowNumber}</div>
-                      <div className='text-wrapper a3'>{item.title}</div>
-                      <div className='text-wrapper a4'>
-                        {item.userName.substring(0, 2)}***
-                      </div>
-                      <div className='text-wrappera5'>{item.regDate}</div>
-                    </div>
-                  ))}
-                </div>
+                      <SideBarItem2 menu={menu} />
+                    </NavLink>
+                  );
+                })}
               </div>
             </div>
           </div>
-          <div className='PageBtn'>
-            <button
-              className='before'
-              onClick={beforePageHandler}
-            >
-              <img
-                src={icon1}
-                alt='버튼 이미지'
-                className='buttonImage'
-              ></img>
-            </button>
-            <div className='aabtn'>
-              <div className='bbbtn'>{renderPageButtons()}</div>
+          <div className='ppps'>
+            <div id='community'>
+              <div className='overlap-wrapper'>
+                <div className='overlap'>
+                  <div className='content-text-wrapper'>
+                    <div className='text-wrapper a1'>No</div>
+                    {/* <div className='text-wrapper a2'>게시판</div> */}
+                    <div className='text-wrapper a3'>제목</div>
+                    <div className='text-wrapper a4'>글쓴이</div>
+                    <div className='text-wrapper a5'>작성일자</div>
+                  </div>
+                  {showWrite ? (
+                    <>
+                      <div className='createBoard'>
+                        <div className='createBoardA'>
+                          <input
+                            type='text'
+                            placeholder='제목을 입력하세요'
+                            className='title'
+                          />
+                          <input
+                            type='text'
+                            placeholder='내용을 입력하세요'
+                            className='content'
+                          />
+                        </div>
+                        <div className='createBoardB'>
+                          <Button
+                            className='btnBoard'
+                            onClick={QnaAddBoardHandler}
+                          >
+                            등록
+                          </Button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div>
+                      <Button
+                        block
+                        className='show-write'
+                        onClick={() => setShowWrite(true)}
+                      >
+                        질문 등록
+                      </Button>
+                    </div>
+                  )}
+
+                  <div className='overlap-group1'>
+                    {data.slice(startIndex, endIndex).map((item) => (
+                      <div
+                        key={item.boardId}
+                        className='content-text-wrapper1'
+                        onClick={() => boarddetailhandleClick(item.boardId)}
+                      >
+                        <div className='text-wrapper a1'>{item.rowNumber}</div>
+                        <div className='text-wrapper a3'>{item.title}</div>
+                        <div className='text-wrapper a4'>{item.userName}</div>
+                        <div className='text-wrapper a5'>{item.regDate}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-            {countNum ? (
-              <button>끝</button>
-            ) : (
-              <button
-                className='after'
-                onClick={afterPageHandler}
-              >
-                <img
-                  src={icon2}
-                  alt='버튼 이미지'
-                  className='buttonImage'
-                ></img>
-              </button>
-            )}
+            <Pagination>
+              <PaginationItem>
+                <PaginationLink
+                  previous
+                  onClick={beforePageHandler}
+                />
+              </PaginationItem>
+              <RenderPageButtons />
+              {countNum ? (
+                ''
+              ) : (
+                <PaginationItem>
+                  <PaginationLink
+                    next
+                    onClick={afterPageHandler}
+                  />
+                </PaginationItem>
+              )}
+            </Pagination>
           </div>
         </div>
-        {/* </div> */}
       </board>
     </>
   );

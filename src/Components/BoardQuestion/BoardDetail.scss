@@ -1,4 +1,4 @@
-#board1 .overlap-group {
+#qna-board .overlap-group {
   // width: px; // 기본 스타일
 
   @media (max-width: 768px) {
@@ -10,9 +10,13 @@
   }
 }
 
+#qna-board .App_wrap-content__1j7ZVa {
+  display: flex;
+}
+
 // --------------------------
 
-#board1 {
+#qna-board {
   display: flex;
   justify-content: center;
   // align-items: center;
@@ -25,14 +29,14 @@
   }
 }
 //
-#board1 .overlap .text-wrapper.a34 {
+#qna-board .overlap .text-wrapper.a34 {
   margin-left: 30px;
   display: inline-block;
   border: 1px solid black;
   // font-size: 12px;
   height: 20px;
 }
-#board1 .overlap .text-wrapper.a35 {
+#qna-board .overlap .text-wrapper.a35 {
   display: block;
   margin-top: 13px;
   // margin-left: 0px;
@@ -41,20 +45,20 @@
   width: 75px;
   height: 15px;
 }
-#board1 .overlap .contentlocation .text-wrapper.a31 {
+#qna-board .overlap .contentlocation .text-wrapper.a31 {
   display: block;
   border: 1px solid black;
   height: 20px;
   font-size: 12px;
 }
-#board1 .overlap .contentlocation .text-wrapper.a33 {
+#qna-board .overlap .contentlocation .text-wrapper.a33 {
   display: block;
   border: 1px solid black;
   height: 35px;
   font-size: 25px;
 }
 
-#board1 input {
+#qna-board input {
   display: flex;
   width: 100%;
   height: 30px;
@@ -67,7 +71,13 @@
 
 // ------------------------
 
-#board1 .content-text-wrapperaa {
+#qna-board .rec {
+  justify-content: center;
+  align-items: center;
+}
+#qna-board .content-text-wrapperaa {
+  // justify-content: center;
+  // align-items: center;
   display: block;
   background-color: #ffffff;
   font-size: 15px;
@@ -93,8 +103,8 @@
   }
 }
 
-#board1 .content-text-wrapperaaa {
-  margin-top: 50px;
+#qna-board .content-text-wrapperaaa {
+  margin-top: 30px;
   // justify-content: center;
   // align-items: center;
   display: block;
@@ -109,7 +119,7 @@
   // padding: 10px;
 }
 
-#board1 .overlap .content-text-wrapperaa {
+#qna-board .overlap .content-text-wrapperaa {
   .aa {
     margin-top: 20px;
     display: inline-flex;
@@ -158,11 +168,11 @@
     font-size: 20px;
   }
 }
-#board1 .aaaaaaa {
+#qna-board .aaaaaaa {
   height: 100px;
 }
 
-#board1 {
+#qna-board {
   height: 100vh;
   .overlap {
     margin-right: 260px;
@@ -420,7 +430,7 @@ $lighten-on-hover: 7%;
 $button-speed: 0.06;
 $timing-function: ease-out;
 
-#board1 .content-text-wrapper1v {
+#qna-board .content-text-wrapper1v {
   width: 800px;
   height: 80px;
   background-color: #ffffff;
@@ -530,7 +540,7 @@ $timing-function: ease-out;
     }
   }
 }
-#board1 .iww {
+#qna-board .iww {
   border: 0.1px solid white;
   .changeComment {
     display: inline-flex;
@@ -549,36 +559,36 @@ $timing-function: ease-out;
     border: 1px solid gray;
   }
 }
-#board1 .text-wrappera33 {
+#qna-board .text-wrappera33 {
   margin-top: 10px;
   margin-left: 30px;
 }
 
 // -------------
-#board1 .side2 {
-  position: relative;
-  padding: 30px;
-  // color: #000;
-  // background-color: red;
-  justify-content: center;
-  align-items: center;
+// #qna-board .side2 {
+//   position: relative;
+//   padding: 30px;
+//   // color: #000;
+//   // background-color: red;
+//   justify-content: center;
+//   align-items: center;
 
-  .sidebar2 {
-    // background-color: red;
-    .sidebar-item2 {
-      color: #000;
-      border-radius: 10px;
-      background-color: rgba(116, 99, 99, 0.205);
-      font-size: 16px;
-      width: 200px;
-      padding: 3px 10px;
-      margin: 5px 0px;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      &:hover {
-        background-color: rgba(75, 62, 62, 0.507);
-      }
-    }
-  }
-}
+//   .sidebar2 {
+//     // background-color: red;
+//     .sidebar-item2 {
+//       color: #000;
+//       border-radius: 10px;
+//       background-color: rgba(116, 99, 99, 0.205);
+//       font-size: 16px;
+//       width: 200px;
+//       padding: 3px 10px;
+//       margin: 5px 0px;
+//       position: relative;
+//       text-align: center;
+//       text-decoration: none;
+//       &:hover {
+//         background-color: rgba(75, 62, 62, 0.507);
+//       }
+//     }
+//   }
+// }
