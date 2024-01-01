@@ -1,29 +1,27 @@
 // ------------------------------------------------------
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-#board1 {
-  // align-items: center;
-  position: relative;
-  // margin-top: 10px;
-  // justify-content: center;
-  #community {
-    margin-top: 55px;
-  }
-  .ppps {
-    width: 800px;
-    // justify-content: center;
-    align-items: center;
-    margin-right: 260px;
-  }
-}
-
-#board1 .App_wrap-content__1j7ZVa {
-  // border: 1px solid blue;
+#qna-board .ppps {
+  // width: 800px;
+  display: inline-block;
   justify-content: center;
   // align-items: center;
+  margin-left: 100px;
+  margin-top: 50px;
+}
+// #community {
+//   border: 1px solid red;
+//   width: 800px;
+//   justify-content: center;
+//   align-items: center;
+//   display: block;
+// }
+
+#qna-board .App_wrap-content__1j7ZVa {
   display: flex;
 }
-#board1 .content-text-wrapper {
+
+#qna-board .content-text-wrapper {
   justify-content: center;
   align-items: center;
   display: inline-flex;
@@ -38,7 +36,7 @@
   padding: 10px;
 }
 
-#board1 .content-text-wrapper1 {
+#qna-board .content-text-wrapper1 {
   justify-content: center;
   align-items: center;
   display: inline-flex;
@@ -53,36 +51,37 @@
   padding: 10px;
 }
 
-#board1 .content-text-wrapper1 > div {
+#qna-board .content-text-wrapper1 > div {
   padding: 0 10px; /* 텍스트와 테두리 간 간격 조절 */
 }
 
-#board1 .overlap .text-wrapper {
+#qna-board .overlap .text-wrapper {
   /* 텍스트 스타일링을 원하는대로 추가 */
   // margin-top: 10px;
   text-align: center;
 }
 
 /* 각 텍스트에 대한 추가적인 스타일링이 필요하다면 아래처럼 추가 가능 */
-#board1 .overlap .text-wrapper.a1 {
-  margin-left: 10px;
+#qna-board .overlap .text-wrapper.a1 {
+  // margin-top: 10px;
+  margin-left: 20px;
   width: 80px;
 }
 
-#board1 .overlap .text-wrapper.a2 {
-  margin-left: 10px;
-  width: 200px;
+#qna-board .overlap .text-wrapper.a2 {
+  margin-left: 100px;
+  width: 100px;
   text-align: center;
 }
 
-#board1 .overlap .text-wrapper.a3 {
+#qna-board .overlap .text-wrapper.a3 {
   // margin-left: 200px;
   margin-left: 20px;
   width: 1000px;
   text-align: center;
 }
 
-#board1 .overlap .text-wrapper.a4 {
+#qna-board .overlap .text-wrapper.a4 {
   margin-left: 50px;
   margin-right: 30px;
   width: 150px;
@@ -90,14 +89,14 @@
 }
 
 // ---------------------------------------------------
-#board1 #community .content-text {
+#qna-board #community .content-text {
   height: 60px;
   position: relative;
   top: 1px;
   width: 1096px;
 }
 
-#board1 .overlap-group {
+#qna-board .overlap-group {
   width: px; // 기본 스타일
 
   @media (max-width: 768px) {
@@ -112,7 +111,7 @@
 }
 
 // --------------------------
-#board1 .createBoard {
+#qna-board .createBoard {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -120,12 +119,12 @@
   width: 800px;
 }
 
-#board1 .createBoard .createBoardA .title {
+#qna-board .createBoard .createBoardA .title {
   height: 30px;
   display: block;
   width: 680px;
 }
-#board1 .createBoard .createBoardA .content {
+#qna-board .createBoard .createBoardA .content {
   height: 90px;
   width: 680px;
   padding: 10px;
@@ -135,12 +134,12 @@
   border: 1px solid orange;
 }
 
-#board1 .createBoard .createBoardAA .title {
+#qna-board .createBoard .createBoardAA .title {
   height: 30px;
   display: block;
   width: 594.46px;
 }
-#board1 .createBoard .createBoardAA .content {
+#qna-board .createBoard .createBoardAA .content {
   height: 90px;
   width: 680px;
   display: flex;
@@ -151,45 +150,45 @@
   border: 1px solid orange;
 }
 
-#board1 .overlap .createBoardB .btnBoard {
+#qna-board .overlap .createBoardB .btnBoard {
   // display: inline-flex;
 
   height: 115px;
   width: 115px;
   margin-right: 0px;
   margin-left: 5px;
-  font-weight: bold;
-  background-color: gray(204, 198, 190, 0.205);
+  // font-weight: bold;
+  // background-color: gray(204, 198, 190, 0.205);
 }
 
-#board1 .side2 {
-  position: relative;
-  padding: 30px;
-  // color: #000;
-  justify-content: center;
-  align-items: center;
+// #qna-board .side2 {
+//   position: relative;
+//   padding: 30px;
+//   // color: #000;
+//   justify-content: center;
+//   align-items: center;
 
-  .sidebar2 {
-    // background-color: red;
-    .sidebar-item2 {
-      color: #000;
-      border-radius: 10px;
-      background-color: rgba(116, 99, 99, 0.205);
-      font-size: 16px;
-      width: 200px;
-      padding: 3px 10px;
-      margin: 5px 0px;
-      position: relative;
-      text-align: center;
-      text-decoration: none;
-      &:hover {
-        background-color: rgba(75, 62, 62, 0.507);
-      }
-    }
-  }
-}
+//   .sidebar2 {
+//     // background-color: red;
+//     .sidebar-item2 {
+//       color: #000;
+//       border-radius: 10px;
+//       background-color: rgba(116, 99, 99, 0.205);
+//       font-size: 16px;
+//       width: 200px;
+//       padding: 3px 10px;
+//       margin: 5px 0px;
+//       position: relative;
+//       text-align: center;
+//       text-decoration: none;
+//       &:hover {
+//         background-color: rgba(75, 62, 62, 0.507);
+//       }
+//     }
+//   }
+// }
 
-#board1 .PageBtn {
+#qna-board .PageBtn {
   width: 800px;
   height: 32px;
   // color: red;
@@ -229,39 +228,150 @@
     }
   }
 }
-#board1 button img {
-  margin-top: 10px;
-  width: 10px;
-  height: 10px;
-}
+// #qna-board button img {
+//   margin-top: 10px;
+//   width: 10px;
+//   height: 10px;
+// }
 // -----------------------------------------
 
-#board1 .btnBoard {
+#qna-board .btnBoard {
   position: relative;
   font-size: 20px;
   padding: 0;
   width: 200px;
   height: 200px;
 
-  border: 4px solid #888888;
-  outline: none;
-  background-color: #f4f5f6;
-  border-radius: 20px;
+  border-color: #8d7d6b;
+  background-color: #8d7d6b;
+  color: #fff;
+
+  &:active:hover {
+    border-color: #8d7d6b;
+    background-color: #8d7d6b;
+    color: #fff;
+  }
+
+  &:hover {
+    border-color: #61564a;
+    background-color: #61564a;
+    color: #fff;
+  }
+
+  // border: 4px solid #888888;
+  // outline: none;
+  // background-color: #f4f5f6;
+  // border-radius: 20px;
   // box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.2);
   // -6px -20px 35px #ffffff, -6px -10px 15px #ffffff,
   //   -20px 0px 30px #ffffff, 6px 20px 25px rgba(0, 0, 0, 0.2);
-  transition: 0.13s ease-in-out;
-  cursor: pointer;
-  &:active {
-    box-shadow: none;
-    font-size: 15px;
-    border: 3px solid #888888;
-    .button__content {
-      box-shadow: none;
-      .button__text,
-      .button__icon {
-        transform: translate3d(0px, 0px, 0px);
-      }
-    }
+  // transition: 0.13s ease-in-out;
+  // cursor: pointer;
+  // &:active {
+  //   box-shadow: none;
+  //   font-size: 15px;
+  //   border: 3px solid #888888;
+  //   .button__content {
+  //     box-shadow: none;
+  //     .button__text,
+  //     .button__icon {
+  //       transform: translate3d(0px, 0px, 0px);
+  //     }
+  //   }
+  // }
+  // &__content {
+  //   position: relative;
+  //   display: grid;
+
+  //   padding: 20px;
+  //   width: 100%;
+  //   height: 100%;
+
+  //   grid-template-columns: 1fr 1fr 1fr 1fr;
+  //   grid-template-rows: 1fr 1fr;
+
+  //   box-shadow: inset 0px -8px 0px #dddddd, 0px -8px 0px #f4f5f6;
+  //   border-radius: 40px;
+  //   transition: 0.13s ease-in-out;
+
+  //   z-index: 1;
+  // }
+  // &__icon {
+  //   position: relative;
+  //   display: flex;
+
+  //   transform: translate3d(0px, -4px, 0px);
+  //   grid-column: 4;
+  //   align-self: start;
+  //   justify-self: end;
+  //   width: 32px;
+  //   height: 32px;
+  //   transition: 0.13s ease-in-out;
+  //   svg {
+  //     width: 32px;
+  //     height: 32px;
+  //     fill: #aaaaaa;
+  //   }
+  // }
+  // &__text {
+  //   position: relative;
+
+  //   transform: translate3d(0px, -4px, 0px);
+  //   margin: 0;
+  //   align-self: end;
+  //   grid-column: 1/5;
+  //   grid-row: 2;
+
+  //   text-align: center;
+  //   font-size: 32px;
+  //   background-color: #888888;
+  //   color: transparent;
+  //   text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+  //   -webkit-background-clip: text;
+  //   -moz-background-clip: text;
+  //   background-clip: text;
+  //   transition: 0.13s ease-in-out;
+  // }
+}
+// .credits {
+//   margin-top: 24px;
+//   &__reference {
+//     display: inline-block;
+
+//     border-bottom: 1px solid transparent;
+//     color: #0099ff;
+//     text-decoration: none;
+//     transition: ease-in 0.13s;
+//     &:hover {
+//       border-bottom-color: #0099ff;
+//     }
+//   }
+// }
+
+#qna-board ul.pagination {
+  padding-left: 300px;
+
+  li.active button {
+    border-color: #8d7d6b;
+  background-color: #8d7d6b;
+  color: #fff;
+  }
+}
+
+#qna-board .show-write {
+  border-color: #8d7d6b;
+  background-color: #8d7d6b;
+  color: #fff;
+
+  &:active:hover {
+    border-color: #8d7d6b;
+    background-color: #8d7d6b;
+    color: #fff;
+  }
+
+  &:hover {
+    border-color: #61564a;
+    background-color: #61564a;
+    color: #fff;
   }
 }

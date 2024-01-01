@@ -30,7 +30,7 @@ import classNames from 'classnames';
 import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
-import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import BoardDetail from './Components/BoardQuestion/BoardDetail';
 import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
 import CategoryBoard from './Components/BoardCategory/CategoryBoard';
@@ -190,8 +190,8 @@ function App() {
                   element={<BoardQuestion />}
                 />
                 <Route
-                  path='/board/question/detaile'
-                  element={<BoardDetaile />}
+                  path='/board/question/detail'
+                  element={<BoardDetail />}
                 />
                 {/* <Route
                   path='/*'
