@@ -8,6 +8,15 @@
     justify-content: center;
     align-items: center;
   }
+
+  .content-item img {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .content-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
   
   .content-item a {
     text-decoration: none;

@@ -47,6 +47,10 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     onDisconnectServer();
     redirection('user/login');
   };
+
+  // const onClickMyPage = () => {
+  //   redirection('/user/myPage');
+  // };
   // Recpie를 누르면 api 요청해서 뿌리는것
   const page = 1;
 
@@ -92,6 +96,10 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/life/Emergency');
   };
 
+  const onClickDonation = () => {
+    redirection('/board/donation');
+  };
+
   const onClickNavbarBrand = (e) => {
     e.preventDefault();
     redirection('/');
@@ -101,13 +109,13 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/life/Parcel');
   };
 
-  const onClickSolo = () => {
-    redirection('/Solo');
-  };
+  // const onClickSolo = () => {
+  //   redirection('/Solo');
+  // };
 
-  const onClickPacking = () => {
-    redirection('/Packing');
-  };
+  // const onClickPacking = () => {
+  //   redirection('/Packing');
+  // };
 
   const onClickAdminChat = () => {
     redirection('/AdminChat');
@@ -120,7 +128,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
   const onClickSeoulPlace = () => {
     redirection('/policy/place');
   };
-  
+
   const onClickSeoulCctv = () => {
     redirection('/policy/cctv');
   };
@@ -132,6 +140,17 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/board/onelife');
   };
 
+  const onClickLikeList = () => {
+    redirection('/mypage/likelist');
+  };
+
+  const onClickModify = () => {
+    redirection('/mypage/modify');
+  };
+
+  const onClickMyPost = () => {
+    redirection('/mypage/mypost');
+  };
   return (
     <div
       className={classNames('header_main', {
@@ -221,7 +240,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 nav
                 className={styles.menu_title}
               >
-                정책
+                policy
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={onClickSeoulPolicy}>
@@ -230,9 +249,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 <DropdownItem onClick={onClickSeoulPlace}>
                   지원기관
                 </DropdownItem>
-                <DropdownItem onClick={onClickSeoulCctv}>
-                  CCTV
-                </DropdownItem>
+                <DropdownItem onClick={onClickSeoulCctv}>CCTV</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
@@ -240,7 +257,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 nav
                 className={styles.menu_title}
               >
-                커뮤니티
+                Community
               </DropdownToggle>
               <DropdownMenu className={styles.menu}>
                 <DropdownItem onClick={categoryBoardHandler}>
@@ -249,7 +266,9 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 <DropdownItem onClick={qnaBoardHandler}>
                   질문게시판
                 </DropdownItem>
-                <DropdownItem>메뉴3</DropdownItem>
+                <DropdownItem onClick={onClickDonation}>
+                  나눔 게시판
+                </DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
           </div>
@@ -279,6 +298,25 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                     <DropdownItem onClick={onClickLogout}>
                       로그아웃
                     </DropdownItem>
+                    <NavHoverDropDown>
+                      <DropdownToggle
+                        nav
+                        className={styles.menu_title}
+                      >
+                        마이페이지
+                      </DropdownToggle>
+                      <DropdownMenu className={styles.menu}>
+                        <DropdownItem onClick={onClickModify}>
+                          회원정보수정
+                        </DropdownItem>
+                        <DropdownItem onClick={onClickLikeList}>
+                          찜목록
+                        </DropdownItem>
+                        <DropdownItem onClick={onClickMyPost}>
+                          나의게시글
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </NavHoverDropDown>
                   </>
                 ) : (
                   <>

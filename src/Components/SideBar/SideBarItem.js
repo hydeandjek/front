@@ -3,6 +3,8 @@ import './SideBarItem.scss';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../../config/host-config';
+import Loading from '../LoadingBar/Loading';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 function SideBarItem({
   menu,
@@ -19,6 +21,7 @@ function SideBarItem({
     { id: 5, name: '밥', src: '' },
   ];
   const [showRecipe, setShowRecipe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // const pageNum = 1;
 
@@ -38,6 +41,7 @@ function SideBarItem({
   };
   const [props, setProps] = useState();
   const onClickMenu = async (e) => {
+    setLoading(true);
     let clickedCate = e.target.textContent.trim();
     console.log(clickedCate);
     if (clickedCate === '국&찌개') {
@@ -52,10 +56,12 @@ function SideBarItem({
     if (typeof onMenuClick === 'function') {
       onMenuClick(res.data); // 데이터를 부모 컴포넌트로 전달
     }
+    setLoading(false);
   };
 
   return (
     <div className='sidebar-item'>
+      {loading ? <Loading /> : null}
       <ul onClick={onClickRec}>{menu.name}</ul>
       {showRecipe && menu.name.trim() === '레시피' && (
         <div className='recipe-menu'>

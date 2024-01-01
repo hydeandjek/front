@@ -32,6 +32,7 @@ export const life = [
 export const board = [
   { name: ' 카테고리 게시판 ', path: '/board/onelife' },
   { name: ' 질문 게시판 ', path: '/board/question' },
+  { name: ' 나눔 게시판 ', path: '/board/donation' },
 ];
 
 export const policy = [
@@ -46,4 +47,10 @@ export const boardonelife = [
   { name: '라이프' },
   { name: '정책' },
   { name: '중고거래' },
+];
+
+export const mypage = [
+  { name: '회원정보수정', path: '/mypage/modify' },
+  { name: '찜목록', path: '/mypage/likelist' },
+  { name: '나의게시글', path: '/mypage/mypost' },
 ];

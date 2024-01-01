@@ -3,17 +3,14 @@ import { NavLink } from 'react-router-dom';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 import '../SideBar/SideBar2/SideBarItem2.scss';
 import '../SideBar/SideBar2/SideBarContent2.scss';
-import { express } from '../../assets/constants';
+import { express, life } from '../../assets/constants';
 import './SharedWarehouse.scss';
 import Kakao from '../Map/Kakao';
 
-
 const SharedWarehouse = () => {
-
   return (
     <>
-      <div id='sharedWarehouse'>
-
+      <div id='sharedwarehouse'>
         <div className='rec_center2'>
           Express
           <div className='side2'>
@@ -39,5 +36,4 @@ const SharedWarehouse = () => {
   );
 };
 
-
-export default SharedWarehouse
+export default SharedWarehouse;
