@@ -25,15 +25,6 @@ const DonaDetail = () => {
     { name: '질문 게시판', path: '/board/question' },
     { name: '나눔 게시판', path: '/board/donation' },
   ];
-  
-  const countLiElements = () => {
-    const liElements = document.querySelectorAll('.commentList li');
-    setLiCount(liElements.length);
-  };
-
-  useEffect(() => {
-    countLiElements();
-  }, []);
 
   const [isHover, setIsHover] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -82,6 +73,12 @@ const DonaDetail = () => {
     
     fetchData();
   }, [pageNum]);
+
+  useEffect(() => {
+    if (donation && Array.isArray(donation)) {
+      setLiCount(donation.length);
+    }
+  }, [donation]);
 
   const handlePrev = () => {
 
@@ -235,7 +232,7 @@ const DonaDetail = () => {
                     onClick={handleCommentBtnClick}
                     style={{ backgroundColor: backgroundColor }}
                   >
-                    <div className='commentCount'>댓글 17</div>
+                    <div className='commentCount'>댓글 {liCount}</div>
                     <div
                       className="rotateBtn"
                       style={{ transform: `rotate(${rotation}deg)` }}

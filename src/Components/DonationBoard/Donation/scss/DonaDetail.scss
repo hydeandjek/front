@@ -30,7 +30,7 @@
 
     .userIdBox {
         position: relative;
-        top: 1.5%;
+        top: 10px;
         left: 3%;
         width: 60%;
         text-align: left;
@@ -208,7 +208,7 @@
 
     .Btn {
         position: absolute;
-        top: 2.5%;
+        top: 21px;
         right: 32%;
         display: flex;
     }
@@ -307,4 +307,8 @@
         vertical-align: middle;
     }
     
+}
+
+body {
+    overflow-y: scroll;
 }

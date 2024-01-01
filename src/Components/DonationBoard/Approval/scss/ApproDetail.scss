@@ -126,7 +126,7 @@
 
     .Btn {
         position: absolute;
-        top: 2.5%;
+        top: 21px;
         right: 32%;
         display: flex;
     }
@@ -177,4 +177,8 @@
 
         vertical-align: middle;
     }
+}
+
+body {
+    overflow-y: scroll;
 }

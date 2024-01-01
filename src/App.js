@@ -20,7 +20,6 @@ import Furniture from './Components/Express/Furniture';
 import ConvenienceStore from './Components/Life/ConvenienceStore';
 import DrugStore from './Components/Life/DrugStore';
 import CoinLaundry from './Components/Life/CoinLaundry';
-import DeliveryBox from './Components/Life/DeliveryBox';
 
 import { ChatContextProvider } from './utils/ChatContext';
 import AdminChatMain from './Components/Chat/AdminChat/AdminChatMain';
@@ -30,21 +29,21 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
-import Loading from './Components/LoadingBar/Loading';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
-import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import BoardDetail from './Components/BoardQuestion/BoardDetail';
 import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
 import CategoryBoard from './Components/BoardCategory/CategoryBoard';
 import CateBoardDetail from './Components/BoardCategory/CateBoardDetail';
 import { ErrorBoundary } from 'react-error-boundary';
-import NotFound from './Components/Error/Error';
 import DonaList from './Components/DonationBoard/Donation/DonaList';
 import DonaRegist from './Components/DonationBoard/Donation/DonaRegist';
 import DonaDetail from './Components/DonationBoard/Donation/DonaDetail';
 import ApproList from './Components/DonationBoard/Approval/ApproList';
 import ApproDetail from './Components/DonationBoard/Approval/ApproDetail';
+import LikeList from './Components/User/MyPage/LikeList';
+import MyPost from './Components/User/MyPage/MyPost';
+import Modify from './Components/User/MyPage/Modify';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -158,10 +157,10 @@ function App() {
                   path='/life/coinLaundry'
                   element={<CoinLaundry />}
                 />
-                <Route
+                {/* <Route
                   path='/life/deliveryBox'
                   element={<DeliveryBox />}
-                />
+                /> */}
                 <Route
                   path='/life/emergency'
                   element={<Emergency />}
@@ -191,8 +190,8 @@ function App() {
                   element={<BoardQuestion />}
                 />
                 <Route
-                  path='/board/question/detaile'
-                  element={<BoardDetaile />}
+                  path='/board/question/detail'
+                  element={<BoardDetail />}
                 />
                 {/* <Route
                   path='/*'
@@ -206,26 +205,38 @@ function App() {
                   path='/board/onelife/detail'
                   element={<CateBoardDetail />}
                 />
-                <Route 
-                path='/board/donation'
-                element={<DonaList />}
-              />
-              <Route 
-                path='/board/donation/regist'
-                element={<DonaRegist />}
-              />
-              <Route 
-                path='/board/donation/detail'
-                element={<DonaDetail />}
-              />
-              <Route 
-                path='/board/approval'
-                element={<ApproList />}
-              />
-              <Route 
-                path='/board/approval/detail'
-                element={<ApproDetail />}
-              />
+                <Route
+                  path='/board/donation'
+                  element={<DonaList />}
+                />
+                <Route
+                  path='/board/donation/regist'
+                  element={<DonaRegist />}
+                />
+                <Route
+                  path='/board/donation/detail'
+                  element={<DonaDetail />}
+                />
+                <Route
+                  path='/board/approval'
+                  element={<ApproList />}
+                />
+                <Route
+                  path='/board/approval/detail'
+                  element={<ApproDetail />}
+                />
+                <Route
+                  path='/mypage/likelist'
+                  element={<LikeList />}
+                />
+                <Route
+                  path='/mypage/mypost'
+                  element={<MyPost />}
+                />
+                <Route
+                  path='/mypage/modify'
+                  element={<Modify />}
+                />
               </Routes>
             </div>
           </div>

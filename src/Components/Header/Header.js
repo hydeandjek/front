@@ -47,6 +47,10 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     onDisconnectServer();
     redirection('user/login');
   };
+
+  // const onClickMyPage = () => {
+  //   redirection('/user/myPage');
+  // };
   // Recpie를 누르면 api 요청해서 뿌리는것
   const page = 1;
 
@@ -88,27 +92,32 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
   const onClickCoinLaundry = () => {
     redirection('/life/coinLaundry');
   };
+  const onClickParcel = () => {
+    redirection('/life/Parcel');
+  };
   const onClickEmergency = () => {
     redirection('/life/Emergency');
   };
 
-  // policy
+  // pollicy
   const onClickSeoulPolicy = () => {
     redirection('/policy/seoul');
   };
+
   const onClickSeoulPlace = () => {
     redirection('/policy/place');
   };
+
   const onClickSeoulCctv = () => {
     redirection('/policy/cctv');
   };
 
-  // community
-  const categoryBoardHandler = () => {
-    redirection('/board/onelife');
-  };
+  // board
   const qnaBoardHandler = () => {
     redirection('/board/question');
+  };
+  const categoryBoardHandler = () => {
+    redirection('/board/onelife');
   };
   const onClickDonation = () => {
     redirection('/board/donation');
@@ -119,26 +128,33 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/');
   };
 
-  const onClickParcel = () => {
-    redirection('/life/Parcel');
-  };
+  // const onClickSolo = () => {
+  //   redirection('/Solo');
+  // };
 
-  const onClickSolo = () => {
-    redirection('/Solo');
-  };
+  // const onClickPacking = () => {
+  //   redirection('/Packing');
+  // };
 
-  const onClickPacking = () => {
-    redirection('/Packing');
-  };
-
+  // admin
   const onClickAdminChat = () => {
     redirection('/AdminChat');
   };
-
   const onClickApproList = () => {
     redirection('/board/approval');
   };
 
+  // myPage
+  const onClickLikeList = () => {
+    redirection('/mypage/likelist');
+  };
+  const onClickModify = () => {
+    redirection('/mypage/modify');
+  };
+  const onClickMyPost = () => {
+    redirection('/mypage/mypost');
+  };
+  
   return (
     <div
       className={classNames('header_main', {
@@ -237,9 +253,7 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                 <DropdownItem onClick={onClickSeoulPlace}>
                   지원기관
                 </DropdownItem>
-                <DropdownItem onClick={onClickSeoulCctv}>
-                  CCTV
-                </DropdownItem>
+                <DropdownItem onClick={onClickSeoulCctv}>CCTV</DropdownItem>
               </DropdownMenu>
             </NavHoverDropDown>
             <NavHoverDropDown>
@@ -293,6 +307,25 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                     <DropdownItem onClick={onClickLogout}>
                       로그아웃
                     </DropdownItem>
+                    <NavHoverDropDown>
+                      <DropdownToggle
+                        nav
+                        className={styles.menu_title}
+                      >
+                        마이페이지
+                      </DropdownToggle>
+                      <DropdownMenu className={styles.menu}>
+                        <DropdownItem onClick={onClickModify}>
+                          회원정보수정
+                        </DropdownItem>
+                        <DropdownItem onClick={onClickLikeList}>
+                          찜목록
+                        </DropdownItem>
+                        <DropdownItem onClick={onClickMyPost}>
+                          나의게시글
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </NavHoverDropDown>
                   </>
                 ) : (
                   <>

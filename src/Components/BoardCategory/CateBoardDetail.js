@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 import { Refresh } from '@mui/icons-material';
 import CategoryBoardDetailItem from './CategoryBoardDetailItem';
 import { board } from '../../assets/constants';
+import OneLifeSideBarItem from './OneLifeSideBarItem';
+import './CateBoardDetail.scss';
 
 const CateBoardDetail = () => {
   const location = useLocation();
@@ -13,8 +15,11 @@ const CateBoardDetail = () => {
   const [refresh, setRefresh] = useState(false);
   const [comment, setComment] = useState([]);
   const [commentmody, setCommentMody] = useState(false);
+  const redirection = useNavigate();
 
   const userName = localStorage.getItem('LOGIN_USERNAME');
+
+  const yourData = location.state?.board;
 
   const requestHeader = {
     'content-type': 'application/json',
@@ -23,7 +28,6 @@ const CateBoardDetail = () => {
   };
 
   const { boardId, category } = location.state || {};
-  console.log(boardId, category);
 
   const Boarddetailhandler = async () => {
     try {
@@ -33,13 +37,11 @@ const CateBoardDetail = () => {
       });
 
       const result = await res.json();
-      console.log(result);
 
       if (result) {
         // 데이터를 상태에 업데이트
 
         setData(result);
-        // 새로운 아이템 추가하고 상태 업데이트
         setRegDate(new Date(result.regDate).toISOString().split('T')[0]);
       } else {
         console.log('No data received from the server.');
@@ -88,109 +90,193 @@ const CateBoardDetail = () => {
     }
   };
 
-  const commentaddhandle = async (value) => {
-    console.log(value);
-    document.getElementsByClassName('comment')[0].value = '';
-    console.log(QUESTION_URL + '/' + boardId + '/reply');
+  const commentaddhandle = async () => {
+    const value = document.getElementsByClassName('comment')[0].value;
     const commentAdd = await fetch(QUESTION_URL + '/' + boardId + '/reply', {
       method: 'POST', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
       headers: requestHeader,
       body: JSON.stringify(value),
     });
+    document.getElementsByClassName('comment')[0].value = '';
 
     setRefresh(!refresh);
   };
 
+  const onelifeDelHandler = async (id, category) => {
+    const BoardDel = fetch(QUESTION_URL + '/' + category + '/' + id, {
+      method: 'DELETE',
+      headers: requestHeader,
+    });
+
+    // setRefresh(!refresh);
+    window.history.back();
+    // redirection('/board/onelife');
+  };
+
+  const oneLifeChangeBoardHandler = async (id, category) => {
+    const titleAddElement =
+      document.getElementsByClassName('text-wrappera901')[0];
+    const contentAddElement =
+      document.getElementsByClassName('text-wrappera902')[0];
+    const titleAdd = titleAddElement ? titleAddElement.value : '';
+    const contentAdd = contentAddElement ? contentAddElement.value : '';
+    if (!titleAdd || !contentAdd) {
+      alert('제목과 내용을 모두 입력해주세요.');
+      return; // 요청을 보내지 않고 함수를 종료
+    } else {
+      const BoardChange = await fetch(
+        QUESTION_URL + '/' + category + '/' + id,
+        {
+          method: 'PUT', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
+          headers: requestHeader,
+          body: JSON.stringify({
+            title: titleAdd, // 이 부분에서 직접 사용
+            content: contentAdd, // 이 부분에서 직접 사용
+            category: category,
+          }),
+        }
+      );
+    }
+    setCommentMody(!commentmody);
+    setRefresh(!refresh);
+  };
+
+  // for (let i = 0; i < commentList.length; i++) {
+  //   const comment = commentList[i];
+  //   const myElement = String(comment.content);
+
+  //   // 각 데이터에 대해 길이를 확인하고 처리
+  //   if (myElement.length > 10) {
+  //     console.log('fffff');
+
+  //     // 해당 데이터에 대해 클래스 변경
+  //     myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
+  //   }
+  // }
+
   return (
     <>
-      <div className='rec1' />
-      <div className='overlap'>
-        {userName === data.userName ? (
-          <div>
-            <div className='content-text-wrapperaaa'>
-              <div className='aaa'>
+      <board id='board1'>
+        {/* <div className='App_wrap-content__1j7ZVa'> */}
+        <div className='rec_center2c'>
+          <div className='side2'>
+            <div className='sidebar2'>
+              {board.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <OneLifeSideBarItem
+                      menu={menu}
+                      fetchCategoryCommentData={fetchCategoryCommentData}
+                    />
+                  </NavLink>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <div className='rec1' />
+        <div className='overlapoc'>
+          {userName === data.userName ? (
+            <div>
+              <div className='text-wrapperaaa'>
+                <div className='aaa'>
+                  <div className='text-wrappera4'>
+                    {data.userName.substring(0, 2)}***
+                  </div>
+                  <div className='text-wrappera5'>{regDate}</div>
+                </div>
+                <div className='iiip'>
+                  <button
+                    className='text-wrappera20'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    <span>수정</span>
+                  </button>
+                  <button
+                    className='text-wrappera30'
+                    onClick={(e) => onelifeDelHandler(data.id, data.category)}
+                  >
+                    <span>삭제</span>
+                  </button>
+                </div>
+                {commentmody ? (
+                  <>
+                    <div className='OOOa'>
+                      <div className='lll'>
+                        <input
+                          type='text'
+                          placeholder={data.title}
+                          className='text-wrappera901'
+                        />
+
+                        <input
+                          type='text'
+                          placeholder={data.content}
+                          className='text-wrappera902'
+                        />
+                      </div>
+                      <div>
+                        <button
+                          className='text-wrappera22'
+                          onClick={() =>
+                            oneLifeChangeBoardHandler(data.id, data.category)
+                          }
+                        >
+                          등록
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className='text-wrappera2'>{data.title}</div>
+                    <div className='text-wrappera3'>{data.content}</div>
+                  </>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className='content-text-wrapperaaNo'>
+              <div className='aa'>
                 <div className='text-wrappera4'>{data.userName}</div>
                 <div className='text-wrappera5'>{regDate}</div>
               </div>
-              <div className='iii'>
-                <button
-                  className='text-wrappera20'
-                  // onClick={() => setCommentMody(!commentmody)}
-                >
-                  <span>수정</span>
-                </button>
-                <button
-                  className='text-wrappera30'
-                  // onClick={(e) => boardDelHandler(data.boardId)}
-                >
-                  <span>삭제</span>
-                </button>
-              </div>
-              {commentmody ? (
-                <>
-                  <div className='OOO'>
-                    <div className='lll'>
-                      <input
-                        type='text'
-                        placeholder={data.title}
-                        className='text-wrappera202'
-                      />
-
-                      <input
-                        type='text'
-                        placeholder={data.content}
-                        className='text-wrappera302'
-                      />
-                    </div>
-                    <div>
-                      <button
-                        className='text-wrappera22'
-                        //   onClick={() => QnaChangeBoardHandler(data.boardId)}
-                      >
-                        등록
-                      </button>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className='text-wrappera2'>{data.title}</div>
-                  <div className='text-wrappera3'>{data.content}</div>
-                </>
-              )}
+              <div className='text-wrappera2'>{data.title}</div>
+              <div className='text-wrappera3'>{data.content}</div>
             </div>
-          </div>
-        ) : (
-          <div className='content-text-wrapperaa'>
-            <div className='aa'>
-              <div className='text-wrappera4'>{data.userName}</div>
-              <div className='text-wrappera5'>{regDate}</div>
-            </div>
-            <div className='text-wrappera2'>{data.title}</div>
-            <div className='text-wrappera3'>{data.content}</div>
-          </div>
-        )}
+          )}
 
-        {/* <div className='aaaaaaa'></div> */}
+          {/* <div className='aaaaaaa'></div> */}
 
-        <div className='content-text-wrapper00'>
-          {' '}
-          <input
-            type='text'
-            placeholder='댓글을 입력하고 다른 곳을 클릭해주세요~'
-            className='comment'
-            onBlur={(e) => commentaddhandle(e.target.value)}
-          />
+          <div className='content-text-wrapper00'>
+            {' '}
+            <input
+              type='text'
+              placeholder='댓글을 입력하세요'
+              className='comment'
+            />
+            <button
+              className='commentadd'
+              onClick={commentaddhandle}
+            >
+              댓글 입력
+            </button>
+          </div>
+
+          {comment.map((item) => (
+            <CategoryBoardDetailItem
+              item={item}
+              fetchCategoryCommentData={fetchCategoryCommentData}
+              category={category}
+            />
+          ))}
         </div>
-
-        {comment.map((item) => (
-          <CategoryBoardDetailItem
-            item={item}
-            fetchCategoryCommentData={fetchCategoryCommentData}
-            category={category}
-          />
-        ))}
-      </div>
+        {/* </div> */}
+      </board>
     </>
   );
 };

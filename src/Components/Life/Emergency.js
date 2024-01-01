@@ -30,7 +30,7 @@ const Emergency = () => {
           </div>
         </div>
 
-        <Kakao Category='응급실' />
+        <Kakao Category='병원응급실' />
       </div>
     </>
   );

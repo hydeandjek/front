@@ -20,6 +20,7 @@ const KakaoLoginHandler = () => {
     const kakaoLogin = async () => {
       const res = await fetch(`${REQUEST_URL}/kakaoLogin?code=${code}`);
       const data = await res.json();
+      console.log(data);
       const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
 
       // Context Api

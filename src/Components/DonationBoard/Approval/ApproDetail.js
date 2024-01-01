@@ -14,6 +14,7 @@ const ApproDetail = () => {
   const [showCommentList, setShowCommentList] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("white");
   const [rotation, setRotation] = useState(0);
+  const [liCount, setLiCount] = useState(0);
 
   const [isHovered2, setIsHovered2] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
@@ -49,6 +50,12 @@ const ApproDetail = () => {
     
     fetchData();
   }, [pageNum]);
+
+  useEffect(() => {
+    if (donation && Array.isArray(donation)) {
+      setLiCount(donation.length);
+    }
+  }, [donation]);
 
   const handleRefus = () => {
 
@@ -124,7 +131,7 @@ const ApproDetail = () => {
                     onClick={handleCommentBtnClick}
                     style={{ backgroundColor: backgroundColor }}
                   >
-                    <div className='commentCount'>댓글 0</div>
+                    <div className='commentCount'>댓글 {liCount}</div>
                     <div
                       className="rotateBtn"
                       style={{ transform: `rotate(${rotation}deg)` }}

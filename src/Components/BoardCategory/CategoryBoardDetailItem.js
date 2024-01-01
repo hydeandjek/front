@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 
-const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
+const CategoryBoardDetailItem = ({
+  item,
+  fetchCategoryCommentData,
+  category,
+}) => {
   const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
   const userName = localStorage.getItem('LOGIN_USERNAME');
   const [commentmody, setCommentMody] = useState(false);
@@ -19,6 +23,10 @@ const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
       document.getElementsByClassName('changeComment')[0];
     const CommentAdd = CommentAddElement ? CommentAddElement.value : '';
 
+    if (!CommentAdd) {
+      alert('수정 내용을 입력하세요');
+      return;
+    }
     try {
       const responseMody = await fetch(
         QUESTION_URL + '/' + category + '/' + boardId + '/reply/' + commentId,
@@ -31,7 +39,6 @@ const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
       setRefreshA(!refreshA);
 
       const result = await responseMody.json();
-      // console.log(result);
       // setChangeComment(result);
       fetchCategoryCommentData();
       setCommentMody(!commentmody);
@@ -53,14 +60,31 @@ const CategoryBoardDetailItem = (item, fetchCategoryCommentData, category) => {
     fetchCategoryCommentData();
   };
 
+  const myElements = document.getElementsByClassName('text-wrappera33');
+  console.log(item.content);
+
+  const myElement = String(item.content);
+  console.log(myElement.length);
+  // 텍스트 내용의 길이를 확인
+  if (myElement.length > 5) {
+    console.log('fffff');
+
+    // myElements.classList.replace('text-wrappera33', 'text-wrapperaq33');
+    for (let i = 0; i < myElements.length; i++) {
+      myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
+    }
+  }
+
   return (
     <div
       key={item.boardId}
-      className='content-text-wrapper1v'
+      className='content-textwrapper1v'
     >
       {/* <div className='text-wrapper a1'>{item.boardId}</div> */}
       <div className='vvoo'>
-        <div className='text-wrappera34'>{item.userName}</div>
+        <div className='text-wrappera34'>
+          {item.userName.substring(0, 2)}***
+        </div>
         <div className='text-wrappera35'>({item.regDate})</div>
       </div>
 
