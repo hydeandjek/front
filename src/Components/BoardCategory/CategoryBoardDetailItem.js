@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
 
 const CategoryBoardDetailItem = ({
@@ -14,6 +14,12 @@ const CategoryBoardDetailItem = ({
     'content-type': 'application/json',
     // JWT에 대한 인증 토큰이라는 타입을 선언
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+  };
+
+  const [longTextIndex, setLongTextIndex] = useState(null);
+
+  const handleTextClick = (index) => {
+    setLongTextIndex(index);
   };
 
   //  댓글 바꾸기
@@ -93,7 +99,6 @@ const CategoryBoardDetailItem = ({
         </div>
         <div className='text-wrappera35'>({item.regDate})</div>
       </div>
-
       {userName === item.userName && (
         <>
           {/* <div className='ieie' /> */}
@@ -117,7 +122,6 @@ const CategoryBoardDetailItem = ({
           </div>
         </>
       )}
-
       <div className='content-text-wrapper2'>
         {commentmody ? (
           // 이 부분에 mody가 true일 때 보여줄 UI를 넣어주세요

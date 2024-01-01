@@ -9,7 +9,8 @@
 }
 
 // --------------------------
-#board {
+#board1 {
+  display: inline-flex;
   .createBoard {
     display: inline-flex;
     justify-content: center;
@@ -83,8 +84,9 @@
   font-size: 15px;
   font-weight: bold;
   width: 800px;
-  height: 200px;
+  // height: 200px;
   border-bottom: 1px solid gray;
+  overflow-wrap: break-word;
 }
 
 #board .overlapoc .content-text-wrapperaa {
@@ -127,6 +129,14 @@
     }
     .commentadd {
       width: 100px;
+      background-color: rgb(208, 217, 252);
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    .commentadd:hover {
+      background-color: rgb(207, 214, 247);
+      color: rgb(2, 61, 255);
+      font-size: 15px;
     }
   }
 
@@ -137,7 +147,7 @@
     font-size: 15px;
     font-weight: bold;
     width: 800px;
-    height: 200px;
+    overflow-wrap: break-word;
     border-bottom: 1px solid gray;
     .aa {
       margin-top: 20px;
@@ -179,9 +189,10 @@
     .text-wrappera3 {
       margin-left: 30px;
       display: block;
-      width: 600px;
-      height: 85px;
+      width: 750px;
+      // height: 85px;
       font-size: 20px;
+      margin-bottom: 10px;
     }
   }
 
@@ -394,8 +405,9 @@
       margin-left: 30px;
       display: block;
       width: 600px;
-      height: 85px;
+      // height: 85px;
       font-size: 20px;
+      margin-bottom: 10px;
     }
   }
 }
@@ -410,8 +422,9 @@ $button-speed: 0.06;
 $timing-function: ease-out;
 
 .content-textwrapper1v {
+  overflow-wrap: break-word;
   width: 800px;
-  height: 80px;
+  // height: 80px;
   background-color: #ffffff;
   border-bottom: 1px solid gray;
   .ieie {
@@ -423,6 +436,7 @@ $timing-function: ease-out;
   .content-text-wrapper2 .contentlocation .text-wrappera33 {
     margin-top: 10px;
     margin-left: 30px;
+    margin-bottom: 10px;
   }
   .content-text-wrapper2 .contentlocation .text-wrapperaq33 {
     margin-top: 10px;

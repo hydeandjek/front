@@ -176,133 +176,136 @@ const CategoryBoard = () => {
 
   return (
     <>
-      <board id='board1'>
-        {/* <div className='App_wrap-content__1j7ZVa'> */}
-        <div className='rec_center2c'>
-          <div className='side2'>
-            <div className='sidebar2'>
-              {board.map((menu, index) => {
-                return (
-                  <NavLink
-                    style={{ textDecoration: 'none' }}
-                    to={menu.path}
-                    key={index}
-                  >
-                    <OneLifeSideBarItem
-                      menu={menu}
-                      fetchDataHandler={fetchDataHandler}
-                    />
-                  </NavLink>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-        <div className='ppps'>
-          <div id='community'>
-            <h5>OneLife 게시판</h5>
+      {/* <board id='board1'> */}
 
-            <div className='overlap-wrapper'>
-              <div className='overlap'>
-                <div className='content-text-wrapper'>
-                  <div className='text-wrapper a1'>No</div>
-                  {/* <div className='text-wrapper a2'>게시판</div> */}
-                  <div className='text-wrapper a2'>카테고리</div>
-                  <div className='text-wrapper a3'>제목</div>
-                  <div className='text-wrapper a4'>글쓴이</div>
-                  <div className='text-wrapper a5'>작성일자</div>
-                </div>
-                <div className='createBoard'>
-                  <div className='createBoardAA'>
-                    <div className='kp'>
-                      <select
-                        id='categoryChoice'
-                        name='category'
-                      >
-                        {/* <option value='entire'>전체</option> */}
-                        <option value='recipe'>레시피</option>
-                        <option value='dwelling'>주거</option>
-                        <option value='life'>라이프</option>
-                        <option value='Policy'>정책</option>
-                        <option value='trade'>중고거래</option>
-                      </select>
-                      <input
-                        type='text'
-                        placeholder='제목을 입력하세요'
-                        className='title'
+      <board id='qna-board'>
+        <div className='App_wrap-content__1j7ZVa'>
+          <div className='rec_center2'>
+            <div className='side2'>
+              <div className='sidebar2'>
+                {board.map((menu, index) => {
+                  return (
+                    <NavLink
+                      style={{ textDecoration: 'none' }}
+                      to={menu.path}
+                      key={index}
+                    >
+                      <OneLifeSideBarItem
+                        menu={menu}
+                        fetchDataHandler={fetchDataHandler}
                       />
-                    </div>
-                    <input
-                      type='text'
-                      placeholder='내용을 입력하세요'
-                      className='content'
-                    />
-                  </div>
-                  <div className='createBoardB'>
-                    <button
-                      onClick={CategoryAddBoardHandler}
-                      className='btnBoard'
-                    >
-                      등록
-                    </button>
-                  </div>
-                </div>
-
-                <div className='overlap-group1'>
-                  {data.slice(startIndex, endIndex).map((item) => (
-                    <div
-                      key={item.boardId}
-                      className='content-text-wrapper1'
-                      onClick={() =>
-                        oneBoarddetailhandler(item.id, item.category)
-                      }
-                    >
-                      <div className='text-wrappera1f'>{item.rowNum}</div>
-                      <div className='text-wrappera2f'>{item.category}</div>
-                      <div className='text-wrappera3f'>{item.title}</div>
-                      <div className='text-wrappera4f'>
-                        {item.userName.substring(0, 2)}**
-                      </div>
-                      <div className='text-wrappera5f'>{item.regDate}</div>
-                    </div>
-                  ))}
-                </div>
+                    </NavLink>
+                  );
+                })}
               </div>
             </div>
           </div>
-          <div className='PageBtn'>
-            <button
-              className='before'
-              onClick={beforePageHandler}
-            >
-              <img
-                src={icon3}
-                alt='버튼 이미지'
-                className='buttonImage'
-              ></img>
-            </button>
+          <div className='ppps'>
+            <div id='community'>
+              {/* <h5>OneLife 게시판</h5> */}
 
-            <div className='aabtn'>
-              <div className='bbbtn'>{renderPageButtons()}</div>
+              <div className='overlap-wrapper'>
+                <div className='overlap'>
+                  <div className='content-text-wrapper'>
+                    <div className='text-wrapper a1'>No</div>
+                    {/* <div className='text-wrapper a2'>게시판</div> */}
+                    <div className='text-wrapper a2'>카테고리</div>
+                    <div className='text-wrapper a3'>제목</div>
+                    <div className='text-wrapper a4'>글쓴이</div>
+                    <div className='text-wrapper a5'>작성일자</div>
+                  </div>
+                  <div className='createBoard'>
+                    <div className='createBoardAA'>
+                      <div className='kp'>
+                        <select
+                          id='categoryChoice'
+                          name='category'
+                        >
+                          {/* <option value='entire'>전체</option> */}
+                          <option value='recipe'>레시피</option>
+                          <option value='dwelling'>주거</option>
+                          <option value='life'>라이프</option>
+                          <option value='Policy'>정책</option>
+                          <option value='trade'>중고거래</option>
+                        </select>
+                        <input
+                          type='text'
+                          placeholder='제목을 입력하세요'
+                          className='title'
+                        />
+                      </div>
+                      <input
+                        type='text'
+                        placeholder='내용을 입력하세요'
+                        className='content'
+                      />
+                    </div>
+                    <div className='createBoardB'>
+                      <button
+                        onClick={CategoryAddBoardHandler}
+                        className='btnBoard'
+                      >
+                        등록
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className='overlap-group1'>
+                    {data.slice(startIndex, endIndex).map((item) => (
+                      <div
+                        key={item.boardId}
+                        className='content-text-wrapper1'
+                        onClick={() =>
+                          oneBoarddetailhandler(item.id, item.category)
+                        }
+                      >
+                        <div className='text-wrappera1f'>{item.rowNum}</div>
+                        <div className='text-wrappera2f'>{item.category}</div>
+                        <div className='text-wrappera3f'>{item.title}</div>
+                        <div className='text-wrappera4f'>
+                          {item.userName.substring(0, 2)}**
+                        </div>
+                        <div className='text-wrappera5f'>{item.regDate}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-            {countNum ? (
-              <button>끝</button>
-            ) : (
+            <div className='PageBtn'>
               <button
-                className='after'
-                onClick={afterPageHandler}
+                className='before'
+                onClick={beforePageHandler}
               >
                 <img
-                  src={icon4}
+                  src={icon3}
                   alt='버튼 이미지'
                   className='buttonImage'
                 ></img>
               </button>
-            )}
+
+              <div className='aabtn'>
+                <div className='bbbtn'>{renderPageButtons()}</div>
+              </div>
+              {countNum ? (
+                <button>끝</button>
+              ) : (
+                <button
+                  className='after'
+                  onClick={afterPageHandler}
+                >
+                  <img
+                    src={icon4}
+                    alt='버튼 이미지'
+                    className='buttonImage'
+                  ></img>
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
         </div>
-        {/* </div> */}
-        {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
       </board>
     </>
   );

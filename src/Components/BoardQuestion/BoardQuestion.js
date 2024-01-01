@@ -171,8 +171,6 @@ const BoardQuestion = () => {
         pageNumber = startNumber + index;
       }
 
-      console.log(realCurrentPage, pageNumber);
-      console.log(realCurrentPage === pageNumber);
       return (
         <>
           {realCurrentPage === pageNumber ? (
@@ -280,7 +278,9 @@ const BoardQuestion = () => {
                       >
                         <div className='text-wrapper a1'>{item.rowNumber}</div>
                         <div className='text-wrapper a3'>{item.title}</div>
-                        <div className='text-wrapper a4'>{item.userName}</div>
+                        <div className='text-wrapper a4'>
+                          {item.userName.substring(0, 2)}***
+                        </div>
                         <div className='text-wrapper a5'>{item.regDate}</div>
                       </div>
                     ))}

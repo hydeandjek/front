@@ -12,6 +12,9 @@
 
 #qna-board .App_wrap-content__1j7ZVa {
   display: flex;
+  .rec_center2 {
+    margin-right: 100px;
+  }
 }
 
 // --------------------------
@@ -60,7 +63,7 @@
 
 #qna-board input {
   display: flex;
-  width: 100%;
+  width: 700px;
   height: 30px;
   padding: 10px;
   box-sizing: border-box;
@@ -104,7 +107,7 @@
 }
 
 #qna-board .content-text-wrapperaaa {
-  margin-top: 30px;
+  margin-top: 50px;
   // justify-content: center;
   // align-items: center;
   display: block;
@@ -163,7 +166,7 @@
   .text-wrappera3 {
     margin-left: 30px;
     display: block;
-    width: 600px;
+    width: 750px;
     height: 85px;
     font-size: 20px;
   }
@@ -413,7 +416,7 @@
       .text-wrappera3 {
         margin-left: 30px;
         display: block;
-        width: 600px;
+        width: 750px;
         height: 85px;
         font-size: 20px;
       }
@@ -432,7 +435,7 @@ $timing-function: ease-out;
 
 #qna-board .content-text-wrapper1v {
   width: 800px;
-  height: 80px;
+  overflow-wrap: break-word;
   background-color: #ffffff;
   border-bottom: 1px solid gray;
   .ieie {
@@ -562,6 +565,7 @@ $timing-function: ease-out;
 #qna-board .text-wrappera33 {
   margin-top: 10px;
   margin-left: 30px;
+  margin-bottom: 10px;
 }
 
 // -------------
