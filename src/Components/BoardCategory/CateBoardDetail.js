@@ -19,6 +19,8 @@ const CateBoardDetail = () => {
 
   const userName = localStorage.getItem('LOGIN_USERNAME');
 
+  const yourData = location.state?.board;
+
   const requestHeader = {
     'content-type': 'application/json',
     // JWT에 대한 인증 토큰이라는 타입을 선언
@@ -40,7 +42,6 @@ const CateBoardDetail = () => {
         // 데이터를 상태에 업데이트
 
         setData(result);
-        // 새로운 아이템 추가하고 상태 업데이트
         setRegDate(new Date(result.regDate).toISOString().split('T')[0]);
       } else {
         console.log('No data received from the server.');
@@ -106,8 +107,10 @@ const CateBoardDetail = () => {
       method: 'DELETE',
       headers: requestHeader,
     });
-    setRefresh(!refresh);
-    redirection('/board/onelife');
+
+    // setRefresh(!refresh);
+    window.history.back();
+    // redirection('/board/onelife');
   };
 
   const oneLifeChangeBoardHandler = async (id, category) => {
@@ -138,29 +141,45 @@ const CateBoardDetail = () => {
     setRefresh(!refresh);
   };
 
+  // for (let i = 0; i < commentList.length; i++) {
+  //   const comment = commentList[i];
+  //   const myElement = String(comment.content);
+
+  //   // 각 데이터에 대해 길이를 확인하고 처리
+  //   if (myElement.length > 10) {
+  //     console.log('fffff');
+
+  //     // 해당 데이터에 대해 클래스 변경
+  //     myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
+  //   }
+  // }
+
   return (
     <>
-      <div className='App_wrap-content__1j7ZVa'>
-        <div className='side2'>
-          <div className='sidebar2'>
-            {board.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                >
-                  <OneLifeSideBarItem
-                    menu={menu}
-                    fetchCategoryCommentData={fetchCategoryCommentData}
-                  />
-                </NavLink>
-              );
-            })}
+      <board id='board1'>
+        {/* <div className='App_wrap-content__1j7ZVa'> */}
+        <div className='rec_center2c'>
+          <div className='side2'>
+            <div className='sidebar2'>
+              {board.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <OneLifeSideBarItem
+                      menu={menu}
+                      fetchCategoryCommentData={fetchCategoryCommentData}
+                    />
+                  </NavLink>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className='rec1' />
-        <div className='overlap'>
+        <div className='overlapoc'>
           {userName === data.userName ? (
             <div>
               <div className='text-wrapperaaa'>
@@ -223,9 +242,7 @@ const CateBoardDetail = () => {
           ) : (
             <div className='content-text-wrapperaaNo'>
               <div className='aa'>
-                <div className='text-wrappera4'>
-                  {data.userName.substring(0, 2)}***
-                </div>
+                <div className='text-wrappera4'>{data.userName}</div>
                 <div className='text-wrappera5'>{regDate}</div>
               </div>
               <div className='text-wrappera2'>{data.title}</div>
@@ -239,7 +256,7 @@ const CateBoardDetail = () => {
             {' '}
             <input
               type='text'
-              placeholder='댓글을 입력하고 다른 곳을 클릭해주세요~'
+              placeholder='댓글을 입력하세요'
               className='comment'
             />
             <button
@@ -258,7 +275,8 @@ const CateBoardDetail = () => {
             />
           ))}
         </div>
-      </div>
+        {/* </div> */}
+      </board>
     </>
   );
 };

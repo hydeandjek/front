@@ -16,8 +16,6 @@ const CategoryBoardDetailItem = ({
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
   };
 
-  console.log(item);
-
   //  댓글 바꾸기
   const commentdetailhandle = async (commentId, boardId) => {
     // 선택된 아이템에 대한 로직을 수행
@@ -41,7 +39,6 @@ const CategoryBoardDetailItem = ({
       setRefreshA(!refreshA);
 
       const result = await responseMody.json();
-      // console.log(result);
       // setChangeComment(result);
       fetchCategoryCommentData();
       setCommentMody(!commentmody);
@@ -62,6 +59,21 @@ const CategoryBoardDetailItem = ({
     setRefreshA(true);
     fetchCategoryCommentData();
   };
+
+  const myElements = document.getElementsByClassName('text-wrappera33');
+  console.log(item.content);
+
+  const myElement = String(item.content);
+  console.log(myElement.length);
+  // 텍스트 내용의 길이를 확인
+  if (myElement.length > 5) {
+    console.log('fffff');
+
+    // myElements.classList.replace('text-wrappera33', 'text-wrapperaq33');
+    for (let i = 0; i < myElements.length; i++) {
+      myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
+    }
+  }
 
   return (
     <div

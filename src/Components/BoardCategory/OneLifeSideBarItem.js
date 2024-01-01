@@ -7,7 +7,7 @@ import '../SideBar/SideBarItem.scss';
 function OneLifeSideBarItem({
   menu,
   fetchDataHandler,
-  fetchCategoryCommentData,
+  // fetchCategoryCommentData,
 }) {
   const rec = [
     { id: 'entire', name: '전체', src: '' },
@@ -18,8 +18,6 @@ function OneLifeSideBarItem({
     { id: 'trade', name: '중고거래', src: '' },
   ];
 
-  // console.log(menu);
-
   const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
   const [showother, setShowOther] = useState(false);
 
@@ -28,10 +26,8 @@ function OneLifeSideBarItem({
 
   const onClickRec = async (e) => {
     const clickedContent = e.target.textContent.trim();
-    console.log(clickedContent);
 
     if (clickedContent === '카테고리 게시판') {
-      console.log('111카테고리 게시판');
       if (!showother) {
         setShowOther(!showother);
       } else {
@@ -45,10 +41,9 @@ function OneLifeSideBarItem({
   //   const [props, setProps] = useState();
   const onClickMenu = async (e) => {
     // let clickedCate = e.target.textContent.trim();
-    console.log(e);
 
     fetchDataHandler(e);
-    fetchCategoryCommentData(e);
+    // fetchCategoryCommentData(e);
   };
 
   return (

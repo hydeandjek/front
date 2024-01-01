@@ -1,4 +1,4 @@
-#board .overlap-group {
+#board .overlapoc-group {
   @media (max-width: 768px) {
     width: 80%; // 화면 너비가 768px 이하일 때의 스타일
   }
@@ -9,22 +9,23 @@
 }
 
 // --------------------------
-#board .createBoard {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-  width: 800px;
+#board {
+  .createBoard {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    width: 800px;
+  }
 }
-
-#board .overlap .text-wrapper.a34 {
+#board .overlapoc .text-wrapper.a34 {
   margin-left: 30px;
   display: inline-block;
   border: 1px solid black;
 
   height: 20px;
 }
-#board .overlap .text-wrapper.a35 {
+#board .overlapoc .text-wrapper.a35 {
   display: block;
   margin-top: 13px;
   font-size: 8px;
@@ -32,19 +33,19 @@
   width: 75px;
   height: 15px;
 }
-#board .overlap .contentlocation .text-wrapper.a31 {
+#board .overlapoc .contentlocation .text-wrapper.a31 {
   display: block;
   border: 1px solid black;
   height: 20px;
   font-size: 12px;
 }
-#board .overlap .contentlocation .text-wrapper.a33 {
+#board .overlapoc .contentlocation .text-wrapper.a33 {
   display: block;
   border: 1px solid black;
   height: 35px;
   font-size: 25px;
 }
-#board .overlap .contentlocation .text-wrapper.a33 {
+#board .overlapoc .contentlocation .text-wrapper.a33 {
 }
 
 #board input {
@@ -72,10 +73,11 @@
   width: 800px;
   height: 200px;
   border-bottom: 1px solid gray;
+  margin-top: 50px;
 }
 
-.overlap .text-wrapperaaa {
-  margin-top: 30px;
+.overlapoc .text-wrapperaaa {
+  margin-top: 50px;
   display: block;
   background-color: #ffffff;
   font-size: 15px;
@@ -85,18 +87,10 @@
   border-bottom: 1px solid gray;
 }
 
-#board .overlap .content-text-wrapperaa {
+#board .overlapoc .content-text-wrapperaa {
   .aa {
     display: inline-flex;
     margin-left: 10px;
-    .text-wrappera5 {
-      font-size: 10px;
-      margin-left: 10px;
-    }
-    .text-wrappera4 {
-      font-size: 10px;
-      margin-left: 10px;
-    }
 
     .text-wrappera20 {
       font-size: 10px;
@@ -122,12 +116,22 @@
   height: 100px;
 }
 
-.overlap {
+.overlapoc {
   margin-right: 260px;
   width: 800px;
 
+  .content-text-wrapper00 {
+    display: flex;
+    .comment {
+      width: 700px;
+    }
+    .commentadd {
+      width: 100px;
+    }
+  }
+
   .content-text-wrapperaaNo {
-    margin-top: 30px;
+    margin-top: 50px;
     display: block;
     background-color: #ffffff;
     font-size: 15px;
@@ -136,15 +140,23 @@
     height: 200px;
     border-bottom: 1px solid gray;
     .aa {
+      margin-top: 20px;
       display: inline-flex;
-      margin-left: 10px;
+      margin-left: 30px;
+      // border: 1px solid red;
+      height: 20px;
       .text-wrappera5 {
         font-size: 10px;
+        width: 200px;
+        margin-bottom: 15px;
+        // text-align: center;
         margin-left: 10px;
+        margin-top: 1px;
+        height: 22px;
       }
       .text-wrappera4 {
-        font-size: 10px;
-        margin-left: 10px;
+        // width: 100px;
+        font-size: 12px;
       }
 
       .text-wrappera20 {
@@ -157,23 +169,19 @@
       }
     }
     .text-wrappera2 {
-      margin-top: 20px;
+      margin-top: 23px;
+      margin-left: 30px;
+      display: block;
+      width: 500px;
+      height: 35px;
       font-size: 15px;
-      margin-left: 10px;
     }
     .text-wrappera3 {
-      margin-top: 5px;
-      font-size: 25px;
-      margin-left: 10px;
-    }
-  }
-
-  .content-text-wrapper00 {
-    .comment {
-      width: 700px;
-    }
-    .commentadd {
-      width: 100px;
+      margin-left: 30px;
+      display: block;
+      width: 600px;
+      height: 85px;
+      font-size: 20px;
     }
   }
 
@@ -183,18 +191,22 @@
     font-size: 10px;
 
     .aaa {
-      margin-top: 5px;
+      margin-top: 20px;
       display: inline-flex;
       margin-left: 30px;
+      // border: 1px solid red;
       height: 20px;
       .text-wrappera5 {
         font-size: 10px;
         width: 200px;
         margin-bottom: 15px;
+        // text-align: center;
+        margin-left: 10px;
         margin-top: 1px;
         height: 22px;
       }
       .text-wrappera4 {
+        // width: 100px;
         font-size: 12px;
       }
     }
@@ -412,6 +424,11 @@ $timing-function: ease-out;
     margin-top: 10px;
     margin-left: 30px;
   }
+  .content-text-wrapper2 .contentlocation .text-wrapperaq33 {
+    margin-top: 10px;
+    margin-left: 30px;
+    border: 1px solid red;
+  }
   .pqq {
     display: inline-flex;
     float: right;
@@ -525,7 +542,7 @@ $timing-function: ease-out;
 // -------------
 #board .side2 {
   position: relative;
-  padding: 30px;
+  // padding: 30px;
   justify-content: center;
   align-items: center;
 

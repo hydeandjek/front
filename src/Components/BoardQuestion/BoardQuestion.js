@@ -20,6 +20,7 @@ const BoardQuestion = () => {
   const [countNum, setCountNum] = useState(false);
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
+  const [refresh, setRefresh] = useState(false);
 
   const requestHeader = {
     'content-type': 'application/json',
@@ -27,7 +28,7 @@ const BoardQuestion = () => {
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
   };
 
-  const fetchData = async () => {
+  const fetchData = async (Addcate) => {
     try {
       const res = await fetch(REQUEST_URL);
       if (!res.ok) {
@@ -35,8 +36,6 @@ const BoardQuestion = () => {
       }
 
       const result = await res.json();
-
-      const i = 1;
 
       if (result.length > 0) {
         const processedData = result.map((item) => ({
@@ -54,6 +53,23 @@ const BoardQuestion = () => {
       } else {
         console.log('No data received from the server.');
       }
+      if (Addcate === 0) {
+        const vvv = data[data.length - 1].rowNumber;
+
+        const naa = Math.floor(vvv / 10) * 10;
+
+        const pageIndex = (processedData.length + 1) / 50; // 51번째 데이터가 속한 페이지
+
+        console.log(naa);
+        setStartIndex(naa);
+        setEndIndex(naa + 10);
+        setCurrentPage(Math.ceil(pageIndex));
+      } else {
+        setStartIndex(0);
+        setEndIndex(10);
+        setCurrentPage(1);
+        // setRefresh(!refresh);
+      }
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -61,7 +77,7 @@ const BoardQuestion = () => {
 
   useEffect(() => {
     fetchData();
-  }, []); // Empty dependency array means this effect runs once after initial render
+  }, [refresh]); // Empty dependency array means this effect runs once after initial render
 
   const processedData = data.map((item) => ({
     boardId: item.boardId,
@@ -87,12 +103,13 @@ const BoardQuestion = () => {
   };
 
   const QnaAddBoardHandler = async () => {
+    const Addcate = 0;
     const titleAddElement = document.getElementsByClassName('title')[0];
     const contentAddElement = document.getElementsByClassName('content')[0];
     const titleAdd = titleAddElement ? titleAddElement.value : '';
     const contentAdd = contentAddElement ? contentAddElement.value : '';
-    document.getElementsByClassName('title')[0].value = '';
-    document.getElementsByClassName('content')[0].value = '';
+    // document.getElementsByClassName('title')[0].value = '';
+    // document.getElementsByClassName('content')[0].value = '';
 
     if (!titleAdd || !contentAdd) {
       alert('제목과 내용을 모두 입력해주세요.');
@@ -114,7 +131,7 @@ const BoardQuestion = () => {
     });
     // setRefresh((prevRefresh) => prevRefresh + 1);
 
-    fetchData();
+    fetchData(Addcate);
   };
 
   const beforePageHandler = () => {
@@ -160,12 +177,20 @@ const BoardQuestion = () => {
     });
   };
 
+  const refreshHandler = () => {
+    setRefresh(!refresh);
+  };
+
   return (
     <>
-      <board id='board'>
-        <div className='App_wrap-content__1j7ZVa'>
+      <board id='board1'>
+        {/* <div className='App_wrap-content__1j7ZVa'> */}
+        <div className='rec_center2c'>
           <div className='side2'>
-            <div className='sidebar2'>
+            <div
+              className='sidebar2'
+              onClick={refreshHandler}
+            >
               {board.map((menu, index) => {
                 return (
                   <NavLink
@@ -179,92 +204,93 @@ const BoardQuestion = () => {
               })}
             </div>
           </div>
-          <div className='ppps'>
-            <div id='community'>
-              <h5>질문게시판</h5>
+        </div>
+        <div className='ppps'>
+          <div id='community'>
+            <h5>질문게시판</h5>
 
-              <div className='overlap-wrapper'>
-                <div className='overlap'>
-                  <div className='content-text-wrapper'>
-                    <div className='text-wrapper a1'>No</div>
-                    {/* <div className='text-wrapper a2'>게시판</div> */}
-                    <div className='text-wrapper a3'>제목</div>
-                    <div className='text-wrapper a4'>글쓴이</div>
-                    <div className='text-wrapper a5'>작성일자</div>
+            <div className='overlap-wrapper'>
+              <div className='overlap'>
+                <div className='content-text-wrapper'>
+                  <div className='text-wrapper a1'>No</div>
+                  {/* <div className='text-wrapper a2'>게시판</div> */}
+                  <div className='text-wrapper a3'>제목</div>
+                  <div className='text-wrapper a4'>글쓴이</div>
+                  <div className='text-wrapper a5'>작성일자</div>
+                </div>
+                <div className='createBoard'>
+                  <div className='createBoardA'>
+                    <input
+                      type='text'
+                      placeholder='제목을 입력하세요'
+                      className='title'
+                    />
+                    <input
+                      type='text'
+                      placeholder='내용을 입력하세요'
+                      className='content'
+                    />
                   </div>
-                  <div className='createBoard'>
-                    <div className='createBoardA'>
-                      <input
-                        type='text'
-                        placeholder='제목을 입력하세요'
-                        className='title'
-                      />
-                      <input
-                        type='text'
-                        placeholder='내용을 입력하세요'
-                        className='content'
-                      />
-                    </div>
-                    <div className='createBoardB'>
-                      <button
-                        onClick={QnaAddBoardHandler}
-                        className='btnBoard'
-                      >
-                        등록
-                      </button>
-                    </div>
+                  <div className='createBoardB'>
+                    <button
+                      onClick={QnaAddBoardHandler}
+                      className='btnBoard'
+                    >
+                      등록
+                    </button>
                   </div>
+                </div>
 
-                  <div className='overlap-group1'>
-                    {data.slice(startIndex, endIndex).map((item) => (
-                      <div
-                        key={item.boardId}
-                        className='content-text-wrapper1'
-                        onClick={() => boarddetailhandleClick(item.boardId)}
-                      >
-                        <div className='text-wrapper a1'>{item.rowNumber}</div>
-                        <div className='text-wrapper a3'>{item.title}</div>
-                        <div className='text-wrapper a4'>
-                          {item.userName.substring(0, 2)}***
-                        </div>
-                        <div className='text-wrappera5'>{item.regDate}</div>
+                <div className='overlap-group1'>
+                  {data.slice(startIndex, endIndex).map((item) => (
+                    <div
+                      key={item.boardId}
+                      className='content-text-wrapper1'
+                      onClick={() => boarddetailhandleClick(item.boardId)}
+                    >
+                      <div className='text-wrapper a1'>{item.rowNumber}</div>
+                      <div className='text-wrapper a3'>{item.title}</div>
+                      <div className='text-wrapper a4'>
+                        {item.userName.substring(0, 2)}***
                       </div>
-                    ))}
-                  </div>
+                      <div className='text-wrappera5'>{item.regDate}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            <div className='PageBtn'>
+          </div>
+          <div className='PageBtn'>
+            <button
+              className='before'
+              onClick={beforePageHandler}
+            >
+              <img
+                src={icon1}
+                alt='버튼 이미지'
+                className='buttonImage'
+              ></img>
+            </button>
+            <div className='aabtn'>
+              <div className='bbbtn'>{renderPageButtons()}</div>
+            </div>
+            {countNum ? (
+              <button>끝</button>
+            ) : (
               <button
-                className='before'
-                onClick={beforePageHandler}
+                className='after'
+                onClick={afterPageHandler}
               >
                 <img
-                  src={icon1}
+                  src={icon2}
                   alt='버튼 이미지'
                   className='buttonImage'
                 ></img>
               </button>
-              <div className='aabtn'>
-                <div className='bbbtn'>{renderPageButtons()}</div>
-              </div>
-              {countNum ? (
-                <button>끝</button>
-              ) : (
-                <button
-                  className='after'
-                  onClick={afterPageHandler}
-                >
-                  <img
-                    src={icon2}
-                    alt='버튼 이미지'
-                    className='buttonImage'
-                  ></img>
-                </button>
-              )}
-            </div>
+            )}
           </div>
         </div>
+        {/* </div> */}
       </board>
     </>
   );

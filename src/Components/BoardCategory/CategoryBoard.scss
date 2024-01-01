@@ -1,11 +1,26 @@
 // ------------------------------------------------------
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
+.rec_center2c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 76px);
+  border-right: 1px solid #b4b4b4;
+  color: #000;
+  font-size: 30px;
+  justify-content: center !important;
+  margin-right: 100px;
+}
 .ppps {
   width: 800px;
-  //   justify-content: center;
+  // justify-content: center;
   align-items: center;
   margin-right: 260px;
+  position: relative;
+  // margin-top: 10px;
+  #community {
+    // margin-top: 0px;
+  }
 }
 
 .App_wrap-content__1j7ZVa {
@@ -68,7 +83,7 @@
 }
 
 .overlap .text-wrapper.a2 {
-  margin-left: 20px;
+  margin-left: 10px;
   width: 150px;
   text-align: center;
 }
@@ -97,7 +112,7 @@
   width: 150px;
   // text-align: center;
   font-size: 10px;
-  margin-top: 8px;
+  // margin-top: 8px;
 }
 
 // ---------------------------------------------------
@@ -131,17 +146,47 @@
   width: 800px;
 }
 
-.createBoard .createBoardA .title {
-  height: 30px;
-  display: block;
+.createBoard .createBoardAA {
+  .kp {
+    display: flex;
+    .title {
+      height: 30px;
+      display: block;
+      width: 600px;
+      display: flex;
+
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: none;
+      border: 1px solid orange;
+    }
+  }
+}
+.createBoard .createBoardAA .content {
+  height: 90px;
   width: 680px;
   display: flex;
-
   padding: 10px;
   box-sizing: border-box;
   border-radius: 5px;
   border: none;
   border: 1px solid orange;
+}
+
+.createBoard .createBoardA {
+  // height: 170px;
+  .title {
+    height: 30px;
+    // display: block;
+    display: flex;
+
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid orange;
+  }
 }
 .createBoard .createBoardA .content {
   height: 90px;
@@ -154,23 +199,27 @@
   border: 1px solid orange;
 }
 
-.overlap .createBoardB .btnBoard {
-  // display: inline-flex;
+.overlap .createBoardB {
+  .btnBoard {
+    // display: inline-flex;
 
-  height: 115px;
-  width: 115px;
-  margin-right: 0px;
-  margin-left: 5px;
-  font-weight: bold;
-  background-color: gray(204, 198, 190, 0.205);
+    width: 115px;
+    margin-right: 0px;
+    margin-left: 5px;
+    font-weight: bold;
+    background-color: gray(204, 198, 190, 0.205);
+  }
 }
 
-.side2 {
+.side25 {
   position: relative;
   padding: 30px;
   // color: #000;
   justify-content: center;
   align-items: center;
+  display: flex;
+  padding: 30px;
+  color: #000;
 
   .sidebar2 {
     // background-color: red;
@@ -298,42 +347,3 @@ button buttonImage {
     padding: 0px;
   }
 }
-
-// .overlap .text-wrapper.a1 {
-//   // margin-top: 10px;
-//   margin-left: 20px;
-//   width: 80px;
-// }
-
-// .overlap .text-wrapper.a2 {
-//   margin-left: 20px;
-//   width: 150px;
-//   text-align: center;
-// }
-
-// .overlap .text-wrapper.a3 {
-//   margin-left: 20px;
-//   width: 1000px;
-//   text-align: center;
-// }
-
-// .overlap .text-wrapper.a4 {
-//   margin-left: 50px;
-//   margin-right: 20px;
-//   width: 150px;
-//   text-align: center;
-// }
-// .overlap .text-wrapper.a5 {
-//   // margin-left: 50px;
-//   margin-right: 8px;
-//   width: 150px;
-//   text-align: center;
-// }
-
-// .overlap .text-wrappera5 {
-//   right: 0px;
-//   width: 150px;
-//   // text-align: center;
-//   font-size: 10px;
-//   margin-top: 8px;
-// }

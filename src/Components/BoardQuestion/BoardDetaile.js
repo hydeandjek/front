@@ -20,6 +20,7 @@ const BoardDetaile = () => {
   const [commentmody, setCommentMody] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [regDate, setRegDate] = useState(false);
+  console.log(data);
 
   const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
 
@@ -139,20 +140,22 @@ const BoardDetaile = () => {
 
   return (
     <>
-      <board id='board'>
-        <div className='side2'>
-          <div className='sidebar2'>
-            {board.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                >
-                  <SideBarItem2 menu={menu} />
-                </NavLink>
-              );
-            })}
+      <board id='board1'>
+        <div className='rec_center2c'>
+          <div className='side2'>
+            <div className='sidebar2'>
+              {board.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <SideBarItem2 menu={menu} />
+                  </NavLink>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className='rec1' />
@@ -164,9 +167,7 @@ const BoardDetaile = () => {
                   <div className='text-wrappera4'>
                     {data.userName.substring(0, 2)}***
                   </div>
-                  <div className='text-wrappera5'>
-                    {new Date(data.regDate).toISOString().split('T')[0]}
-                  </div>
+                  <div className='text-wrappera5'>{regDate}</div>
                 </div>
                 <div className='iii'>
                   <button
@@ -220,7 +221,7 @@ const BoardDetaile = () => {
             <div className='content-text-wrapperaa'>
               <div className='aa'>
                 <div className='text-wrappera4'>{data.userName}</div>
-                <div className='text-wrappera5'>{data.regDate}</div>
+                <div className='text-wrappera5'>{regDate}</div>
               </div>
               <div className='text-wrappera2'>{data.title}</div>
               <div className='text-wrappera3'>{data.content}</div>
@@ -232,7 +233,7 @@ const BoardDetaile = () => {
           <div className='content-text-wrapper00'>
             <input
               type='text'
-              placeholder='댓글을 입력하고 다른 곳을 클릭해주세요~'
+              placeholder='댓글을 입력하세요'
               className='commenta'
             />
             <button

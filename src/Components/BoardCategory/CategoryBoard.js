@@ -7,6 +7,8 @@ import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2.js';
 import OneLifeSideBarItem from './OneLifeSideBarItem.js';
 import './CategoryBoard.scss';
 import CateBoardDetail from './CateBoardDetail.js';
+import icon3 from '../../assets/img/icon1.png';
+import icon4 from '../../assets/img/icon2.png';
 
 const CategoryBoard = () => {
   const redirection = useNavigate();
@@ -14,6 +16,12 @@ const CategoryBoard = () => {
   const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
   const [refresh, setRefresh] = useState(false);
   const [controller, setController] = useState(false);
+
+  const [countNum, setCountNum] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(10);
+  const itemsPerPage = 5;
 
   // 로그인 인증 토큰
   const requestHeader = {
@@ -23,8 +31,7 @@ const CategoryBoard = () => {
   };
 
   //   카테고리 별 게시글 가져오기
-  const fetchDataHandler = async (category) => {
-    setData([]);
+  const fetchDataHandler = async (category, AddCate) => {
     try {
       const res = await fetch(QUESTION_URL + '/' + category);
       if (!res.ok) {
@@ -32,7 +39,6 @@ const CategoryBoard = () => {
       }
 
       const result = await res.json();
-      // console.log('됐다~~~~~');
 
       if (result.length > 0) {
         const processedData = result.map((item) => ({
@@ -44,11 +50,25 @@ const CategoryBoard = () => {
           userId: item.userId,
           userName: item.userName,
         }));
-        console.log(processedData);
+        if (AddCate === 0) {
+          const vvv = processedData[processedData.length - 1].rowNum - 1;
+          const naa = Math.floor(vvv / 10) * 10;
+          const pageIndex = processedData.length / 50; // 51번째 데이터가 속한 페이지
+          setStartIndex(naa);
+          setEndIndex(naa + 10);
+          renderPageButtons();
+          setCurrentPage(Math.ceil(pageIndex));
+        } else {
+          setCurrentPage(1);
+          setStartIndex(0);
+          setEndIndex(10);
+        }
 
         // 데이터를 상태에 업데이트
         setData(processedData);
+        // setRefresh(!refresh);
       } else {
+        setData([]);
         console.log('No data received from the server.');
       }
     } catch (error) {
@@ -58,6 +78,9 @@ const CategoryBoard = () => {
 
   // 게시물 추가
   const CategoryAddBoardHandler = async () => {
+    // console.log(setStartIndex, setEndIndex);
+    // setStartIndex(0);
+    // setEndIndex(10);
     const categoryinputAddElement =
       document.getElementById('categoryChoice').value;
     const titleAddElement = document.getElementsByClassName('title')[0];
@@ -65,8 +88,9 @@ const CategoryBoard = () => {
     const categoryAdd = categoryinputAddElement ? titleAddElement.value : '';
     const titleAdd = titleAddElement ? titleAddElement.value : '';
     const contentAdd = contentAddElement ? contentAddElement.value : '';
+    const AddCate = 0;
 
-    console.log(categoryinputAddElement);
+    // console.log(categoryinputAddElement);
 
     if (!titleAdd || !contentAdd || !categoryAdd) {
       alert('모두 입력해주세요.');
@@ -87,7 +111,8 @@ const CategoryBoard = () => {
         content: contentAdd,
       }),
     });
-    setRefresh(!refresh);
+    fetchDataHandler(categoryinputAddElement, AddCate);
+    // setRefresh(!refresh);
   };
 
   useEffect(() => {
@@ -96,7 +121,6 @@ const CategoryBoard = () => {
 
   // 상세보기 요청
   const oneBoarddetailhandler = (boardId, category) => {
-    console.log(boardId, category);
     // 선택된 아이템에 대한 로직을 수행
     redirection('/board/onelife/detail', {
       state: { boardId: boardId, category: category },
@@ -105,35 +129,78 @@ const CategoryBoard = () => {
 
   const controllOneHandler = (name) => {
     if (name === '카테고리 게시판') {
-      console.log('aaaaaaaa 카테고리 게시판');
+      // console.log('aaaaaaaa 카테고리 게시판');
       setController(true);
     }
   };
 
+  const beforePageHandler = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    // setStartIndex(startIndex - 10);
+    // setEndIndex(endIndex - 10);
+    setCountNum(false);
+  };
+
+  const afterPageHandler = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const pageNumHandler = (pageNumber) => {
+    const buttonText = pageNumber.target.innerText;
+    setStartIndex((buttonText - 1) * 10);
+    setEndIndex(buttonText * 10);
+  };
+
+  const renderPageButtons = () => {
+    const startNumber = (currentPage - 1) * itemsPerPage + 1;
+    const endNumber = startNumber + itemsPerPage - 1;
+    let pageNumber;
+
+    return Array.from({ length: itemsPerPage }).map((_, index) => {
+      if (data.length <= (startNumber + index - 1) * 10) {
+        return;
+      } else {
+        pageNumber = startNumber + index;
+      }
+      return (
+        <button
+          key={pageNumber}
+          className={`a num${index + 1}`}
+          onClick={pageNumHandler}
+        >
+          {pageNumber}
+        </button>
+      );
+    });
+  };
+
   return (
     <>
-      <div className='App_wrap-content__1j7ZVa'>
-        <div className='side2'>
-          <div className='sidebar2'>
-            {board.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                >
-                  <OneLifeSideBarItem
-                    menu={menu}
-                    fetchDataHandler={fetchDataHandler}
-                  />
-                </NavLink>
-              );
-            })}
+      <board id='board1'>
+        {/* <div className='App_wrap-content__1j7ZVa'> */}
+        <div className='rec_center2c'>
+          <div className='side2'>
+            <div className='sidebar2'>
+              {board.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <OneLifeSideBarItem
+                      menu={menu}
+                      fetchDataHandler={fetchDataHandler}
+                    />
+                  </NavLink>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className='ppps'>
           <div id='community'>
-            <h5>질문게시판</h5>
+            <h5>OneLife 게시판</h5>
 
             <div className='overlap-wrapper'>
               <div className='overlap'>
@@ -146,23 +213,25 @@ const CategoryBoard = () => {
                   <div className='text-wrapper a5'>작성일자</div>
                 </div>
                 <div className='createBoard'>
-                  <div className='createBoardA'>
-                    <select
-                      id='categoryChoice'
-                      name='category'
-                    >
-                      {/* <option value='entire'>전체</option> */}
-                      <option value='recipe'>레시피</option>
-                      <option value='dwelling'>주거</option>
-                      <option value='life'>라이프</option>
-                      <option value='Policy'>정책</option>
-                      <option value='trade'>중고거래</option>
-                    </select>
-                    <input
-                      type='text'
-                      placeholder='제목을 입력하세요'
-                      className='title'
-                    />
+                  <div className='createBoardAA'>
+                    <div className='kp'>
+                      <select
+                        id='categoryChoice'
+                        name='category'
+                      >
+                        {/* <option value='entire'>전체</option> */}
+                        <option value='recipe'>레시피</option>
+                        <option value='dwelling'>주거</option>
+                        <option value='life'>라이프</option>
+                        <option value='Policy'>정책</option>
+                        <option value='trade'>중고거래</option>
+                      </select>
+                      <input
+                        type='text'
+                        placeholder='제목을 입력하세요'
+                        className='title'
+                      />
+                    </div>
                     <input
                       type='text'
                       placeholder='내용을 입력하세요'
@@ -180,7 +249,7 @@ const CategoryBoard = () => {
                 </div>
 
                 <div className='overlap-group1'>
-                  {data.map((item) => (
+                  {data.slice(startIndex, endIndex).map((item) => (
                     <div
                       key={item.boardId}
                       className='content-text-wrapper1'
@@ -202,21 +271,21 @@ const CategoryBoard = () => {
             </div>
           </div>
           <div className='PageBtn'>
-            {/* <button
+            <button
               className='before'
-              //   onClick={beforePageHandler}
+              onClick={beforePageHandler}
             >
               <img
-                // src={icon1}
+                src={icon3}
                 alt='버튼 이미지'
                 className='buttonImage'
               ></img>
-            </button> */}
+            </button>
 
             <div className='aabtn'>
-              <div className='bbbtn'>{/* {renderPageButtons()} */}</div>
+              <div className='bbbtn'>{renderPageButtons()}</div>
             </div>
-            {/* {countNum ? (
+            {countNum ? (
               <button>끝</button>
             ) : (
               <button
@@ -224,16 +293,17 @@ const CategoryBoard = () => {
                 onClick={afterPageHandler}
               >
                 <img
-                  src={icon2}
+                  src={icon4}
                   alt='버튼 이미지'
                   className='buttonImage'
                 ></img>
               </button>
-            )} */}
+            )}
           </div>
         </div>
-      </div>
-      {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
+        {/* </div> */}
+        {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
+      </board>
     </>
   );
 };
