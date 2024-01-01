@@ -60,20 +60,26 @@ const CategoryBoardDetailItem = ({
     fetchCategoryCommentData();
   };
 
-  const myElements = document.getElementsByClassName('text-wrappera33');
-  console.log(item.content);
+  // const myElements = document.getElementsByClassName('text-wrappera33');
+  // // console.log(item);
+  // const myElementBox = document.getElementsByClassName('content-textwrapper1v');
 
-  const myElement = String(item.content);
-  console.log(myElement.length);
-  // 텍스트 내용의 길이를 확인
-  if (myElement.length > 5) {
-    console.log('fffff');
+  // for (let i = 0; i < item.length; i++) {
+  //   const comment = item[i];
+  //   const myElement = String(comment.content);
 
-    // myElements.classList.replace('text-wrappera33', 'text-wrapperaq33');
-    for (let i = 0; i < myElements.length; i++) {
-      myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
-    }
-  }
+  //   // 각 데이터에 대해 길이를 확인하고 처리
+  //   if (myElement.length > 1) {
+  //     console.log('fffff');
+
+  //     // 해당 데이터에 대해 클래스 변경
+  //     myElementBox[i].classList.replace(
+  //       'content-textwrapper1v',
+  //       'content-textwrapper1vp'
+  //     );
+  //     myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
+  //   }
+  // }
 
   return (
     <div

@@ -6,6 +6,7 @@ import CategoryBoardDetailItem from './CategoryBoardDetailItem';
 import { board } from '../../assets/constants';
 import OneLifeSideBarItem from './OneLifeSideBarItem';
 import './CateBoardDetail.scss';
+import { comment } from 'stylis';
 
 const CateBoardDetail = () => {
   const location = useLocation();
@@ -140,19 +141,6 @@ const CateBoardDetail = () => {
     setCommentMody(!commentmody);
     setRefresh(!refresh);
   };
-
-  // for (let i = 0; i < commentList.length; i++) {
-  //   const comment = commentList[i];
-  //   const myElement = String(comment.content);
-
-  //   // 각 데이터에 대해 길이를 확인하고 처리
-  //   if (myElement.length > 10) {
-  //     console.log('fffff');
-
-  //     // 해당 데이터에 대해 클래스 변경
-  //     myElements[i].classList.replace('text-wrappera33', 'text-wrapperaq33');
-  //   }
-  // }
 
   return (
     <>
