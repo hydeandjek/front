@@ -135,6 +135,10 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
     redirection('/AdminChat');
   };
 
+  const onClickApproList = () => {
+    redirection('/board/approval');
+  };
+
   return (
     <div
       className={classNames('header_main', {
@@ -277,9 +281,14 @@ const Header = ({ styleHeader, styleBackground, styleWhite }) => {
                       className={styles['dropdown-divider']}
                     />
                     {userRole === 'ADMIN' ? (
-                      <DropdownItem onClick={onClickAdminChat}>
-                        관리자 채팅
-                      </DropdownItem>
+                      <>
+                        <DropdownItem onClick={onClickAdminChat}>
+                          관리자 채팅
+                        </DropdownItem>
+                        <DropdownItem onClick={onClickApproList}>
+                          게시판 승인
+                        </DropdownItem>
+                      </>
                     ) : undefined}
                     <DropdownItem onClick={onClickLogout}>
                       로그아웃

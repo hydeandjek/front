@@ -1,0 +1,180 @@
+#registBoard {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .registBoard{
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    .warp-content {
+        display: flex;
+        width: 80%;
+        margin: 10px;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .registBox {
+        width: 70%;
+        height: 100%;
+        background-color: white;
+        border-radius: 10px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .boundaryLine {
+        border-top: solid 1px silver;
+        margin: 0 30px;
+    }
+
+    .titleBox,
+    .imageBox,
+    .contentBox {
+        text-align: left;
+        margin: 30px;
+        padding: 30px;
+    }
+    
+    .titleBox,
+    .imageBox {
+        flex-shrink: 0;
+        height: 20px;
+    }
+    
+    .contentBox {
+        border-top: 1px solid silver;
+        flex-grow: 1;
+        overflow-y: auto;
+    }
+
+    .titleBox input,
+    .contentBox textarea {
+        border: none;
+        outline: none;
+        width: 100%;
+    }
+    
+    .contentBox textarea {
+        height: 100%;
+        resize: none;
+    }
+
+    .contentBox textarea::-webkit-scrollbar {
+        display: none;
+    }
+
+    .imageBtn {
+        position: absolute;
+        top: 23%;
+        left: 9%;
+
+        border: 1px solid silver;
+        width: 30px;
+        height: 30px;
+
+        cursor: pointer;
+
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .imageBtn:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+    .rotateBtn {
+        position: relative;
+        font-size: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .imageList {
+        top: -1px;
+        left: -41px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+
+        width: 70px;
+        height: 30px;
+        border: 1px solid silver;
+        background-color: white;
+    }
+
+    .imageList img {
+        width: 20px;
+        height: 100%;
+        margin-right: 5px;
+
+        vertical-align: middle;
+    }
+      
+    .imageList label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .Btn {
+        position: absolute;
+        top: 2.5%;
+        right: 32%;
+        display: flex;
+    }
+
+    .refusBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .refusBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .refusBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
+
+    .approvBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        margin-left: 10px;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }      
+    .approvBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .approvBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
+}

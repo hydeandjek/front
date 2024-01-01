@@ -124,10 +124,15 @@
         cursor: pointer;
     }
 
-    .submitBtn {
+    .Btn {
         position: absolute;
         top: 2.5%;
         right: 32%;
+        display: flex;
+    }
+
+    .prevBtn {
+        position: relative;
 
         border: 1px solid silver;
         width: 75px;
@@ -135,9 +140,13 @@
         border-radius: 10px;
 
         cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
     }
-      
-    .submitBtn img {
+    .prevBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .prevBtn img {
         width: 20px;
         margin-right: 6px;
         margin-left: 8px;
@@ -146,11 +155,26 @@
     }
 
     .submitBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        margin-left: 10px;
+        border-radius: 10px;
+
+        cursor: pointer;
         transition: transform 0.3s, box-shadow 0.3s;
-      }
-      
-      .submitBtn:hover {
+    }      
+    .submitBtn:hover {
         transform: scale(0.95);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      }
+    }
+    .submitBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
 }
