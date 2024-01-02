@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
 import './BoardDetail.scss';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from 'reactstrap';
+import { BsPencil } from 'react-icons/bs';
 
 const BoardDetailItem = ({ item, fetchCommentData }) => {
   const userName = localStorage.getItem('LOGIN_USERNAME');
-  const [commentmody, setCommentMody] = useState(false);
+  const [modifyMode, setModifyMode] = useState(false);
   const [refreshA, setRefreshA] = useState(false);
   const [changeComment, setChangeComment] = useState([]);
+  const [showContentDropDown, setShowContentDropDown] = useState(false);
 
   const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
 
@@ -25,7 +33,7 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
     const CommentAdd = CommentAddElement ? CommentAddElement.value : '';
 
     try {
-      const responseMody = await fetch(
+      const res = await fetch(
         REQUEST_URL + '/' + boardId + '/reply/' + commentId,
         {
           method: 'PUT', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
@@ -35,11 +43,18 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
       );
       setRefreshA(!refreshA);
 
-      const result = await responseMody.json();
+      const data = await res.json();
+
+      console.log(res.status);
+      if (res.status === 200) {
+        alert('수정 성공');
+      } else {
+        alert('수정에 실패했습니다.');
+      }
       // console.log(result);
       // setChangeComment(result);
       fetchCommentData();
-      setCommentMody(!commentmody);
+      setModifyMode(!modifyMode);
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -48,13 +63,21 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
   // console.log(item);
 
   const commentDelHandler = async (commentId, boardId) => {
-    const commentDel = await fetch(
+    const res = await fetch(
       REQUEST_URL + '/' + boardId + '/reply/' + commentId,
       {
         method: 'DELETE', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
         headers: requestHeader,
       }
     );
+
+    console.log(res.status);
+    if (res.status === 200) {
+      alert('삭제 성공');
+    } else {
+      alert('삭제에 실패했습니다.');
+    }
+
     setRefreshA(true);
     // // fetchData()
     fetchCommentData();
@@ -62,63 +85,75 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
 
   return (
     <board id='board'>
-    <div
-      key={item.boardId}
-      className='content-text-wrapper1v'
-    >
-      {/* <div className='text-wrapper a1'>{item.boardId}</div> */}
-      <div className='vvoo'>
-        <div className='text-wrappera34'>{item.userName}</div>
-        <div className='text-wrappera35'>({item.regDate})</div>
-      </div>
+      <div
+        key={item.boardId}
+        className='content-text-wrapper1v'
+      >
+        {/* <div className='text-wrapper a1'>{item.boardId}</div> */}
+        <div className='vvoo'>
+          <div className='text-wrappera34'>{item.userName}</div>
+          <div className='text-wrappera35'>({item.regDate})</div>
+        </div>
 
-      {userName === item.userName && (
-        <>
-          {/* <div className='ieie' /> */}
-          <div className='pqq'>
-            <div
-              className='button text-wrappera15'
-              // className='button'
-              onClick={() => setCommentMody(!commentmody)}
-            >
-              수정
+        {userName === item.userName && (
+          <>
+            {/* <div className='ieie' /> */}
+            <div className='pqq'>
+              <Dropdown
+                className='detail-content-dropdown'
+                isOpen={showContentDropDown}
+                toggle={() => {
+                  setShowContentDropDown((prev) => !prev);
+                }}
+              >
+                <DropdownToggle caret>
+                  <BsPencil />
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => setModifyMode(!modifyMode)}>
+                    수정
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() =>
+                      commentDelHandler(item.commentId, item.boardId)
+                    }
+                  >
+                    삭제
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </div>
-            <div
-              className='button text-wrappera16'
-              // className='button'
-              onClick={() => commentDelHandler(item.commentId, item.boardId)}
-            >
-              삭제
-            </div>
-          </div>
-        </>
-      )}
-
-      <div className='content-text-wrapper2'>
-        {commentmody ? (
-          // 이 부분에 mody가 true일 때 보여줄 UI를 넣어주세요
-
-          <div className='iww'>
-            <input
-              placeholder={item.content}
-              type='text'
-              className='changeComment'
-            />
-            <button
-              className='ffi'
-              onClick={(e) => commentdetailhandle(item.commentId, item.boardId)}
-            >
-              등록
-            </button>
-          </div>
-        ) : (
-          <div className='contentlocation'>
-            {/* <div className='text-wrapper a31'>{item.commentId}</div> */}
-            <div className='text-wrappera33'>{item.content}</div>
-          </div>
+          </>
         )}
+
+        <div className='content-text-wrapper2'>
+          {modifyMode ? (
+            // 이 부분에 mody가 true일 때 보여줄 UI를 넣어주세요
+
+            <div className='iww'>
+              <input
+                placeholder={item.content}
+                type='text'
+                className='changeComment'
+              />
+              <button
+                type='button'
+                class='btn btn-outline-primary custom-font-size'
+                onClick={(e) =>
+                  commentdetailhandle(item.commentId, item.boardId)
+                }
+              >
+                Click
+              </button>
+            </div>
+          ) : (
+            <div className='contentlocation'>
+              {/* <div className='text-wrapper a31'>{item.commentId}</div> */}
+              <div className='text-wrappera33'>{item.content}</div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
     </board>
   );
 };

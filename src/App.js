@@ -30,7 +30,7 @@ import classNames from 'classnames';
 import Policy1 from './Components/Policy/Policy1';
 import RecipeDetail from './Components/Food/Recipe/RecipeDetail';
 import BoardQuestion from './Components/BoardQuestion/BoardQuestion';
-import BoardDetaile from './Components/BoardQuestion/BoardDetaile';
+import BoardDetail from './Components/BoardQuestion/BoardDetail';
 import Policy2 from './Components/Policy/Policy2';
 import Cctv from './Components/Policy/Cctv';
 import CategoryBoard from './Components/BoardCategory/CategoryBoard';
@@ -44,6 +44,7 @@ import ApproDetail from './Components/DonationBoard/Approval/ApproDetail';
 import LikeList from './Components/User/MyPage/LikeList';
 import MyPost from './Components/User/MyPage/MyPost';
 import Modify from './Components/User/MyPage/Modify';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -190,8 +191,8 @@ function App() {
                   element={<BoardQuestion />}
                 />
                 <Route
-                  path='/board/question/detaile'
-                  element={<BoardDetaile />}
+                  path='/board/question/detail'
+                  element={<BoardDetail />}
                 />
                 {/* <Route
                   path='/*'

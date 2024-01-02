@@ -20,6 +20,7 @@ const BoardDetaile = () => {
   const [commentmody, setCommentMody] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [regDate, setRegDate] = useState(false);
+  console.log(data);
 
   const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
 
@@ -101,14 +102,15 @@ const BoardDetaile = () => {
     redirection('/board/question');
   };
 
-  const commentaddhandle = async (value, boardId) => {
-    document.getElementsByClassName('comment')[0].value = '';
+  const commentaddhandle = async (boardId) => {
+    const value = document.getElementsByClassName('commenta')[0].value;
+    console.log(value);
     const commentAdd = await fetch(REQUEST_URL + '/' + boardId + '/reply', {
       method: 'POST', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
       headers: requestHeader,
       body: JSON.stringify(value),
     });
-
+    document.getElementsByClassName('commenta')[0].value = '';
     setRefresh(!refresh);
   };
 
@@ -138,20 +140,22 @@ const BoardDetaile = () => {
 
   return (
     <>
-      <board id='board'>
-        <div className='side2'>
-          <div className='sidebar2'>
-            {board.map((menu, index) => {
-              return (
-                <NavLink
-                  style={{ textDecoration: 'none' }}
-                  to={menu.path}
-                  key={index}
-                >
-                  <SideBarItem2 menu={menu} />
-                </NavLink>
-              );
-            })}
+      <board id='board1'>
+        <div className='rec_center2c'>
+          <div className='side2'>
+            <div className='sidebar2'>
+              {board.map((menu, index) => {
+                return (
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={menu.path}
+                    key={index}
+                  >
+                    <SideBarItem2 menu={menu} />
+                  </NavLink>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className='rec1' />
@@ -160,10 +164,10 @@ const BoardDetaile = () => {
             <div>
               <div className='content-text-wrapperaaa'>
                 <div className='aaa'>
-                  <div className='text-wrappera4'>{data.userName}</div>
-                  <div className='text-wrappera5'>
-                    {new Date(data.regDate).toISOString().split('T')[0]}
+                  <div className='text-wrappera4'>
+                    {data.userName.substring(0, 2)}***
                   </div>
+                  <div className='text-wrappera5'>{regDate}</div>
                 </div>
                 <div className='iii'>
                   <button
@@ -177,6 +181,21 @@ const BoardDetaile = () => {
                     onClick={(e) => boardDelHandler(data.boardId)}
                   >
                     <span>삭제</span>
+                  </button>
+                  <button
+                    type='button'
+                    class='btn btn-primary'
+                    // className='text-wrappera20'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    수정
+                  </button>
+                  <button
+                    type='button'
+                    class='btn btn-danger'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    삭제
                   </button>
                 </div>
                 {commentmody ? (
@@ -216,8 +235,10 @@ const BoardDetaile = () => {
           ) : (
             <div className='content-text-wrapperaa'>
               <div className='aa'>
-                <div className='text-wrappera4'>{data.userName}</div>
-                <div className='text-wrappera5'>{data.regDate}</div>
+                <div className='text-wrappera4'>
+                  {data.userName.substring(0, 2)}***
+                </div>
+                <div className='text-wrappera5'>{regDate}</div>
               </div>
               <div className='text-wrappera2'>{data.title}</div>
               <div className='text-wrappera3'>{data.content}</div>
@@ -227,13 +248,17 @@ const BoardDetaile = () => {
           {/* <div className='aaaaaaa'></div> */}
 
           <div className='content-text-wrapper00'>
-            {' '}
             <input
               type='text'
-              placeholder='댓글을 입력하고 다른 곳을 클릭해주세요~'
-              className='comment'
-              onBlur={(e) => commentaddhandle(e.target.value, data.boardId)}
+              placeholder='댓글을 입력하세요'
+              className='commenta'
             />
+            <button
+              className='commentadd1'
+              onClick={() => commentaddhandle(data.boardId)}
+            >
+              댓글 입력
+            </button>
           </div>
 
           {comment.map((item) => (

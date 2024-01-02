@@ -30,7 +30,7 @@
 
     .userIdBox {
         position: relative;
-        top: 1.5%;
+        top: 10px;
         left: 3%;
         width: 60%;
         text-align: left;
@@ -48,6 +48,9 @@
     .titleBox {
         flex-shrink: 0;
         font-size: 30px;
+
+        display: flex;
+        justify-content: space-between;
     }
 
     .imageBox {
@@ -59,9 +62,7 @@
         will-change: transform;
 
         margin: 26px 26px 0 26px;
-        padding: 26px;
-
-        border-bottom: 1px solid silver;
+        padding: 26px 26px 0 26px;
     }
     .imageBox::-webkit-scrollbar{ display: none; }
 
@@ -72,12 +73,142 @@
     }
 
     .commentBtn {
-        background-color: white;
+        position: relative;
+        top: 15%;
+        right: 0%;
+
+        font-size: 15px;
+        width: 100px;
+        height: 30px;
+
+        cursor: pointer;
+
+        display: flex;
+        justify-content: space-between;
+
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .commentBtn:hover {
+        transform: scale(1.0);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .commentCount {
+        position: relative;
+        top: 0;
+        left: 0;
+
+        height: 100%;
+        line-height: 30px;
+        margin-left: 10px;
+    }
+
+    .rotateBtn {
+        position: relative;
+        top: 0;
+        right: 0;
+
+        width: 30px;
+        height: 30px;
+
+        font-size: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .boundaryLine {
+        border-top: solid 1px silver;
+        margin: 30px 26px 0 26px;
+    }
+
+    .commentList {
+        margin: 0 26px 26px 26px;
+        padding: 26px 0 0 0;
+
+        flex-grow: 1;
+    }
+
+    .commentInput {
+        width: 100%;
+
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: 0.5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.9);
+
+        display: flex;
+        justify-content: space-between;
+
+        margin-top: 26px;
+    }
+    .comment-input {
+        border: none;
+        outline: none;
+        resize: none;
+
+        width: 100%;
+        
+        padding: 10px;
+    }
+
+    .comment-submit {
+        display: none;
+    }
+
+    .comments {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: 0.5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.9);
+
+        .comment-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+
+            .comment-title {
+                display: flex;
+                justify-content: left;
+                align-items: end;
+
+                .comment-id {
+                    font-size: 15px;
+                    padding: 5px 5px 5px 10px;
+                }
+        
+                .comment-date {
+                    font-size: 12px;
+                    padding: 5px;
+                    height: 100%;
+                    vertical-align: 50px;
+                }
+            }
+
+            .comment-delete img{
+                position: relative;
+                top: 20%;
+                right: 40%;
+
+                cursor: pointer;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+            .comment-delete img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .comment-content {
+            padding: 0 10px 5px 10px;
+            font-size: 13px;
+        }
+
     }
 
     .Btn {
         position: absolute;
-        top: 2.5%;
+        top: 21px;
         right: 32%;
         display: flex;
     }
@@ -129,5 +260,55 @@
         vertical-align: middle;
     }
 
+    .refusBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .refusBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    }
+    .refusBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
+
+    .approvBtn {
+        position: relative;
+
+        border: 1px solid silver;
+        width: 75px;
+        padding: 5px 0;
+        margin-left: 10px;
+        border-radius: 10px;
+
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }      
+    .approvBtn:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0 10px rgba(0, 128, 0, 0.2);
+    }
+    .approvBtn img {
+        width: 20px;
+        margin-right: 6px;
+        margin-left: 8px;
+
+        vertical-align: middle;
+    }
     
+}
+
+body {
+    overflow-y: scroll;
 }
