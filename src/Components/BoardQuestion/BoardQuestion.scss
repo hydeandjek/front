@@ -92,6 +92,10 @@
   width: 150px;
   text-align: center;
 }
+#qna-board .overlap .text-wrapper.a5 {
+  width: 200px;
+  text-align: center;
+}
 
 // ---------------------------------------------------
 #qna-board #community .content-text {
@@ -142,7 +146,7 @@
 #qna-board .createBoard .createBoardAA .title {
   height: 30px;
   display: block;
-  width: 594.46px;
+  width: 530px;
 }
 #qna-board .createBoard .createBoardAA .content {
   height: 90px;
@@ -162,6 +166,7 @@
   width: 115px;
   margin-right: 0px;
   margin-left: 5px;
+  margin-bottom: 3px;
   // font-weight: bold;
   // background-color: gray(204, 198, 190, 0.205);
 }
@@ -198,7 +203,7 @@
   height: 32px;
   // color: red;
   text-align: center;
-  background-color: white;
+  // background-color: white;
   // width: 10px;
   .after {
     // float: right;
@@ -354,12 +359,12 @@
 // }
 
 #qna-board ul.pagination {
-  padding-left: 300px;
+  justify-content: center;
 
   li.active button {
     border-color: #8d7d6b;
-  background-color: #8d7d6b;
-  color: #fff;
+    background-color: #8d7d6b;
+    color: #fff;
   }
 }
 

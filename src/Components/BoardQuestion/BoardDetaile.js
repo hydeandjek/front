@@ -1,40 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { API_BASE_URL, CATEGORYBOARD } from '../../config/host-config';
-import { Refresh } from '@mui/icons-material';
-import CategoryBoardDetailItem from './CategoryBoardDetailItem';
-import { board } from '../../assets/constants';
-import OneLifeSideBarItem from './OneLifeSideBarItem';
-import './CateBoardDetail.scss';
-import { comment } from 'stylis';
-// import { Button } from 'bootstrap';
-import { Button } from 'reactstrap';
+import { NavLink, redirect, useLocation, useNavigate } from 'react-router-dom';
+import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
+import BoardDetailItem from './BoardDetailItem';
+import './BoardDetail.scss';
+import { board } from '../../assets/constants/index.js';
+import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
-const CateBoardDetail = () => {
+const BoardDetaile = () => {
   const location = useLocation();
   const [data, setData] = useState([]);
-  const [regDate, setRegDate] = useState([]);
-  const QUESTION_URL = API_BASE_URL + CATEGORYBOARD;
-  const [refresh, setRefresh] = useState(false);
   const [comment, setComment] = useState([]);
-  const [commentmody, setCommentMody] = useState(false);
-  const redirection = useNavigate();
-
-  const userName = localStorage.getItem('LOGIN_USERNAME');
-
-  const yourData = location.state?.board;
-
   const requestHeader = {
     'content-type': 'application/json',
     // JWT에 대한 인증 토큰이라는 타입을 선언
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
   };
+  const userName = localStorage.getItem('LOGIN_USERNAME');
+  const redirection = useNavigate();
+  const [commentmody, setCommentMody] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [regDate, setRegDate] = useState(false);
+  console.log(data);
 
-  const { boardId, category } = location.state || {};
+  const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
 
-  const Boarddetailhandler = async () => {
+  // 다른 페이지로부터 전달된 정보에 접근
+
+  const yourData = location.state?.board;
+
+  const fetchData = async () => {
     try {
-      const res = await fetch(QUESTION_URL + '/' + category + '/' + boardId, {
+      const res = await fetch(REQUEST_URL + '/' + yourData, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
       });
@@ -45,6 +41,7 @@ const CateBoardDetail = () => {
         // 데이터를 상태에 업데이트
 
         setData(result);
+        // 새로운 아이템 추가하고 상태 업데이트
         setRegDate(new Date(result.regDate).toISOString().split('T')[0]);
       } else {
         console.log('No data received from the server.');
@@ -54,20 +51,16 @@ const CateBoardDetail = () => {
     }
   };
 
-  useEffect(() => {
-    Boarddetailhandler();
-    fetchCategoryCommentData();
-  }, [refresh]);
-
-  const fetchCategoryCommentData = async () => {
+  const fetchCommentData = async () => {
     try {
       const responseComment = await fetch(
-        QUESTION_URL + '/' + category + '/' + boardId + '/reply',
+        REQUEST_URL + '/' + yourData + '/reply',
         {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
         }
       );
+
       const resultComment = await responseComment.json();
 
       if (resultComment.length > 0) {
@@ -78,6 +71,7 @@ const CateBoardDetail = () => {
           regDate: new Date(item.regDate).toISOString().split('T')[0],
           userId: item.userId.slice(0, 4),
           userName: item.userName,
+          updateDate: item.updateDate,
         }));
 
         // 데이터를 상태에 업데이트
@@ -93,58 +87,52 @@ const CateBoardDetail = () => {
     }
   };
 
-  const commentaddhandle = async () => {
-    const value = document.getElementsByClassName('comment')[0].value;
+  useEffect(() => {
+    fetchData();
+    fetchCommentData();
+    setRefresh(false);
+  }, [refresh]);
 
-    if (value === '') {
-      alert('내용을 입력하세요');
-      return;
-    }
-    const commentAdd = await fetch(QUESTION_URL + '/' + boardId + '/reply', {
+  const boardDelHandler = async (boardId) => {
+    const boardDel = await fetch(REQUEST_URL + '/' + boardId, {
+      method: 'DELETE',
+      headers: requestHeader,
+    });
+    setRefresh(!refresh);
+    redirection('/board/question');
+  };
+
+  const commentaddhandle = async (boardId) => {
+    const value = document.getElementsByClassName('commenta')[0].value;
+    console.log(value);
+    const commentAdd = await fetch(REQUEST_URL + '/' + boardId + '/reply', {
       method: 'POST', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
       headers: requestHeader,
       body: JSON.stringify(value),
     });
-    document.getElementsByClassName('comment')[0].value = '';
-
+    document.getElementsByClassName('commenta')[0].value = '';
     setRefresh(!refresh);
   };
 
-  const onelifeDelHandler = async (id, category) => {
-    const BoardDel = fetch(QUESTION_URL + '/' + category + '/' + id, {
-      method: 'DELETE',
-      headers: requestHeader,
-    });
-
-    setRefresh(!refresh);
-    // window.history.back();
-    alert('삭제되었습니다');
-    redirection('/board/onelife');
-  };
-
-  const oneLifeChangeBoardHandler = async (id, category) => {
+  const QnaChangeBoardHandler = async (boardId) => {
     const titleAddElement =
-      document.getElementsByClassName('text-wrappera901')[0];
+      document.getElementsByClassName('text-wrappera202')[0];
     const contentAddElement =
-      document.getElementsByClassName('text-wrappera902')[0];
+      document.getElementsByClassName('text-wrappera302')[0];
     const titleAdd = titleAddElement ? titleAddElement.value : '';
     const contentAdd = contentAddElement ? contentAddElement.value : '';
     if (!titleAdd || !contentAdd) {
       alert('제목과 내용을 모두 입력해주세요.');
       return; // 요청을 보내지 않고 함수를 종료
     } else {
-      const BoardChange = await fetch(
-        QUESTION_URL + '/' + category + '/' + id,
-        {
-          method: 'PUT', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
-          headers: requestHeader,
-          body: JSON.stringify({
-            title: titleAdd, // 이 부분에서 직접 사용
-            content: contentAdd, // 이 부분에서 직접 사용
-            category: category,
-          }),
-        }
-      );
+      const BoardChange = await fetch(REQUEST_URL + '/' + boardId, {
+        method: 'PUT', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
+        headers: requestHeader,
+        body: JSON.stringify({
+          title: titleAdd, // 이 부분에서 직접 사용
+          content: contentAdd, // 이 부분에서 직접 사용
+        }),
+      });
     }
     setCommentMody(!commentmody);
     setRefresh(!refresh);
@@ -152,8 +140,7 @@ const CateBoardDetail = () => {
 
   return (
     <>
-      {/* <board id='board1'> */}
-      <div className='App_wrap-content__1j7ZVa'>
+      <board id='board1'>
         <div className='rec_center2c'>
           <div className='side2'>
             <div className='sidebar2'>
@@ -164,33 +151,37 @@ const CateBoardDetail = () => {
                     to={menu.path}
                     key={index}
                   >
-                    <OneLifeSideBarItem
-                      menu={menu}
-                      fetchCategoryCommentData={fetchCategoryCommentData}
-                    />
+                    <SideBarItem2 menu={menu} />
                   </NavLink>
                 );
               })}
             </div>
           </div>
         </div>
-        <div className='overlapoc'>
+        <div className='rec1' />
+        <div className='overlap'>
           {userName === data.userName ? (
             <div>
-              <div className='text-wrapperaaa'>
+              <div className='content-text-wrapperaaa'>
                 <div className='aaa'>
                   <div className='text-wrappera4'>
                     {data.userName.substring(0, 2)}***
                   </div>
                   <div className='text-wrappera5'>{regDate}</div>
                 </div>
-                <div className='iiip'>
-                  {/* <button
+                <div className='iii'>
+                  <button
                     className='text-wrappera20'
                     onClick={() => setCommentMody(!commentmody)}
                   >
                     <span>수정</span>
-                  </button> */}
+                  </button>
+                  <button
+                    className='text-wrappera30'
+                    onClick={(e) => boardDelHandler(data.boardId)}
+                  >
+                    <span>삭제</span>
+                  </button>
                   <button
                     type='button'
                     class='btn btn-primary'
@@ -202,34 +193,31 @@ const CateBoardDetail = () => {
                   <button
                     type='button'
                     class='btn btn-danger'
-                    // className='text-wrappera30'
-                    onClick={(e) => onelifeDelHandler(data.id, data.category)}
+                    onClick={() => setCommentMody(!commentmody)}
                   >
                     삭제
                   </button>
                 </div>
                 {commentmody ? (
                   <>
-                    <div className='OOOa'>
+                    <div className='OOO'>
                       <div className='lll'>
                         <input
                           type='text'
                           placeholder={data.title}
-                          className='text-wrappera901'
+                          className='text-wrappera202'
                         />
 
                         <input
                           type='text'
                           placeholder={data.content}
-                          className='text-wrappera902'
+                          className='text-wrappera302'
                         />
                       </div>
                       <div>
                         <button
                           className='text-wrappera22'
-                          onClick={() =>
-                            oneLifeChangeBoardHandler(data.id, data.category)
-                          }
+                          onClick={() => QnaChangeBoardHandler(data.boardId)}
                         >
                           등록
                         </button>
@@ -245,10 +233,10 @@ const CateBoardDetail = () => {
               </div>
             </div>
           ) : (
-            <div className='content-text-wrapperaaNo'>
+            <div className='content-text-wrapperaa'>
               <div className='aa'>
                 <div className='text-wrappera4'>
-                  {data && data.userName && data.userName.substring(0, 2)}***
+                  {data.userName.substring(0, 2)}***
                 </div>
                 <div className='text-wrappera5'>{regDate}</div>
               </div>
@@ -260,51 +248,29 @@ const CateBoardDetail = () => {
           {/* <div className='aaaaaaa'></div> */}
 
           <div className='content-text-wrapper00'>
-            {' '}
             <input
               type='text'
               placeholder='댓글을 입력하세요'
-              className='comment'
+              className='commenta'
             />
-            {/* <button
-              type='button'
-              class='btn btn-primary'
-              data-bs-toggle='button'
-              className='commentadd'
-              onClick={commentaddhandle}
+            <button
+              className='commentadd1'
+              onClick={() => commentaddhandle(data.boardId)}
             >
-              클릭
-            </button> */}
-            {/* <button
-              type='button'
-              class='btn btn-outline-primary'
-              onClick={commentaddhandle}
-            >
-              Click
-            </button> */}
-            <Button
-              // active
-              color='info'
-              outline
-              size='lg'
-              className='commentadd'
-              onClick={commentaddhandle}
-            >
-              click
-            </Button>
+              댓글 입력
+            </button>
           </div>
 
           {comment.map((item) => (
-            <CategoryBoardDetailItem
+            <BoardDetailItem
               item={item}
-              fetchCategoryCommentData={fetchCategoryCommentData}
-              category={category}
+              fetchCommentData={fetchCommentData}
             />
           ))}
         </div>
-      </div>
-      {/* </board> */}
+      </board>
     </>
   );
 };
-export default CateBoardDetail;
+
+export default BoardDetaile;
