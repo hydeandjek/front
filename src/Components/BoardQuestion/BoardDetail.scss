@@ -424,9 +424,11 @@
       }
       .text-wrappera3 {
         margin-left: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         display: block;
-        width: 700;
-        height: 85px;
+        min-height: 150px;
+        width: 700px;
         font-size: 20px;
       }
     }
@@ -583,6 +585,25 @@ $timing-function: ease-out;
 
 #qna-board .detail-title {
   font-size: 30px;
+}
+
+
+#qna-board .button-style {
+  border-color: #8d7d6b;
+      background-color: #8d7d6b;
+      color: #fff;
+    
+      &:active:hover {
+        border-color: #8d7d6b;
+        background-color: #8d7d6b;
+        color: #fff;
+      }
+    
+      &:hover {
+        border-color: #61564a;
+        background-color: #61564a;
+        color: #fff;
+      }
 }
 
 // -------------
