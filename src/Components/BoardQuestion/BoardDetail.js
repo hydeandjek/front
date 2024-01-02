@@ -270,6 +270,7 @@ const BoardDetail = () => {
                           </div>
                           <div>
                             <Button
+                              className='button-style'
                               onClick={() =>
                                 QnaChangeBoardHandler(data.boardId)
                               }

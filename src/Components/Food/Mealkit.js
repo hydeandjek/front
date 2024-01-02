@@ -10,6 +10,7 @@ import './Mealkit.scss';
 import PageChange from './Recipe/PageChange';
 import arrowR from '../../assets/img/Right.png';
 import arrowL from '../../assets/img/Left.png';
+import { API_BASE_URL } from '../../config/host-config';
 
 const Mealkit = () => {
   // 화살표 클릭 시 상태변수 관리
@@ -26,13 +27,12 @@ const Mealkit = () => {
   };
 
   const [mealkits, setMealkits] = useState([]);
+  const API_URL = API_BASE_URL + '/mealKit';
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8181/mealKit/${pageNum}`
-        );
+        const response = await axios.get(`${API_URL}/${pageNum}`);
         const data = response.data;
 
         setMealkits(data);

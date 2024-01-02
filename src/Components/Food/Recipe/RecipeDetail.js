@@ -5,6 +5,7 @@ import './RecipeDetail.scss';
 import { range } from 'lodash';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../../LoadingBar/Loading';
+import { food } from '../../../assets/constants';
 
 const RecipeDetail = () => {
   const [loading, setLoading] = useState(true);
@@ -139,10 +140,11 @@ const RecipeDetail = () => {
   const [selectedCate, setSelectedCate] = useState('');
   const [dataMenu, setDataMenu] = useState();
   const [pageNum, setPageNum] = useState(1);
-  const menus = [
-    { id: 1, name: ' 레시피' },
-    { id: 2, name: ' 혼밥하기 좋은 맛집' },
-  ];
+  // const menus = [
+  //   { id: 1, name: ' 레시피' },
+  //   { id: 2, name: ' 혼밥하기 좋은 맛집' },
+  // ];
+  const menus = food;
   //SidebarItem 클릭 시 처리할 함수
   const onMenuClick = (props) => {
     // console.log('자식놈한테 데이터 받아올 함수!');

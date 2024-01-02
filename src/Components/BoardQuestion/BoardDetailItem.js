@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
 import './BoardDetail.scss';
 import {
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -136,15 +137,14 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
                 type='text'
                 className='changeComment'
               />
-              <button
-                type='button'
-                class='btn btn-outline-primary custom-font-size'
+              <Button
+                className='button-style'
                 onClick={(e) =>
                   commentdetailhandle(item.commentId, item.boardId)
                 }
               >
-                Click
-              </button>
+                등록
+              </Button>
             </div>
           ) : (
             <div className='contentlocation'>
