@@ -1,8 +1,9 @@
 // ------------------------------------------------------
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-#qna-board .ppps {
+#qna-board .ppps-qna {
   // width: 800px;
+  min-height: 800px;
   display: inline-block;
   justify-content: center;
   // align-items: center;
@@ -16,6 +17,10 @@
 //   align-items: center;
 //   display: block;
 // }
+
+#qna-board .rec_center2 {
+  width: 20%;
+}
 
 #qna-board .App_wrap-content__1j7ZVa {
   display: flex;
@@ -55,33 +60,33 @@
   padding: 0 10px; /* 텍스트와 테두리 간 간격 조절 */
 }
 
-#qna-board .overlap .text-wrapper {
+#qna-board .overlap1 .text-wrapper {
   /* 텍스트 스타일링을 원하는대로 추가 */
   // margin-top: 10px;
   text-align: center;
 }
 
 /* 각 텍스트에 대한 추가적인 스타일링이 필요하다면 아래처럼 추가 가능 */
-#qna-board .overlap .text-wrapper.a1 {
+#qna-board .overlap1 .text-wrapper.a1 {
   // margin-top: 10px;
   margin-left: 20px;
   width: 80px;
 }
 
-#qna-board .overlap .text-wrapper.a2 {
+#qna-board .overlap1 .text-wrapper.a2 {
   margin-left: 100px;
   width: 100px;
   text-align: center;
 }
 
-#qna-board .overlap .text-wrapper.a3 {
+#qna-board .overlap1 .text-wrapper.a3 {
   // margin-left: 200px;
   margin-left: 20px;
   width: 1000px;
   text-align: center;
 }
 
-#qna-board .overlap .text-wrapper.a4 {
+#qna-board .overlap1 .text-wrapper.a4 {
   margin-left: 50px;
   margin-right: 30px;
   width: 150px;
@@ -239,8 +244,8 @@
   position: relative;
   font-size: 20px;
   padding: 0;
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
 
   border-color: #8d7d6b;
   background-color: #8d7d6b;
@@ -374,4 +379,19 @@
     background-color: #61564a;
     color: #fff;
   }
+}
+
+#qna-board .pagination {
+  padding-top: 10px;
+}
+
+#qna-board {
+  .overlap1 {
+    width: 800px;
+    height: 800px;
+  }
+}
+
+#qna-board .detail-content-dropdown {
+  margin-top: 1px;
 }
