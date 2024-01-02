@@ -109,7 +109,7 @@ const DonaList = () => {
             {donation.map((content, index) => (
               <BoardList
                 key={index}
-                url={'donation/detail/' + content.id}
+                url={'donation/' + content.id}
                 src={content.imageUrl}
                 name={content.userName}
                 title={content.title}
