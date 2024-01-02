@@ -9,6 +9,7 @@ import { API_BASE_URL } from '../../config/host-config';
 import { getLoginUserInfo } from '../../utils/login-utill';
 import AuthContext from '../../utils/AuthContext';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { countBy } from 'lodash';
 
 const SideBarContent = ({
   name,
@@ -20,6 +21,8 @@ const SideBarContent = ({
 }) => {
   const [liked, setLiked] = useState(false);
 
+  // 좋아요 버튼 클릭 시 mypage/likelist로 이동
+
   useEffect(() => {}, []);
 
   const redirection = useNavigate();
@@ -28,9 +31,6 @@ const SideBarContent = ({
   const [token, setToken] = useState(getLoginUserInfo().token);
   // 좋아요 요청 상태 관리
   const [isWishAdd, setIsWishAdd] = useState(false);
-
-  //  응답 상태 관리
-  // const [likeOrNotData, setLikeOrNotData] = useState(false);
 
   // fetch 요청 보낼 때 사용할 요청 헤더 설정
   const requestHeader = {
@@ -70,15 +70,15 @@ const SideBarContent = ({
         } else if (json.done === true) {
           setLiked(true);
           alert('찜했어요!');
-          document.querySelector('.heart-icon').style.backgroundImage = {
-            heartImage_liked,
-          };
+          document.querySelector(
+            '.heart-icon'
+          ).style.backgroundImage = `url(${heartImage_liked})`;
         } else {
           setLiked(false);
           alert('찜이 취소되었습니다.');
-          document.querySelector('.heart-icon').style.backgroundImage = {
-            heartImage,
-          };
+          document.querySelector(
+            '.heart-icon'
+          ).style.backgroundImage = `url(${heartImage})`;
         }
       });
     // .catch((err) => {
