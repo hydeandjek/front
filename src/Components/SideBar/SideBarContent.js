@@ -61,6 +61,12 @@ const SideBarContent = ({
         } else if (res.status === 403) {
           alert('로그인이 필요한 서비스입니다.');
           return;
+        } else if (res.status === 406) {
+          alert('찜은 한 번만 할 수 있습니다.');
+          return;
+        } else {
+          alert('알 수 없는 문제가 발생했습니다. 관리자에게 문의하세요!');
+          return;
         }
       })
       .then((json) => {
