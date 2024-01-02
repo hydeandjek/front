@@ -200,7 +200,7 @@ const CategoryBoard = () => {
               </div>
             </div>
           </div>
-          <div className='ppps'>
+          <div className='ppps-qna'>
             <div id='community'>
               {/* <h5>OneLife 게시판</h5> */}
 

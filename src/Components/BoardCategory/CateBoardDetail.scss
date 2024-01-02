@@ -7,6 +7,15 @@
     width: 60%; // 화면 너비가 769px 이상이고 1024px 이하일 때의 스타일
   }
 }
+#qna-board .ppps-qna {
+  // width: 800px;
+  min-height: 800px;
+  display: inline-block;
+  justify-content: center;
+  // align-items: center;
+  // margin-left: 260px;
+  margin-top: 50px;
+}
 
 // --------------------------
 #board1 {
@@ -121,23 +130,21 @@
 .overlapoc {
   margin-right: 260px;
   width: 800px;
+  // margin-left: 100px;
+  margin-top: 50px;
 
   .content-text-wrapper00 {
     display: flex;
+    background-color: white;
+    border: 1px solid rgb(201, 199, 199);
     .comment {
       width: 743.44px;
+      border: 1px solid white;
     }
 
     .commentadd {
-      width: 100px;
-      background-color: rgb(208, 217, 252);
-      border-radius: 20px;
-      font-weight: bold;
-    }
-    .commentadd:hover {
-      background-color: rgb(207, 214, 247);
-      color: rgb(2, 61, 255);
-      font-size: 15px;
+      // width: 100px;
+      // background-color: #dcf3f8;
     }
   }
 
@@ -295,10 +302,11 @@
       display: inline-flex;
       width: 800px;
       margin-top: 20px;
+      margin-bottom: 10px;
       .lll {
         margin-top: 5px;
 
-        width: 700px;
+        width: 690px;
         .text-wrappera202 {
           margin-left: 30px;
           display: block;
@@ -325,15 +333,16 @@
           width: 650px;
           height: 75px;
           font-size: 13px;
+          margin-top: 5px;
         }
       }
 
       .text-wrappera22 {
-        margin-top: 10px;
+        margin-top: 2px;
         position: relative;
         font-size: 20px;
         padding: 0;
-        width: 60px;
+        width: 100px;
         height: 100px;
 
         border: 3px solid #888888;
@@ -367,7 +376,7 @@
     .text-wrappera3 {
       margin-left: 30px;
       display: block;
-      width: 600px;
+      width: 750px;
       // height: 85px;
       font-size: 20px;
       margin-bottom: 10px;
@@ -400,6 +409,7 @@ $timing-function: ease-out;
     margin-top: 10px;
     margin-left: 30px;
     margin-bottom: 10px;
+    width: 750px;
   }
   .content-text-wrapper2 .contentlocation .text-wrapperaq33 {
     margin-top: 10px;

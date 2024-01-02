@@ -7,6 +7,8 @@ import { board } from '../../assets/constants';
 import OneLifeSideBarItem from './OneLifeSideBarItem';
 import './CateBoardDetail.scss';
 import { comment } from 'stylis';
+// import { Button } from 'bootstrap';
+import { Button } from 'reactstrap';
 
 const CateBoardDetail = () => {
   const location = useLocation();
@@ -245,7 +247,9 @@ const CateBoardDetail = () => {
           ) : (
             <div className='content-text-wrapperaaNo'>
               <div className='aa'>
-                <div className='text-wrappera4'>{data.userName}</div>
+                <div className='text-wrappera4'>
+                  {data && data.userName && data.userName.substring(0, 2)}***
+                </div>
                 <div className='text-wrappera5'>{regDate}</div>
               </div>
               <div className='text-wrappera2'>{data.title}</div>
@@ -271,13 +275,23 @@ const CateBoardDetail = () => {
             >
               클릭
             </button> */}
-            <button
+            {/* <button
               type='button'
               class='btn btn-outline-primary'
               onClick={commentaddhandle}
             >
               Click
-            </button>
+            </button> */}
+            <Button
+              // active
+              color='info'
+              outline
+              size='lg'
+              className='commentadd'
+              onClick={commentaddhandle}
+            >
+              click
+            </Button>
           </div>
 
           {comment.map((item) => (
