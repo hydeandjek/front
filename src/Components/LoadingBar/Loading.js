@@ -7,7 +7,17 @@ import Spinner from '../../assets/gif/BeanEater.gif';
 
 const Loading = () => {
   return (
-    <Background>
+    <Background
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 9999,
+        // background: 'rgba(0, 0, 0, 0.5)',
+      }}
+    >
       <LoadingText style={{ fontFamily: 'nanumSquareNeo' }}>
         로딩중입니다.
       </LoadingText>
