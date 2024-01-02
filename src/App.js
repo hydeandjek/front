@@ -44,6 +44,7 @@ import ApproDetail from './Components/DonationBoard/Approval/ApproDetail';
 import LikeList from './Components/User/MyPage/LikeList';
 import MyPost from './Components/User/MyPage/MyPost';
 import Modify from './Components/User/MyPage/Modify';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [loading, setLoading] = useState(true);

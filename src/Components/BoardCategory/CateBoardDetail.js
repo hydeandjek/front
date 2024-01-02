@@ -114,9 +114,10 @@ const CateBoardDetail = () => {
       headers: requestHeader,
     });
 
-    // setRefresh(!refresh);
-    window.history.back();
-    // redirection('/board/onelife');
+    setRefresh(!refresh);
+    // window.history.back();
+    alert('삭제되었습니다');
+    redirection('/board/onelife');
   };
 
   const oneLifeChangeBoardHandler = async (id, category) => {
@@ -182,17 +183,27 @@ const CateBoardDetail = () => {
                   <div className='text-wrappera5'>{regDate}</div>
                 </div>
                 <div className='iiip'>
-                  <button
+                  {/* <button
                     className='text-wrappera20'
                     onClick={() => setCommentMody(!commentmody)}
                   >
                     <span>수정</span>
+                  </button> */}
+                  <button
+                    type='button'
+                    class='btn btn-primary'
+                    // className='text-wrappera20'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    수정
                   </button>
                   <button
-                    className='text-wrappera30'
+                    type='button'
+                    class='btn btn-danger'
+                    // className='text-wrappera30'
                     onClick={(e) => onelifeDelHandler(data.id, data.category)}
                   >
-                    <span>삭제</span>
+                    삭제
                   </button>
                 </div>
                 {commentmody ? (
@@ -251,11 +262,21 @@ const CateBoardDetail = () => {
               placeholder='댓글을 입력하세요'
               className='comment'
             />
-            <button
+            {/* <button
+              type='button'
+              class='btn btn-primary'
+              data-bs-toggle='button'
               className='commentadd'
               onClick={commentaddhandle}
             >
               클릭
+            </button> */}
+            <button
+              type='button'
+              class='btn btn-outline-primary'
+              onClick={commentaddhandle}
+            >
+              Click
             </button>
           </div>
 

@@ -216,12 +216,18 @@ const CategoryBoard = () => {
                   </div>
                   <div className='createBoard'>
                     <div className='createBoardAA'>
-                      <div className='kp'>
-                        <select
-                          id='categoryChoice'
+                      <div className='kpp'>
+                        {/* <select
+                          
                           name='category'
                         >
-                          {/* <option value='entire'>전체</option> */}
+                          <option value='entire'>전체</option>
+                        </select> */}
+                        <select
+                          id='categoryChoice'
+                          class='form-select form-select-sm'
+                          aria-label='.form-select-sm example'
+                        >
                           <option value='recipe'>레시피</option>
                           <option value='dwelling'>주거</option>
                           <option value='life'>라이프</option>

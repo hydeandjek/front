@@ -83,24 +83,6 @@ const BoardQuestion = () => {
     fetchData();
   }, []); // Empty dependency array means this effect runs once after initial render
 
-  // const processedData = data.map((item) => ({
-  //   boardId: item.boardId,
-  //   title: item.title,
-  //   userId: item.userId,
-  //   regDate: item.regDate,
-  // }));
-  // const renderedData = processedData.map((item) => (
-  //   <div
-  //     key={item.boardId}
-  //     className='content-text-wrapper'
-  //   >
-  //     <div className='text-wrapper a1'>{item.boardId}</div>
-  //     <div className='text-wrapper a3'>{item.title}</div>
-  //     <div className='text-wrapper a4'>{item.userId}</div>
-  //     <div className='text-wrapper a5'>{item.regDate}</div>
-  //   </div>
-  // ));
-
   const boarddetailhandleClick = (selectedItem) => {
     // 선택된 아이템에 대한 로직을 수행
     redirection('/board/question/detail', { state: { board: selectedItem } });
@@ -112,8 +94,6 @@ const BoardQuestion = () => {
     const contentAddElement = document.getElementsByClassName('content')[0];
     const titleAdd = titleAddElement ? titleAddElement.value : '';
     const contentAdd = contentAddElement ? contentAddElement.value : '';
-    // document.getElementsByClassName('title')[0].value = '';
-    // document.getElementsByClassName('content')[0].value = '';
 
     if (!titleAdd || !contentAdd) {
       alert('제목과 내용을 모두 입력해주세요.');

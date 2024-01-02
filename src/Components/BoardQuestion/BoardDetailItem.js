@@ -107,12 +107,13 @@ const BoardDetailItem = ({ item, fetchCommentData }) => {
                 className='changeComment'
               />
               <button
-                className='ffi'
+                type='button'
+                class='btn btn-outline-primary custom-font-size'
                 onClick={(e) =>
                   commentdetailhandle(item.commentId, item.boardId)
                 }
               >
-                등록
+                Click
               </button>
             </div>
           ) : (

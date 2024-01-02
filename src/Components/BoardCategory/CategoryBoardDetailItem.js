@@ -132,11 +132,13 @@ const CategoryBoardDetailItem = ({
               type='text'
               className='changeComment'
             />
+            {/* <button className='ffi'>등록</button> */}
             <button
-              className='ffi'
+              type='button'
+              class='btn btn-outline-primary custom-font-size'
               onClick={(e) => commentdetailhandle(item.commentId, item.boardId)}
             >
-              등록
+              Click
             </button>
           </div>
         ) : (

@@ -141,7 +141,7 @@
 #qna-board .createBoard .createBoardAA .title {
   height: 30px;
   display: block;
-  width: 594.46px;
+  width: 530px;
 }
 #qna-board .createBoard .createBoardAA .content {
   height: 90px;
@@ -161,6 +161,7 @@
   width: 115px;
   margin-right: 0px;
   margin-left: 5px;
+  margin-bottom: 3px;
   // font-weight: bold;
   // background-color: gray(204, 198, 190, 0.205);
 }
@@ -353,7 +354,7 @@
 // }
 
 #qna-board ul.pagination {
-  padding-left: 300px;
+  justify-content: center;
 
   li.active button {
     border-color: #8d7d6b;

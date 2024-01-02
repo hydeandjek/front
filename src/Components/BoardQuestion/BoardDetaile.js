@@ -182,6 +182,21 @@ const BoardDetaile = () => {
                   >
                     <span>삭제</span>
                   </button>
+                  <button
+                    type='button'
+                    class='btn btn-primary'
+                    // className='text-wrappera20'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    수정
+                  </button>
+                  <button
+                    type='button'
+                    class='btn btn-danger'
+                    onClick={() => setCommentMody(!commentmody)}
+                  >
+                    삭제
+                  </button>
                 </div>
                 {commentmody ? (
                   <>
