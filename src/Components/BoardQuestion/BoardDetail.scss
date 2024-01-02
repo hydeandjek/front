@@ -21,7 +21,7 @@
 
 #qna-board {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   // align-items: center;
   .createBoard {
     display: inline-flex;
@@ -120,6 +120,7 @@
   // position: relative;
   // border-bottom: gray;
   // padding: 10px;
+  overflow-wrap: break-word;
 }
 
 #qna-board .overlap .content-text-wrapperaa {
@@ -178,13 +179,11 @@
 #qna-board {
   height: 100vh;
   .overlap {
-    margin-right: 260px;
     width: 800px;
-
     // margin-top: 10px;
 
     .content-text-wrapper00 {
-      display: flex;
+      //display: flex;
       .commenta {
         width: 700px;
       }
@@ -200,11 +199,11 @@
       font-size: 10px;
 
       .aaa {
-        margin-top: 20px;
-        display: inline-flex;
-        margin-left: 30px;
+        display: flex;
+        margin: 0 30px;
         // border: 1px solid red;
         height: 20px;
+        border-bottom: 1px solid black;
         .text-wrappera5 {
           font-size: 10px;
           width: 200px;
@@ -216,6 +215,7 @@
         }
         .text-wrappera4 {
           // width: 100px;
+          display: inline;
           font-size: 12px;
         }
       }
@@ -425,10 +425,9 @@
       .text-wrappera3 {
         margin-left: 30px;
         display: block;
-        width: 750px;
+        width: 700;
         height: 85px;
         font-size: 20px;
-        margin-bottom: 10px;
       }
     }
   }
@@ -459,6 +458,8 @@ $timing-function: ease-out;
     display: inline-flex;
     float: right;
     height: 20px;
+    padding-top: 10px;
+    padding-right: 30px;
     .button {
       margin-top: 5px;
       font-size: 12px;
@@ -547,10 +548,6 @@ $timing-function: ease-out;
     height: 20px;
     margin-left: 30px;
     margin-top: 5px;
-    .text-wrappera34 {
-    }
-    .text-wrappera35 {
-    }
   }
 }
 #qna-board .iww {
@@ -576,6 +573,16 @@ $timing-function: ease-out;
   margin-top: 10px;
   margin-left: 30px;
   margin-bottom: 10px;
+}
+
+#qna-board .detail-header {
+  padding: 5px 30px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#qna-board .detail-title {
+  font-size: 30px;
 }
 
 // -------------

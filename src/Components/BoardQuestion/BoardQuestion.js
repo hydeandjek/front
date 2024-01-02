@@ -1,15 +1,12 @@
-import React, { useEffect, useState, useHistory } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './BoardQuestion.scss';
 import { API_BASE_URL, QUESTIONBOARD } from '../../config/host-config';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { first } from 'lodash';
 
 import { board } from '../../assets/constants/index.js';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2';
 
-import icon1 from '../../assets/img/icon1.png';
-import icon2 from '../../assets/img/icon2.png';
 import { Button, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const BoardQuestion = () => {
@@ -54,23 +51,8 @@ const BoardQuestion = () => {
         // 데이터를 상태에 업데이트
         setData(processedData);
 
-        if (Addcate === 0) {
-          const vvv = data[data.length - 1].rowNumber;
-
-          const naa = Math.floor(vvv / 10) * 10;
-
-          const pageIndex = (processedData.length + 1) / 50; // 51번째 데이터가 속한 페이지
-
-          console.log(naa);
-          setStartIndex(naa);
-          setEndIndex(naa + 10);
-          setCurrentPage(Math.ceil(pageIndex));
-        } else {
-          setStartIndex(0);
-          setEndIndex(10);
-          setCurrentPage(1);
-          // setRefresh(!refresh);
-        }
+        setStartIndex((realCurrentPage - 1) * 10);
+        setEndIndex(realCurrentPage * 10);
       } else {
         console.log('No data received from the server.');
       }
@@ -105,7 +87,7 @@ const BoardQuestion = () => {
       return;
     }
 
-    const BoardAdd = await fetch(REQUEST_URL, {
+    const res = await fetch(REQUEST_URL, {
       method: 'POST', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
       headers: requestHeader,
       body: JSON.stringify({
@@ -115,6 +97,13 @@ const BoardQuestion = () => {
     });
     // setRefresh((prevRefresh) => prevRefresh + 1);
 
+    if (res.status === 200) {
+      alert('질문 등록 성공');
+    } else {
+      alert('질문 등록에 실패했습니다.');
+    }
+
+    setShowWrite(false);
     fetchData(Addcate);
   };
 
@@ -177,8 +166,6 @@ const BoardQuestion = () => {
     });
   };
 
-  console.log(realCurrentPage);
-
   return (
     <>
       <board id='qna-board'>
@@ -201,10 +188,10 @@ const BoardQuestion = () => {
               </div>
             </div>
           </div>
-          <div className='ppps'>
+          <div className='ppps-qna'>
             <div id='community'>
               <div className='overlap-wrapper'>
-                <div className='overlap'>
+                <div className='overlap1'>
                   <div className='content-text-wrapper'>
                     <div className='text-wrapper a1'>No</div>
                     {/* <div className='text-wrapper a2'>게시판</div> */}
@@ -265,28 +252,28 @@ const BoardQuestion = () => {
                       </div>
                     ))}
                   </div>
+                  <Pagination className='pagination'>
+                    <PaginationItem>
+                      <PaginationLink
+                        previous
+                        onClick={beforePageHandler}
+                      />
+                    </PaginationItem>
+                    <RenderPageButtons />
+                    {countNum ? (
+                      ''
+                    ) : (
+                      <PaginationItem>
+                        <PaginationLink
+                          next
+                          onClick={afterPageHandler}
+                        />
+                      </PaginationItem>
+                    )}
+                  </Pagination>
                 </div>
               </div>
             </div>
-            <Pagination>
-              <PaginationItem>
-                <PaginationLink
-                  previous
-                  onClick={beforePageHandler}
-                />
-              </PaginationItem>
-              <RenderPageButtons />
-              {countNum ? (
-                ''
-              ) : (
-                <PaginationItem>
-                  <PaginationLink
-                    next
-                    onClick={afterPageHandler}
-                  />
-                </PaginationItem>
-              )}
-            </Pagination>
           </div>
         </div>
       </board>

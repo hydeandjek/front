@@ -67,32 +67,46 @@ const DonaRegist = () => {
     setShowImageList(!showImageList);
   };
 
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered2, setIsHovered2] = useState(false);
+  const [isHovered3, setIsHovered3] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
+  const handleMouseEnter2 = () => {
+    setIsHovered2(true);
+  };
+  const handleMouseLeave2 = () => {
+    setIsHovered2(false);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
+  const handleMouseEnter3 = () => {
+    setIsHovered3(true);
+  };
+  const handleMouseLeave3 = () => {
+    setIsHovered3(false);
+  };
+
+  const handlePrev = () => {
+
   };
 
   const handleSubmit = async () => {
-    try {
-      console.log("전송할 데이터:", {
-        title: title,
-        image: imageList,
-        content: content
-      });
+    const confirmed = window.confirm('게시글을 저장하시겠습니까?');
+    if (confirmed) {
+      try {
+        console.log("전송할 데이터:", {
+          title: title,
+          image: imageList,
+          content: content
+        });
 
-      const response = await axios.post(API_BASE_URL + '/donation/regist', {
-        title: title,
-        image: imageList,
-        content: content
-      });
-      console.log(response.data);  // 응답 데이터 처리
-    } catch (error) {
-      console.error(error);  // 오류 처리
+        const response = await axios.post(API_BASE_URL + '/donation/regist', {
+          title: title,
+          image: imageList,
+          content: content
+        });
+        console.log(response.data);  // 응답 데이터 처리
+      } catch (error) {
+        console.error(error);  // 오류 처리
+      }
     }
   };
 
@@ -179,25 +193,42 @@ const DonaRegist = () => {
             />
           </div>
 
-          <div
-            className='submitBtn'
-            onClick={handleSubmit}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            style={{ borderColor: isHovered ? 'black' : 'silver' }}
-          >
-            {isHovered ? (
-              <img
-                src="https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6590315334bd3cdd86f37b35/img/group@2x.png"
-                alt="SubmitImage"
-              />
-            ) : (
-              <img
-                src="https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659034e8ebd5f41b5ff0ab42/img/group@2x.png"
-                alt="SubmitImage"
-              />
-            )}
-            <span style={{ color: isHovered ? 'black' : 'silver' }}>저장</span>
+          <div className='Btn'>
+            <div
+              className='prevBtn'
+              onClick={handlePrev}
+              onMouseEnter={handleMouseEnter2}
+              onMouseLeave={handleMouseLeave2}
+              style={{ borderColor: isHovered2 ? 'black' : 'silver' }}
+            >
+              {isHovered2 ? (
+                <img
+                  src="https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6590315334bd3cdd86f37b35/img/group@2x.png"
+                  alt="SubmitImage"
+                />
+              ) : (
+                <img
+                  src="https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659034e8ebd5f41b5ff0ab42/img/group@2x.png"
+                  alt="SubmitImage"
+                />
+              )}
+              <span style={{ color: isHovered2 ? 'black' : 'silver' }}>이전</span>
+            </div>
+
+            <div
+              className='submitBtn'
+              onClick={handleSubmit}
+              onMouseEnter={handleMouseEnter3}
+              onMouseLeave={handleMouseLeave3}
+              style={{ borderColor: isHovered3 ? 'black' : 'silver' }}
+            >
+              {isHovered3 ? (
+                <img src="https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/65929fcaa45534a03bdfb394/img/group@2x.png" />
+              ) : (
+                <img src="https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6592a03c34bd3cdd86f37c14/img/group@2x.png" />
+              )}
+              <span style={{ color: isHovered3 ? 'black' : 'silver' }}>저장</span>
+            </div>
           </div>
         </div>
       </div>
