@@ -5,7 +5,14 @@ import BoardDetailItem from './BoardDetailItem.js';
 import './BoardDetail.scss';
 import { board } from '../../assets/constants/index.js';
 import SideBarItem2 from '../SideBar/SideBar2/SideBarItem2.js';
-import { Button } from 'reactstrap';
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from 'reactstrap';
+import { BsPencil } from 'react-icons/bs';
 
 const BoardDetail = () => {
   const location = useLocation();
@@ -21,6 +28,7 @@ const BoardDetail = () => {
   const [modifyMode, setModifyMode] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [regDate, setRegDate] = useState(false);
+  const [showContentDropDown, setShowContentDropDown] = useState(false);
 
   const REQUEST_URL = API_BASE_URL + QUESTIONBOARD;
 
@@ -104,10 +112,17 @@ const BoardDetail = () => {
   }, [refresh]);
 
   const boardDelHandler = async (boardId) => {
-    const boardDel = await fetch(REQUEST_URL + '/' + boardId, {
+    const res = await fetch(REQUEST_URL + '/' + boardId, {
       method: 'DELETE',
       headers: requestHeader,
     });
+
+    if (res.status === 200) {
+      alert('삭제 성공');
+    } else {
+      alert('삭제에 실패했습니다.');
+    }
+
     setRefresh(!refresh);
     redirection('/board/question');
   };
@@ -124,6 +139,12 @@ const BoardDetail = () => {
       headers: requestHeader,
       body: JSON.stringify(value),
     });
+
+    if (res.status === 200) {
+      alert('댓글 등록 성공');
+    } else {
+      alert('댓글 등록에 실패했습니다.');
+    }
 
     if (res.status === 400) {
       console.log(await res.text());
@@ -149,7 +170,7 @@ const BoardDetail = () => {
       alert('제목과 내용을 모두 입력해주세요.');
       return; // 요청을 보내지 않고 함수를 종료
     } else {
-      const BoardChange = await fetch(REQUEST_URL + '/' + boardId, {
+      const res = await fetch(REQUEST_URL + '/' + boardId, {
         method: 'PUT', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
         headers: requestHeader,
         body: JSON.stringify({
@@ -157,7 +178,14 @@ const BoardDetail = () => {
           content: contentAdd, // 이 부분에서 직접 사용
         }),
       });
+
+      if (res.status === 200) {
+        alert('수정 성공');
+      } else {
+        alert('수정에 실패했습니다.');
+      }
     }
+
     setModifyMode(!modifyMode);
     setRefresh(!refresh);
   };
@@ -184,98 +212,117 @@ const BoardDetail = () => {
               </div>
             </div>
           </div>
-          <div className='overlap'>
-            {userName === data.userName ? (
-              <div>
+          <div class='ppps-qna'>
+            <div className='overlap'>
+              {userName === data.userName ? (
+                <div>
+                  <div className='content-text-wrapperaaa'>
+                    <div className='detail-header'>
+                      {modifyMode ? (
+                        <input
+                          type='text'
+                          placeholder={data.title}
+                          className='text-wrappera202'
+                        />
+                      ) : (
+                        <div className='detail-title'>{data.title}</div>
+                      )}
+                      <Dropdown
+                        className='detail-content-dropdown'
+                        isOpen={showContentDropDown}
+                        toggle={() => {
+                          setShowContentDropDown((prev) => !prev);
+                        }}
+                      >
+                        <DropdownToggle caret>
+                          <BsPencil />
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem
+                            onClick={() => setModifyMode(!modifyMode)}
+                          >
+                            수정
+                          </DropdownItem>
+                          <DropdownItem
+                            onClick={(e) => boardDelHandler(data.boardId)}
+                          >
+                            삭제
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                    <div className='aaa'>
+                      <div className='text-wrappera4'>{data.userName}</div>
+                      <div className='text-wrappera5'>
+                        {dateFormator(new Date(data.regDate))}
+                      </div>
+                    </div>
+
+                    {modifyMode ? (
+                      <>
+                        <div className='OOO'>
+                          <div className='lll'>
+                            <input
+                              type='text'
+                              placeholder={data.content}
+                              className='text-wrappera302'
+                            />
+                          </div>
+                          <div>
+                            <Button
+                              onClick={() =>
+                                QnaChangeBoardHandler(data.boardId)
+                              }
+                            >
+                              등록
+                            </Button>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className='text-wrappera3'>{data.content}</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ) : (
                 <div className='content-text-wrapperaaa'>
+                  <div className='detail-header'>
+                    <div className='detail-title'>{data.title}</div>
+                  </div>
                   <div className='aaa'>
                     <div className='text-wrappera4'>{data.userName}</div>
                     <div className='text-wrappera5'>
                       {dateFormator(new Date(data.regDate))}
                     </div>
                   </div>
-                  <div className='iii'>
-                    <button
-                      className='text-wrappera20'
-                      onClick={() => setModifyMode(!modifyMode)}
-                    >
-                      <span>수정</span>
-                    </button>
-                    <button
-                      className='text-wrappera30'
-                      onClick={(e) => boardDelHandler(data.boardId)}
-                    >
-                      <span>삭제</span>
-                    </button>
-                  </div>
-                  {modifyMode ? (
-                    <>
-                      <div className='OOO'>
-                        <div className='lll'>
-                          <input
-                            type='text'
-                            placeholder={data.title}
-                            className='text-wrappera202'
-                          />
-
-                          <input
-                            type='text'
-                            placeholder={data.content}
-                            className='text-wrappera302'
-                          />
-                        </div>
-                        <div>
-                          <Button
-                            onClick={() => QnaChangeBoardHandler(data.boardId)}
-                          >
-                            등록
-                          </Button>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className='text-wrappera2'>{data.title}</div>
-                      <div className='text-wrappera3'>{data.content}</div>
-                    </>
-                  )}
+                  <div className='text-wrappera3'>{data.content}</div>
                 </div>
+              )}
+              {/* <div className='aaaaaaa'></div> */}
+              <div className='content-text-wrapper00'>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    console.log(e.target.firstChild.value);
+                    commentaddhandle(e.target.firstChild.value, data.boardId);
+                  }}
+                >
+                  <input
+                    type='text'
+                    placeholder='댓글을 입력하고 엔터를 입력해주세요~'
+                    className='comment'
+                  />
+                </form>
               </div>
-            ) : (
-              <div className='content-text-wrapperaa'>
-                <div className='aa'>
-                  <div className='text-wrappera4'>{data.userName}</div>
-                  <div className='text-wrappera5'>{data.regDate}</div>
-                </div>
-                <div className='text-wrappera2'>{data.title}</div>
-                <div className='text-wrappera3'>{data.content}</div>
-              </div>
-            )}
-
-            {/* <div className='aaaaaaa'></div> */}
-
-            <div className='content-text-wrapper00'>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  console.log(e.target.firstChild.value);
-                  commentaddhandle(e.target.firstChild.value, data.boardId);
-                }}
-              >
-                <input
-                  type='text'
-                  placeholder='댓글을 입력하고 엔터를 입력해주세요~'
-                  className='comment'
+              {comment.map((item) => (
+                <BoardDetailItem
+                  item={item}
+                  fetchCommentData={fetchCommentData}
                 />
-              </form>
+              ))}
             </div>
-
-            {comment.map((item) => (
-              <BoardDetailItem
-                item={item}
-                fetchCommentData={fetchCommentData}
-              />
-            ))}
           </div>
         </div>
       </board>

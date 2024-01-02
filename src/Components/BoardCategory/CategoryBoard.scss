@@ -26,7 +26,7 @@
 .App_wrap-content__1j7ZVa {
   // border: 1px solid blue;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   display: flex;
 }
 .content-text-wrapper {
@@ -146,20 +146,32 @@
   width: 800px;
 }
 
-.createBoard .createBoardAA {
-  .kp {
-    display: flex;
-    .title {
-      height: 30px;
-      display: block;
-      width: 600px;
+.createBoard {
+  .createBoardAA {
+    height: 130px;
+    .kpp {
       display: flex;
 
-      padding: 10px;
-      box-sizing: border-box;
-      border-radius: 5px;
-      border: none;
-      border: 1px solid orange;
+      #categoryChoice {
+        // background-color: blue;
+        text-align: center;
+        border-radius: 5px;
+      }
+      .form-select-sm:not(:disabled) {
+        width: 150px;
+      }
+      // .title {
+      //   height: 30px;
+      //   display: block;
+      //   width: 530px;
+      //   display: flex;
+
+      //   padding: 10px;
+      //   box-sizing: border-box;
+      //   border-radius: 5px;
+      //   border: none;
+      //   border: 1px solid orange;
+      // }
     }
   }
 }
@@ -242,11 +254,11 @@
 }
 
 .PageBtn {
+  margin-top: 10px;
   width: 800px;
   height: 32px;
   // color: red;
   text-align: center;
-  background-color: white;
   // width: 10px;
   .after {
     // float: right;
@@ -341,7 +353,7 @@ button buttonImage {
     width: 150px;
   }
   .text-wrappera5f {
-    width: 100px;
+    width: 150px;
     // border: 1px solid red;
     // margin-left: 10px;
     padding: 0px;

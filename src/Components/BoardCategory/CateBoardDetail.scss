@@ -7,9 +7,19 @@
     width: 60%; // 화면 너비가 769px 이상이고 1024px 이하일 때의 스타일
   }
 }
+#qna-board .ppps-qna {
+  // width: 800px;
+  min-height: 800px;
+  display: inline-block;
+  justify-content: center;
+  // align-items: center;
+  // margin-left: 260px;
+  margin-top: 50px;
+}
 
 // --------------------------
-#board {
+#board1 {
+  display: inline-flex;
   .createBoard {
     display: inline-flex;
     justify-content: center;
@@ -83,8 +93,9 @@
   font-size: 15px;
   font-weight: bold;
   width: 800px;
-  height: 200px;
+  // height: 200px;
   border-bottom: 1px solid gray;
+  overflow-wrap: break-word;
 }
 
 #board .overlapoc .content-text-wrapperaa {
@@ -119,14 +130,21 @@
 .overlapoc {
   margin-right: 260px;
   width: 800px;
+  // margin-left: 100px;
+  margin-top: 50px;
 
   .content-text-wrapper00 {
     display: flex;
+    background-color: white;
+    border: 1px solid rgb(201, 199, 199);
     .comment {
-      width: 700px;
+      width: 743.44px;
+      border: 1px solid white;
     }
+
     .commentadd {
-      width: 100px;
+      // width: 100px;
+      // background-color: #dcf3f8;
     }
   }
 
@@ -137,7 +155,7 @@
     font-size: 15px;
     font-weight: bold;
     width: 800px;
-    height: 200px;
+    overflow-wrap: break-word;
     border-bottom: 1px solid gray;
     .aa {
       margin-top: 20px;
@@ -179,9 +197,10 @@
     .text-wrappera3 {
       margin-left: 30px;
       display: block;
-      width: 600px;
-      height: 85px;
+      width: 750px;
+      // height: 85px;
       font-size: 20px;
+      margin-bottom: 10px;
     }
   }
 
@@ -213,58 +232,20 @@
 
     .iiip {
       float: right;
-      width: 110px;
+      width: 120px;
       display: inline-flex;
       margin-top: 5px;
-      .text-wrappera20 {
-        width: 50px;
-        margin-right: 5px;
+      height: 38.21px;
+      margin-right: 5px;
 
-        border: none;
-        display: block;
-        text-align: center;
-        cursor: pointer;
-        text-transform: uppercase;
-        outline: none;
-        overflow: hidden;
-        position: relative;
-        color: #fff;
+      .btn.btn-primary {
         font-size: 15px;
-        background-color: #222;
-        margin: 0 auto;
-
-        span {
-          position: relative;
-          z-index: 1;
-        }
+        margin-right: 10px;
       }
-      .text-wrappera20:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 150%;
-        width: 140%;
-        background: #78c7d2;
-        -webkit-transition: all 0.5s ease-in-out;
-        transition: all 0.5s ease-in-out;
-        -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-        transform: translateX(-98%) translateY(-25%) rotate(45deg);
+      .btn.btn-danger {
+        font-size: 15px;
       }
 
-      .text-wrappera20:hover:after {
-        -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-        transform: translateX(-9%) translateY(-25%) rotate(45deg);
-      }
-
-      .link a {
-        color: #000;
-        font-size: 25px;
-      }
-      .link {
-        font-size: 20px;
-        margin-top: 30px;
-      }
       // ----------------
       .text-wrappera30 {
         width: 50px;
@@ -321,10 +302,11 @@
       display: inline-flex;
       width: 800px;
       margin-top: 20px;
+      margin-bottom: 10px;
       .lll {
         margin-top: 5px;
 
-        width: 700px;
+        width: 690px;
         .text-wrappera202 {
           margin-left: 30px;
           display: block;
@@ -351,15 +333,16 @@
           width: 650px;
           height: 75px;
           font-size: 13px;
+          margin-top: 5px;
         }
       }
 
       .text-wrappera22 {
-        margin-top: 10px;
+        margin-top: 2px;
         position: relative;
         font-size: 20px;
         padding: 0;
-        width: 60px;
+        width: 100px;
         height: 100px;
 
         border: 3px solid #888888;
@@ -393,9 +376,10 @@
     .text-wrappera3 {
       margin-left: 30px;
       display: block;
-      width: 600px;
-      height: 85px;
+      width: 750px;
+      // height: 85px;
       font-size: 20px;
+      margin-bottom: 10px;
     }
   }
 }
@@ -410,8 +394,9 @@ $button-speed: 0.06;
 $timing-function: ease-out;
 
 .content-textwrapper1v {
+  overflow-wrap: break-word;
   width: 800px;
-  height: 80px;
+  // height: 80px;
   background-color: #ffffff;
   border-bottom: 1px solid gray;
   .ieie {
@@ -423,10 +408,13 @@ $timing-function: ease-out;
   .content-text-wrapper2 .contentlocation .text-wrappera33 {
     margin-top: 10px;
     margin-left: 30px;
+    margin-bottom: 10px;
+    width: 750px;
   }
   .content-text-wrapper2 .contentlocation .text-wrapperaq33 {
     margin-top: 10px;
     margin-left: 30px;
+    height: 50px;
     border: 1px solid red;
   }
   .pqq {
@@ -520,22 +508,28 @@ $timing-function: ease-out;
     margin-top: 5px;
   }
 }
-#board .iww {
+.iww {
   border: 0.1px solid white;
+  margin-bottom: 10px;
   .changeComment {
+    overflow-wrap: break-word;
+
     display: inline-flex;
     width: 500px;
     margin-left: 30px;
     margin-top: 5px;
   }
-  .ffi {
-    margin-top: 5px;
-    font-size: 15px;
-    border-radius: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
+  .custom-font-size:not(:disabled) {
+    // width: 50px;
+    height: 30px;
+    // margin-top: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    // // border-radius: 5px;
+    // margin-right: 10px;
+    margin-left: 5px;
     background-color: #e2dddd(204, 198, 190, 0.205);
-    border: 1px solid gray;
+    // border: 1px solid gray;
   }
 }
 
