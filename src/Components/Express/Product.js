@@ -10,27 +10,29 @@ import './Product.scss';
 import PageChange from '../Food/Recipe/PageChange';
 import arrowR from '../../assets/img/Right.png';
 import arrowL from '../../assets/img/Left.png';
+import { API_BASE_URL } from '../../config/host-config';
 
 const Product = () => {
   // 화살표 클릭 시 상태변수 관리
   let [pageNum, setPageNum] = useState(1);
-  
+
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
 
   const [products, setProducts] = useState([]);
+  const API_URL = API_BASE_URL + '/product';
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/product/${pageNum}`);
+        const response = await axios.get(`${API_URL}/${pageNum}`);
         const data = response.data;
 
         setProducts(data);
@@ -80,43 +82,43 @@ const Product = () => {
         <div className='warp-content'>
           <div className='arrowBox'>
             {pageNum > 1 && (
-            <PageChange
-              id='left'
-              src={arrowL}
-              alt='이전 페이지'
-              onClick={sendPageNum}
-              style={{  opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
-             )}
+              <PageChange
+                id='left'
+                src={arrowL}
+                alt='이전 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            )}
           </div>
 
           <div className='contentBox'>
             {products.map((content, index) => {
               return (
                 <SideBarContent3
-                key={index}
+                  key={index}
                   url={content.productUrl}
                   src={content.productImg}
                   name={content.productName}
                   price={content.productPrice}
-                  ></SideBarContent3>
-                  );
-                })}
+                ></SideBarContent3>
+              );
+            })}
           </div>
 
           <div className='arrowBox'>
             {pageNum < pageCount && (
-            <PageChange
-              id='right'
-              src={arrowR}
-              alt='다음 페이지'
-              onClick={sendPageNum}
-              style={{ opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+              <PageChange
+                id='right'
+                src={arrowR}
+                alt='다음 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
             )}
           </div>
         </div>

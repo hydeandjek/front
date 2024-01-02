@@ -229,7 +229,13 @@ const BoardQuestion = () => {
                       <Button
                         block
                         className='show-write'
-                        onClick={() => setShowWrite(true)}
+                        onClick={() => {
+                          if (!localStorage.getItem('LOGIN_TOKEN')) {
+                            alert('로그인 후 이용해주세요');
+                            return;
+                          }
+                          setShowWrite(true);
+                        }}
                       >
                         질문 등록
                       </Button>

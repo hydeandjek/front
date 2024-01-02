@@ -399,4 +399,28 @@
 
 #qna-board .detail-content-dropdown {
   margin-top: 1px;
+
+  > {
+    button {
+      border-color: #8d7d6b;
+      background-color: #8d7d6b;
+      color: #fff;
+    
+      &:active:hover {
+        border-color: #8d7d6b;
+        background-color: #8d7d6b;
+        color: #fff;
+      }
+    
+      &:hover {
+        border-color: #61564a;
+        background-color: #61564a;
+        color: #fff;
+      }
+    }
+  }
 }
+
+// #qna-board .text-content-title {
+//   width: 100%;
+// }
