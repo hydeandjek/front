@@ -1,16 +1,21 @@
 import React from 'react';
 import './BoardList.scss';
 
-const BoardList = ({ url, name, src, price }) => {
+const BoardList = ({ name, title, src, url, date, content, count }) => {
   
   return (
     <div className='boardContent'>
       <a href={url}>
         <img src={src} />
-        <p>{price}</p>
-        <p>{name}</p>
-        <p>{price}</p>
-        <p>{price}</p>
+        <p>
+          {title}
+          <span>댓글 {count}</span>
+        </p>
+        <p>{content}</p>
+        <p>
+          <span>{name}</span>
+          <span>{date}</span>
+        </p>
       </a>
     </div>
   );

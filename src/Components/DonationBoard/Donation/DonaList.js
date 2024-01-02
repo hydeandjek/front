@@ -5,6 +5,7 @@ import './scss/DonaList.scss';
 import BoardList from '../List/BoardList';
 import '../List/BoardList.scss';
 import { useHorizontalScroll } from '../UseSideScroll';
+import { API_BASE_URL } from '../../../config/host-config';
 
 const DonaList = () => {
   let [pageNum, setPageNum] = useState(1);
@@ -38,7 +39,7 @@ const DonaList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/appliance/${pageNum}`);
+        const response = await axios.get(API_BASE_URL + '/board/donation');
         const data = response.data;
         setDonations(data);
       } catch (error) {
@@ -108,12 +109,13 @@ const DonaList = () => {
             {donation.map((content, index) => (
               <BoardList
                 key={index}
-                url={content.applianceUrl}
-                src={content.applianceImg}
-                price={content.appliancePrice}
-                name={content.applianceName}
-                price2={content.appliancePrice}
-                price3={content.appliancePrice}
+                url={'donation/detail/' + content.id}
+                src={content.imageUrl}
+                name={content.userName}
+                title={content.title}
+                date={content.regDate}
+                content={content.content}
+                count={content.commentCount}
               />
             ))}
           </div>

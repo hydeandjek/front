@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './scss/DonaDetail.scss';
 import { API_BASE_URL } from '../../../config/host-config';
@@ -14,6 +14,7 @@ const DonaDetail = () => {
     redirection('/board/donation/regist');
   };
 
+  const { boardId } = useParams();
   const [showCommentList, setShowCommentList] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("white");
   const [rotation, setRotation] = useState(0);
@@ -56,15 +57,15 @@ const DonaDetail = () => {
     setIsHovered3(false);
   };
   
-  let [pageNum, setPageNum] = useState(1);
   const [donation, setDonations] = useState([]);
   const scrollRef = useHorizontalScroll();
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/appliance/${pageNum}`);
+        const response = await axios.get(`${API_BASE_URL}/board/donation/${boardId}`);
         const data = response.data;
+        console.log(response.data);
         setDonations(data);
       } catch (error) {
         console.log(error);
@@ -72,7 +73,7 @@ const DonaDetail = () => {
     };
     
     fetchData();
-  }, [pageNum]);
+  }, [boardId]);
 
   useEffect(() => {
     if (donation && Array.isArray(donation)) {
@@ -137,13 +138,16 @@ const DonaDetail = () => {
     setComment('');
   };
 
-  const handleCommentDelete = async () => {
+  const handleCommentDelete = async (indexToDelete) => {
     const confirmed = window.confirm('댓글을 삭제하시겠습니까?');
     if (confirmed) {
       try {
-        const response = await axios.delete(API_BASE_URL + '/donation', {
-        });
-        console.log(response.data);  // 응답 데이터 처리
+        // const response = await axios.delete(API_BASE_URL + '/donation', {
+        // });
+        // console.log(response.data);  // 응답 데이터 처리
+        
+        const updatedComments = donation.filter((content, index) => index !== indexToDelete);
+        setDonations(updatedComments);
       } catch (error) {
         console.error(error);  // 오류 처리
       }
@@ -209,23 +213,16 @@ const DonaDetail = () => {
             <div className="warp-content">
               <div className="detailBox">
                 <div className="userIdBox">
-                  <p>{donation[0]?.appliancePrice}</p>
-                  <p>{donation[1]?.appliancePrice}</p>
+                  <p>{donation?.userName}</p>
+                  <p>{donation?.regDate}</p>
                 </div>
 
                 <div className="imageBox" ref={scrollRef}>
-                    {donation.map((content, index) => (
-                      <DetailList
-                        key={index}
-                        url={content.applianceUrl}
-                        src={content.applianceImg}
-                        price={content.appliancePrice}
-                      />
-                    ))}
+                  <img src={donation?.imageUrl} />
                 </div>
 
                 <div className="titleBox">
-                  {donation[5]?.applianceName}
+                  {donation?.title}
 
                   <div
                     className='commentBtn'
@@ -243,11 +240,7 @@ const DonaDetail = () => {
                 </div>
 
                 <div className="detailContentBox">
-                  {donation[0]?.applianceName}
-                  {donation[1]?.applianceName}
-                  {donation[2]?.applianceName}
-                  {donation[3]?.applianceName}
-                  {donation[4]?.applianceName}
+                  {donation?.content}
                 </div>
 
                 {showCommentList && (
@@ -255,12 +248,12 @@ const DonaDetail = () => {
                     <p className='boundaryLine'></p>
                     <div className="commentList">
                       <ul style={{ listStyle: 'none', padding: 0 }}>
-                      {donation.map((content, index) => (
+                      {donation.comments.map((content, index) => (
                         <li className='comments' key={index} style={{ marginBottom: '10px' }}>
                           <div className='comment-top'>
                             <div className='comment-title'>
-                              <div className='comment-id'>{content.appliancePrice}</div>
-                              <div className='comment-date'>{content.appliancePrice}</div>
+                              <div className='comment-id'>{content.userName}</div>
+                              <div className='comment-date'>{content.regDate}</div>
                             </div>
                             <div
                               className='comment-delete'
@@ -275,7 +268,7 @@ const DonaDetail = () => {
                               />
                             </div>
                           </div>
-                          <div className='comment-content'>{content.applianceUrl}</div>
+                          <div className='comment-content'>{content.content}</div>
                         </li>
                       ))}
                       </ul>

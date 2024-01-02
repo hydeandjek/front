@@ -38,23 +38,38 @@
     margin: 0;
     padding: 10px;
     font-size: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    span {
+      font-size: 13px;
+    }
   }
   p:nth-child(3) {
     text-align: left;
     margin: 0;
     padding: 10px;
   }
-  p:nth-child(4), p:last-child {
+  p:last-child {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    text-align: left;
     margin: 0;
     padding: 10px;
-  }
-  p:last-child {
-    text-align: right;
     border-top: 1px solid black;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span:first-child {
+      font-size: 13px;
+    }
+    span:last-child {
+      font-size: 13px;
+    }
   }
 }

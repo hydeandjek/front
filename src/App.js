@@ -214,7 +214,7 @@ function App() {
                   element={<DonaRegist />}
                 />
                 <Route
-                  path='/board/donation/detail'
+                  path='/board/donation/:boardId'
                   element={<DonaDetail />}
                 />
                 <Route

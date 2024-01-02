@@ -13,7 +13,7 @@ const ChatModal = () => {
   const [showButton, setShowButton] = useState(true);
 
   // 채팅 버튼이 안 보일 위치
-  const disableLocation = ['/user/login', '/user/join', '/AdminChat'];
+  const disableLocation = ['/user/login', '/user/join', '/AdminChat' ];
 
   const authContext = useContext(AuthContext);
 
