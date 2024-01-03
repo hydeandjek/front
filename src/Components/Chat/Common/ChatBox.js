@@ -72,6 +72,38 @@ const ChatBox = ({ style }) => {
       className={styles['chat-box']}
       style={style}
     >
+      {isInformationVisible && (
+        <div>
+          <div className={styles['time-notification']}>
+            <div>
+              <button
+                className={styles['time-notification-close']}
+                onClick={handleInformationButtonClick}
+              >
+                <img
+                  alt='Time information'
+                  src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/657841a38a9ed2c7a2e5dffe/img/time-information-modal-cancel-icon.svg'
+                />
+              </button>
+            </div>
+            <p>
+              <span>
+                운영시간
+                <br />
+                <br />
+              </span>
+              <span>오전 09:30 ~ 06:30 </span>
+              <span>
+                월, 화, 수, 목, 금
+                <br />
+                <br />
+              </span>
+              <span>- Timezone: Asia/Seoul</span>
+            </p>
+          </div>
+        </div>
+      )}
+
       <div
         className={styles['chat-message-box']}
         ref={$messageBox}
@@ -169,35 +201,6 @@ const ChatBox = ({ style }) => {
           </form>
         </div>
       </div>
-
-      {isInformationVisible && (
-        <div>
-          <div>
-            <div />
-            <div />
-            <button onClick={handleInformationButtonClick}>
-              <img
-                alt='Time information'
-                src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/657841a38a9ed2c7a2e5dffe/img/time-information-modal-cancel-icon.svg'
-              />
-            </button>
-            <p>
-              <span>
-                운영시간
-                <br />
-                <br />
-              </span>
-              <span>오전 09:30 ~ 06:30 </span>
-              <span>
-                월, 화, 수, 목, 금
-                <br />
-                <br />
-              </span>
-              <span>- Timezone: Asia/Seoul</span>
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

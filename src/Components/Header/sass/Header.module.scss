@@ -1,7 +1,14 @@
 .header-white {
     a {
         color: white;
+        text-shadow: 2px 2px 2px gray;
+
+        &:hover {
+            color: #dddddd;
+        }
     }
+
+    
 }
 
 
@@ -52,6 +59,8 @@ div.menu {
 
 h6.dropdownitem-header {
     color: #dddddd;
+
+
 }
 
 div.dropdown-divider {
