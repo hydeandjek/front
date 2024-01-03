@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './scss/DonaDetail.scss';
 import { API_BASE_URL } from '../../../config/host-config';
 import { useHorizontalScroll } from '../UseSideScroll';
 import '../List/DetailList.scss';
 import DetailList from '../List/DetailList';
+import qs from 'qs';
 
 const DonaDetail = () => {
   const redirection = useNavigate();
@@ -14,6 +15,7 @@ const DonaDetail = () => {
     redirection('/board/donation/regist');
   };
 
+  const { shareId } = useParams();
   const [showCommentList, setShowCommentList] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState("white");
   const [rotation, setRotation] = useState(0);
@@ -56,43 +58,47 @@ const DonaDetail = () => {
     setIsHovered3(false);
   };
   
-  let [pageNum, setPageNum] = useState(1);
   const [donation, setDonations] = useState([]);
   const scrollRef = useHorizontalScroll();
   
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8181/appliance/${pageNum}`);
-        const data = response.data;
-        setDonations(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    
     fetchData();
-  }, [pageNum]);
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/board/donation/${shareId}`);
+      const data = response.data;
+      console.log(response.data);
+      setDonations(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (donation && Array.isArray(donation)) {
-      setLiCount(donation.length);
+    if (donation && Array.isArray(donation.comments)) {
+      setLiCount(donation.comments.length);
     }
   }, [donation]);
 
   const handlePrev = () => {
-
+    redirection(-1);
   };
 
   const handleDelete = async () => {
     const confirmed = window.confirm('게시글을 삭제하시겠습니까?');
     if (confirmed) {
       try {
-        const response = await axios.delete(API_BASE_URL + '/donation', {
+        const response = await axios.delete(`${API_BASE_URL}/board/donation/${shareId}`, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+            'Content-Type': 'application/json',
+          },
         });
-        console.log(response.data);  // 응답 데이터 처리
+        redirection('/board/donation');
       } catch (error) {
-        console.error(error);  // 오류 처리
+        alert('삭제 권한이 없습니다.')
       }
     }
   };
@@ -129,26 +135,54 @@ const DonaDetail = () => {
     }
   };
 
-  const saveComment = () => {
-    // 저장 로직을 수행합니다. 예를 들어, 댓글을 서버로 전송하거나 상태를 업데이트할 수 있습니다.
-    console.log('댓글 저장:', comment);
-
-    // 댓글 저장 후 입력창을 초기화합니다.
-    setComment('');
+  const saveComment = async () => {
+    try {
+      const encodedComment = JSON.stringify({
+        content: comment,
+      });
+      const response = await axios.post(
+        `${API_BASE_URL}/board/donation/${shareId}/reply`,
+        encodedComment,
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response.data);
+      // 댓글 저장 후 입력창을 초기화합니다.
+      setComment('');
+      fetchData();
+    } catch (error) {
+      alert('로그인 후 이용 가능합니다.');
+      setComment('');
+    }
   };
 
-  const handleCommentDelete = async () => {
+  const handleCommentDelete = async (indexToDelete) => {
     const confirmed = window.confirm('댓글을 삭제하시겠습니까?');
     if (confirmed) {
+
       try {
-        const response = await axios.delete(API_BASE_URL + '/donation', {
+        const replyId = donation.comments[indexToDelete].commentId;
+        const response = await axios.delete(`${API_BASE_URL}/board/donation/${shareId}/reply/${replyId}`, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+            'Content-Type': 'application/json',
+          },
         });
-        console.log(response.data);  // 응답 데이터 처리
+        fetchData();
       } catch (error) {
-        console.error(error);  // 오류 처리
+        alert('삭제 권한이 없습니다.');
       }
     }
   };
+
+  function formatDateTime(dateTime) {
+    const formattedDateTime = dateTime.replace(/-/g, '/');
+    return formattedDateTime;
+  }
 
   return (
     <>
@@ -209,23 +243,16 @@ const DonaDetail = () => {
             <div className="warp-content">
               <div className="detailBox">
                 <div className="userIdBox">
-                  <p>{donation[0]?.appliancePrice}</p>
-                  <p>{donation[1]?.appliancePrice}</p>
+                  <p>{donation?.userName}</p>
+                  <p>{donation?.approvalDate}</p>
                 </div>
 
                 <div className="imageBox" ref={scrollRef}>
-                    {donation.map((content, index) => (
-                      <DetailList
-                        key={index}
-                        url={content.applianceUrl}
-                        src={content.applianceImg}
-                        price={content.appliancePrice}
-                      />
-                    ))}
+                  <img src={donation?.imageUrl} />
                 </div>
 
                 <div className="titleBox">
-                  {donation[5]?.applianceName}
+                  {donation?.title}
 
                   <div
                     className='commentBtn'
@@ -243,11 +270,7 @@ const DonaDetail = () => {
                 </div>
 
                 <div className="detailContentBox">
-                  {donation[0]?.applianceName}
-                  {donation[1]?.applianceName}
-                  {donation[2]?.applianceName}
-                  {donation[3]?.applianceName}
-                  {donation[4]?.applianceName}
+                  {donation?.content}
                 </div>
 
                 {showCommentList && (
@@ -255,12 +278,12 @@ const DonaDetail = () => {
                     <p className='boundaryLine'></p>
                     <div className="commentList">
                       <ul style={{ listStyle: 'none', padding: 0 }}>
-                      {donation.map((content, index) => (
+                      {donation.comments.map((content, index) => (
                         <li className='comments' key={index} style={{ marginBottom: '10px' }}>
                           <div className='comment-top'>
                             <div className='comment-title'>
-                              <div className='comment-id'>{content.appliancePrice}</div>
-                              <div className='comment-date'>{content.appliancePrice}</div>
+                              <div className='comment-id'>{content.userName}</div>
+                              <div className='comment-date'>{content.regDate}</div>
                             </div>
                             <div
                               className='comment-delete'
@@ -275,7 +298,7 @@ const DonaDetail = () => {
                               />
                             </div>
                           </div>
-                          <div className='comment-content'>{content.applianceUrl}</div>
+                          <div className='comment-content'>{content.content}</div>
                         </li>
                       ))}
                       </ul>

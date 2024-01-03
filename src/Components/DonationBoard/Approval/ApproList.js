@@ -7,16 +7,16 @@ import BoardList from '../List/BoardList';
 import '../List/BoardList.scss';
 import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2';
 import { useHorizontalScroll } from '../UseSideScroll';
+import { API_BASE_URL } from '../../../config/host-config';
 
 const ApproList = () => {
-  let [pageNum, setPageNum] = useState(1);
   const [approval, setApprovals] = useState([]);
   const scrollRef = useHorizontalScroll();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/appliance/${pageNum}`);
+        const response = await axios.get(API_BASE_URL + '/board/donation/approval');
         const data = response.data;
         setApprovals(data);
       } catch (error) {
@@ -25,7 +25,13 @@ const ApproList = () => {
     };
 
     fetchData();
-  }, [pageNum]);
+  }, []);
+
+  const parsedDate = new Date(approval.regDate);
+  const formattedDate = `${parsedDate.getFullYear()}/${(parsedDate.getMonth() + 1)
+  .toString()
+  .padStart(2, '0')}/${parsedDate.getDate().toString().padStart(2, '0')}`;
+  console.log(formattedDate);
 
   return (
     <>
@@ -50,16 +56,17 @@ const ApproList = () => {
         <div className='warp-content'>
           <div className='contentBox' ref={scrollRef}>
             {approval.map((content, index) => (
-              <BoardList
-                key={index}
-                url={content.applianceUrl}
-                src={content.applianceImg}
-                price={content.appliancePrice}
-                name={content.applianceName}
-                price2={content.appliancePrice}
-                price3={content.appliancePrice}
-              />
-            ))}
+                <BoardList
+                  key={index}
+                  url={'approval/' + content.id}
+                  src={content.imageUrl}
+                  name={content.userName}
+                  title={content.title}
+                  date={formattedDate}
+                  content={content.content}
+                  count={content.commentCount}
+                />
+              ))}
           </div>
         </div>
 
