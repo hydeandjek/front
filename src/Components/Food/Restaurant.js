@@ -30,7 +30,7 @@ const Restaurant = () => {
           </div>
         </div>
 
-        <Kakao Category='혼밥 식당' />
+        <Kakao Category='맛집' />
       </div>
     </>
   );

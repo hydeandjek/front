@@ -13,6 +13,7 @@ const DonaList = () => {
   const redirection = useNavigate();
 
   const onClickRegist = () => {
+    if (!localStorage.getItem('LOGIN_TOKEN')) {alert('로그인 후 이용해주세요.'); return;}
     redirection('/board/donation/regist');
   };
 
@@ -115,6 +116,8 @@ const DonaList = () => {
             </div>
           </div>
         </div>
+
+        <div className='title_name_board'>나눔 게시판</div>
 
         <div className='warp-content'>
           <div
