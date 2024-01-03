@@ -63,7 +63,10 @@ const DonaList = () => {
           <div className='side2'>
             <div className='sidebar2'>
               {board.map((menu, index) => (
-                <div className='sidebar-item2' key={index}>
+                <div
+                  className='sidebar-item2'
+                  key={index}
+                >
                   {menu.name === '나눔 게시판' ? (
                     <div
                       onMouseEnter={handleMouseEnter}
@@ -91,7 +94,7 @@ const DonaList = () => {
                             color: '#000',
                             display: 'block',
                             borderRadius: '10px',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
                           }}
                         >
                           등록
@@ -99,7 +102,11 @@ const DonaList = () => {
                       )}
                     </div>
                   ) : (
-                    <NavLink to={menu.path} activeClassName='active-link' exact>
+                    <NavLink
+                      to={menu.path}
+                      activeClassName='active-link'
+                      exact
+                    >
                       <p>{menu.name}</p>
                     </NavLink>
                   )}
@@ -110,7 +117,10 @@ const DonaList = () => {
         </div>
 
         <div className='warp-content'>
-          <div className='contentBox' ref={scrollRef}>
+          <div
+            className='contentBox'
+            ref={scrollRef}
+          >
             {donation.map((content, index) => (
               <BoardList
                 key={index}

@@ -10,27 +10,30 @@ import './Furniture.scss';
 import PageChange from '../Food/Recipe/PageChange';
 import arrowR from '../../assets/img/Right.png';
 import arrowL from '../../assets/img/Left.png';
+import { API_BASE_URL } from '../../config/host-config';
 
 const Furniture = () => {
   // 화살표 클릭 시 상태변수 관리
   let [pageNum, setPageNum] = useState(1);
-  
+
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
 
   const [furnitures, setFurnitures] = useState([]);
 
+  const API_URL = API_BASE_URL + '/furniture';
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/furniture/${pageNum}`);
+        const response = await axios.get(`${API_URL}/${pageNum}`);
         const data = response.data;
 
         setFurnitures(data);
@@ -80,43 +83,43 @@ const Furniture = () => {
         <div className='warp-content'>
           <div className='arrowBox'>
             {pageNum > 1 && (
-            <PageChange
-              id='left'
-              src={arrowL}
-              alt='이전 페이지'
-              onClick={sendPageNum}
-              style={{  opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
-             )}
+              <PageChange
+                id='left'
+                src={arrowL}
+                alt='이전 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            )}
           </div>
 
           <div className='contentBox'>
             {furnitures.map((content, index) => {
               return (
                 <SideBarContent3
-                key={index}
+                  key={index}
                   url={content.furnitureUrl}
                   src={content.furnitureImg}
                   name={content.furnitureName}
                   price={content.furniturePrice}
-                  ></SideBarContent3>
-                  );
-                })}
+                ></SideBarContent3>
+              );
+            })}
           </div>
 
           <div className='arrowBox'>
             {pageNum < pageCount && (
-            <PageChange
-              id='right'
-              src={arrowR}
-              alt='다음 페이지'
-              onClick={sendPageNum}
-              style={{ opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+              <PageChange
+                id='right'
+                src={arrowR}
+                alt='다음 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
             )}
           </div>
         </div>

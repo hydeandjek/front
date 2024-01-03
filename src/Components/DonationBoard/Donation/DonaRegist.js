@@ -29,7 +29,7 @@ const DonaRegist = () => {
   };
 
   const handleImageClick = () => {
-    imageInput.current.click();
+    //imageInput.current.click();
   };
 
   const handleImageUpload = (event) => {
@@ -120,25 +120,30 @@ const DonaRegist = () => {
             type: 'application/json',
           }
         );
-        const imgList = new Blob(
-          [
-            JSON.stringify({
-              // title: title,
-              image: imageList,
-              // content: content,
-            }),
-          ],
-          {
-            type: 'multipart/form-data',
-          }
-        );
+        // const imgList = new Blob(
+        //   [
+        //     JSON.stringify({
+        //       // title: title,
+        //       image: imageList,
+        //       // content: content,
+        //     }),
+        //   ],
+        //   {
+        //     type: 'multipart/form-data',
+        //   }
+        // );
         // const userInfo = new Blob([JSON.stringify(requestHeader)], {
         //   type: 'application/json',
         // });
 
         const titleContentImageList = new FormData();
         titleContentImageList.append('requestDTO', titleContent);
-        titleContentImageList.append('uploadImages', imgList);
+        const $imageInput = document.getElementById('imageInput');
+
+        for (let i = 0; i < $imageInput.files.length; i++) {
+          titleContentImageList.append('uploadImages', $imageInput.files[i]);
+          console.log($imageInput.files[i]);
+        }
         // titleContentImageList.append('userInfo', userInfo);
 
         console.log('전송할 데이터2:', titleContentImageList);

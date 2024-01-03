@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SideBarItem.scss';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
@@ -22,6 +22,29 @@ function SideBarItem({
   ];
   const [showRecipe, setShowRecipe] = useState(false);
   const [loading, setLoading] = useState(false);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    // 로딩 시작 시 isLoading을 true로 설정
+    setLoading(true);
+
+    // 로딩이 완료되면 isLoading을 false로 설정
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000); // 예시로 3초 후에 로딩이 완료되었다고 가정
+  }, []);
+
+  useEffect(() => {
+    // isLoading 값이 변경될 때 스크롤 위치를 맨 위로 이동
+    // if (loading && contentRef.current) {
+    //   window.scrollTo({ top: 0, behavior: 'smooth' });
+    // }
+    if (loading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [loading]);
 
   // const pageNum = 1;
 

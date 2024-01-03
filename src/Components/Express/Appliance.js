@@ -10,17 +10,20 @@ import './Appliance.scss';
 import PageChange from '../Food/Recipe/PageChange';
 import arrowR from '../../assets/img/Right.png';
 import arrowL from '../../assets/img/Left.png';
+import { API_BASE_URL } from '../../config/host-config';
 
 const Appliance = () => {
   // 화살표 클릭 시 상태변수 관리
   let [pageNum, setPageNum] = useState(1);
-  
+
   const [isHovered, setIsHovered] = useState(false);
-  
+
+  const API_URL = API_BASE_URL + '/appliance';
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
@@ -30,7 +33,7 @@ const Appliance = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8181/appliance/${pageNum}`);
+        const response = await axios.get(`${API_URL}/${pageNum}`);
         const data = response.data;
 
         setAppliances(data);
@@ -80,43 +83,43 @@ const Appliance = () => {
         <div className='warp-content'>
           <div className='arrowBox'>
             {pageNum > 1 && (
-            <PageChange
-              id='left'
-              src={arrowL}
-              alt='이전 페이지'
-              onClick={sendPageNum}
-              style={{  opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
-             )}
+              <PageChange
+                id='left'
+                src={arrowL}
+                alt='이전 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            )}
           </div>
 
           <div className='contentBox'>
             {appliacnes.map((content, index) => {
               return (
                 <SideBarContent3
-                key={index}
+                  key={index}
                   url={content.applianceUrl}
                   src={content.applianceImg}
                   name={content.applianceName}
                   price={content.appliancePrice}
-                  ></SideBarContent3>
-                  );
-                })}
+                ></SideBarContent3>
+              );
+            })}
           </div>
 
           <div className='arrowBox'>
             {pageNum < pageCount && (
-            <PageChange
-              id='right'
-              src={arrowR}
-              alt='다음 페이지'
-              onClick={sendPageNum}
-              style={{ opacity: isHovered ? 0.5 : 1 }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+              <PageChange
+                id='right'
+                src={arrowR}
+                alt='다음 페이지'
+                onClick={sendPageNum}
+                style={{ opacity: isHovered ? 0.5 : 1 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
             )}
           </div>
         </div>

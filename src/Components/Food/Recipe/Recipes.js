@@ -10,14 +10,16 @@ import { API_BASE_URL } from '../../../config/host-config';
 import PageChange from './PageChange';
 import RecipeDetail from './RecipeDetail';
 import Loading from '../../LoadingBar/Loading';
+import { food } from '../../../assets/constants';
 
 const Recipes = (props) => {
   const [loading, setLoading] = useState(false);
-  const menus = [
-    { id: 1, name: ' 레시피' },
-    { id: 2, name: ' 밀키트' },
-    { id: 3, name: ' 혼밥하기 좋은 맛집' },
-  ];
+  // const menus = [
+  //   { id: 1, name: ' 레시피' },
+  //   { id: 2, name: ' 밀키트' },
+  //   { id: 3, name: ' 혼밥하기 좋은 맛집' },
+  // ];
+  const menus = food;
   const [selectedCate, setSelectedCate] = useState('');
 
   //SidebarItem 클릭 시 처리할 함수

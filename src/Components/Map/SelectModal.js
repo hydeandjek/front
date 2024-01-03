@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './SelectModal.scss';
+import { API_BASE_URL } from '../../config/host-config';
 
 const SelectModal = ({ handleSubmit }) => {
   const [guOptions, setGuOptions] = useState([]);
@@ -8,6 +9,8 @@ const SelectModal = ({ handleSubmit }) => {
 
   const [selectedGu, setSelectedGu] = useState('');
   const [selectedDong, setSelectedDong] = useState('');
+
+  const API_URL = API_BASE_URL + '/map';
 
   useEffect(() => {
     const adr0 = [
@@ -49,7 +52,7 @@ const SelectModal = ({ handleSubmit }) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8181/map/${encodeURIComponent(selectedValue)}`
+        `${API_URL}/${encodeURIComponent(selectedValue)}`
       );
       const data = response.data;
 
