@@ -18,19 +18,33 @@ const SideBarContent = ({
   style,
   onMouseEnter,
   onMouseLeave,
+  likeList,
 }) => {
   const [liked, setLiked] = useState(false);
+  // 좋아요 요청 상태 관리
+  const [isWishAdd, setIsWishAdd] = useState(false);
 
   // 좋아요 버튼 클릭 시 mypage/likelist로 이동
+  useEffect(() => {
+    setLiked(liked);
+  }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log('SideBarContent', likeList, name);
+    if (likeList.includes(name)) {
+      setLiked(true);
+      setIsWishAdd(true);
+      console.log(true);
+    } else {
+      setLiked(false);
+      setIsWishAdd(false);
+    }
+  }, [name]);
 
   const redirection = useNavigate();
   const { onLogout } = useContext(AuthContext);
   // 로그인 인증 토큰 얻어오기
   const [token, setToken] = useState(getLoginUserInfo().token);
-  // 좋아요 요청 상태 관리
-  const [isWishAdd, setIsWishAdd] = useState(false);
 
   // fetch 요청 보낼 때 사용할 요청 헤더 설정
   const requestHeader = {
@@ -39,7 +53,7 @@ const SideBarContent = ({
     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
   };
 
-  const onLikeAddHandler = () => {
+  const onLikeAddHandler = (e) => {
     // userid, recipe id 필요
     setIsWishAdd(!isWishAdd);
 
@@ -76,15 +90,27 @@ const SideBarContent = ({
         } else if (json.done === true) {
           setLiked(true);
           alert('찜했어요!');
-          document.querySelector(
-            '.heart-icon'
-          ).style.backgroundImage = `url(${heartImage_liked})`;
+          // console.log('-------------e: ', e.target); div임
+          console.log('해당 회원의 찜 개수: ', json.likeCount);
+          console.log(json.likedRecipeList);
+          if (json.likedRecipeList.length > 0) {
+            changeFillStyleOfLikedRecipeList(json.likedRecipeList);
+          }
+          // e.target.parentNode.querySelector(
+          //   '.heart-icon'
+          // ).style.backgroundImage = `url(${heartImage_liked})`;
         } else {
           setLiked(false);
           alert('찜이 취소되었습니다.');
-          document.querySelector(
-            '.heart-icon'
-          ).style.backgroundImage = `url(${heartImage})`;
+          // console.log('-------------e: ', e.target);
+          console.log('해당 회원의 찜 개수: ', json.likeCount);
+          console.log(json.likedRecipeList);
+          if (json.likedRecipeList.length > 0) {
+            changeBlankStyleOfLikedRecipeList(json.likedRecipeList);
+          }
+          // e.target.parentNode.querySelector(
+          //   '.heart-icon'
+          // ).style.backgroundImage = `url(${heartImage})`;
         }
       });
     // .catch((err) => {
@@ -93,14 +119,22 @@ const SideBarContent = ({
     // })
   };
 
-  // const divStyle = {
-  //   backgroundImage:
-  //     json.done === 'true'
-  //       ? 'url("new_image.jpg")'
-  //       : 'url("default_image.jpg")',
-  // };
+  // json.likedRecipeList 배열의 요소들의 스타일을 변경하는 함수
+  function changeFillStyleOfLikedRecipeList(likedRecipeList) {
+    // likedRecipeList.forEach((element) => {
+    //   element.style.backgroundImage = `url(${heartImage_liked})`;
+    //   // 원하는 스타일 변경을 여기에 추가할 수 있습니다.
+    // });
+  }
+  function changeBlankStyleOfLikedRecipeList(likedRecipeList) {
+    // likedRecipeList.forEach((element) => {
+    //   element.style.backgroundImage = `url(${heartImage})`;
+    //   // 원하는 스타일 변경을 여기에 추가할 수 있습니다.
+    // });
+  }
 
   console.log(onClick);
+  console.log('rt:', name, liked);
 
   return (
     <div
@@ -115,8 +149,14 @@ const SideBarContent = ({
           onMouseLeave={onMouseLeave}
         />
         <p onClick={onclick}>{name}</p>
+        {/* <Heart /> */}
         <div
           className='heart-icon'
+          style={{
+            backgroundImage: liked
+              ? `url(${heartImage_liked})`
+              : `url(${heartImage})`,
+          }}
           // style={{
           //   backgroundImage: `url(${
           //     liked
@@ -124,7 +164,7 @@ const SideBarContent = ({
           //       : '../../assets/img/notLike.png'
           //   })`,
           // }}
-          onClick={() => onLikeAddHandler(name, isWishAdd)}
+          onClick={(e) => onLikeAddHandler(e, name, isWishAdd)}
         ></div>
       </div>
     </div>
