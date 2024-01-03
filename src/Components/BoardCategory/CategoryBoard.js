@@ -309,7 +309,6 @@ const CategoryBoard = () => {
               )}
             </div>
           </div>
-
           {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
         </div>
       </board>
