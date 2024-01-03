@@ -260,7 +260,6 @@ const CateBoardDetail = () => {
           {/* <div className='aaaaaaa'></div> */}
 
           <div className='content-text-wrapper00'>
-            {' '}
             <input
               type='text'
               placeholder='댓글을 입력하세요'

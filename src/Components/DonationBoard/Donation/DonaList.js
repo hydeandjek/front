@@ -17,7 +17,7 @@ const DonaList = () => {
   };
 
   const board = [
-    { name: '카테고리 게시판', path: '/' },
+    { name: '카테고리 게시판', path: '/board/onelife' },
     { name: '질문 게시판', path: '/board/question' },
     { name: '나눔 게시판', path: '/board/donation' },
   ];
