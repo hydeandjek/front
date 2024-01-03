@@ -119,3 +119,20 @@
     overflow-y: scroll;
     padding-right: 10px;
 }
+
+.time-notification {
+    position: relative;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: content-box;
+}
+
+.time-notification-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    background-color: transparent;
+    border: 0;
+}
