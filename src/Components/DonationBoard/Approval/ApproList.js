@@ -27,12 +27,6 @@ const ApproList = () => {
     fetchData();
   }, []);
 
-  const parsedDate = new Date(approval.regDate);
-  const formattedDate = `${parsedDate.getFullYear()}/${(parsedDate.getMonth() + 1)
-  .toString()
-  .padStart(2, '0')}/${parsedDate.getDate().toString().padStart(2, '0')}`;
-  console.log(formattedDate);
-
   return (
     <>
       <div id='donationBoard'>
@@ -53,6 +47,8 @@ const ApproList = () => {
           </div>
         </div>
 
+        <div className='title_name_board'>승인 게시판</div>
+
         <div className='warp-content'>
           <div className='contentBox' ref={scrollRef}>
             {approval.map((content, index) => (
@@ -62,7 +58,7 @@ const ApproList = () => {
                   src={content.imageUrl}
                   name={content.userName}
                   title={content.title}
-                  date={formattedDate}
+                  date={content.regDate}
                   content={content.content}
                   count={content.commentCount}
                 />

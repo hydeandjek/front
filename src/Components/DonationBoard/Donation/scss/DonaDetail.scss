@@ -56,8 +56,8 @@
     .imageBox {
         display: flex;
         flex-wrap: nowrap;
-        justify-content: left;
-        overflow-x: hidden;
+        justify-content: center;
+        overflow-x: auto;
         width: 90%;
         will-change: transform;
 
@@ -66,11 +66,33 @@
     }
     .imageBox::-webkit-scrollbar{ display: none; }
 
-    .imageBox p {
-        position: absolute;
-        top: -10%;
-        left: 0;
+    .imageBox .imageList {
+        width: 250px;
+        height: 350px;
+        margin-right: 40px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        img {
+            object-fit: contain;
+        }
+        .img1 {
+            width: 250px;
+        }
+        .img2 {
+            height: 350px;
+        }
+        .img3 {
+            width: 250px;
+            height: 250px;
+        }
     }
+    .imageBox .imageList:last-child {
+        margin-right: 0;
+    }
+    
 
     .commentBtn {
         position: relative;

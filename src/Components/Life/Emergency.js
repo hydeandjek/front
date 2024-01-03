@@ -11,27 +11,28 @@ const Emergency = () => {
   return (
     <>
       <div id='emergency'>
-        <div className='rec_center2'>
-          Life
-          <div className='side2'>
-            <div className='sidebar2'>
-              {life.map((menu, index) => {
-                return (
-                  <NavLink
-                    style={{ textDecoration: 'none' }}
-                    to={menu.path}
-                    key={index}
-                  >
-                    <SideBarItem2 menu={menu} />
-                  </NavLink>
-                );
-              })}
-            </div>
-          </div>
-        </div>
 
-        <Kakao Category='병원응급실' />
-      </div>
+<div className='rec_center2'>
+  Life
+  <div className='side2'>
+    <div className='sidebar2'>
+      {life.map((menu, index) => {
+        return (
+          <NavLink
+            style={{ textDecoration: 'none' }}
+            to={menu.path}
+            key={index}
+          >
+            <SideBarItem2 menu={menu} />
+          </NavLink>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<Kakao Category='병원 응급실' />
+</div>
     </>
   );
 };

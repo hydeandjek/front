@@ -92,15 +92,15 @@ const DonaRegist = () => {
     redirection(-1);
   };
 
-  const requestHeader = {
-    // 'content-type': 'application/json',
-    // JWT에 대한 인증 토큰이라는 타입을 선언
-    Authorization: 'Bearer ' + localStorage.getItem('ACCESS_TOKEN'),
-  };
-
   const handleSubmit = async () => {
     const confirmed = window.confirm('게시글을 저장하시겠습니까?');
     if (confirmed) {
+      console.log(title.length);
+      if (!title.trim() || !imageList || !content.trim()) {alert('전부 입력해주세요.'); return;}
+      if (title.length > 30) {alert('제목은 30자까지 입력 가능합니다 :)'); return;}
+      if (imageList.length < 3) {alert('사진은 최소 3장 필요합니다 :)'); return;}
+      if (content.length > 255) {alert('내용은 255자까지 입력 가능합니다 :)'); return;}
+      if (!localStorage.getItem('LOGIN_TOKEN')) {alert('로그인 후 이용해주세요.'); return;}
       try {
         console.log('전송할 데이터:', {
           title: title,

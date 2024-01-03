@@ -6,12 +6,12 @@ import { API_BASE_URL } from '../../../config/host-config';
 import { useHorizontalScroll } from '../UseSideScroll';
 import '../List/DetailList.scss';
 import DetailList from '../List/DetailList';
-import qs from 'qs';
 
 const DonaDetail = () => {
   const redirection = useNavigate();
 
   const onClickRegist = () => {
+    if (!localStorage.getItem('LOGIN_TOKEN')) {alert('로그인 후 이용해주세요.'); return;}
     redirection('/board/donation/regist');
   };
 
@@ -23,7 +23,7 @@ const DonaDetail = () => {
   const [liCount, setLiCount] = useState(0);
   
   const board = [
-    { name: '카테고리 게시판', path: '/' },
+    { name: '카테고리 게시판', path: '/board/onelife' },
     { name: '질문 게시판', path: '/board/question' },
     { name: '나눔 게시판', path: '/board/donation' },
   ];
@@ -69,7 +69,6 @@ const DonaDetail = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/board/donation/${shareId}`);
       const data = response.data;
-      console.log(response.data);
       setDonations(data);
     } catch (error) {
       console.log(error);
@@ -136,6 +135,8 @@ const DonaDetail = () => {
   };
 
   const saveComment = async () => {
+    if (!comment.trim()) {alert('댓글을 입력해주세요.'); return;}
+    if (!localStorage.getItem('LOGIN_TOKEN')) {alert('로그인 후 이용해주세요.'); return;}
     try {
       const encodedComment = JSON.stringify({
         content: comment,
@@ -155,8 +156,7 @@ const DonaDetail = () => {
       setComment('');
       fetchData();
     } catch (error) {
-      alert('로그인 후 이용 가능합니다.');
-      setComment('');
+      console.error(error);
     }
   };
 
@@ -182,7 +182,51 @@ const DonaDetail = () => {
   function formatDateTime(dateTime) {
     const formattedDateTime = dateTime.replace(/-/g, '/');
     return formattedDateTime;
+    
   }
+
+  const [imageStyles, setImageStyles] = useState({});
+
+  const applyImageStyle = (image) => {
+    const img = new Image();
+    img.src = image.filePath;
+
+    return new Promise((resolve, reject) => {
+      img.addEventListener('load', () => {
+        const imageStyles = {};
+
+        const { naturalWidth, naturalHeight } = img;
+
+        if (naturalWidth / naturalHeight > 1) {
+          imageStyles.className = 'img1';
+        } else if (naturalWidth / naturalHeight < 1) {
+          imageStyles.className = 'img2';
+        } else {
+          imageStyles.className = 'img3';
+        }
+
+        resolve(imageStyles);
+      });
+
+      img.addEventListener('error', reject);
+    });
+  };
+
+  useEffect(() => {
+    if (donation?.uploadImages) {
+      const promises = donation.uploadImages.map((image) =>
+        applyImageStyle(image)
+      );
+
+      Promise.all(promises)
+        .then((styles) => {
+          setImageStyles(styles);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [donation?.uploadImages]);
 
   return (
     <>
@@ -248,7 +292,11 @@ const DonaDetail = () => {
                 </div>
 
                 <div className="imageBox" ref={scrollRef}>
-                  <img src={donation?.imageUrl} />
+                  {donation?.uploadImages && donation.uploadImages.map((image, index) => (
+                    <div className="imageList" key={index}>
+                      <img src={image.filePath} className={imageStyles[index]?.className} />
+                    </div>
+                  ))}
                 </div>
 
                 <div className="titleBox">
@@ -278,7 +326,7 @@ const DonaDetail = () => {
                     <p className='boundaryLine'></p>
                     <div className="commentList">
                       <ul style={{ listStyle: 'none', padding: 0 }}>
-                      {donation.comments.map((content, index) => (
+                      {donation?.comments && donation.comments.map((content, index) => (
                         <li className='comments' key={index} style={{ marginBottom: '10px' }}>
                           <div className='comment-top'>
                             <div className='comment-title'>
