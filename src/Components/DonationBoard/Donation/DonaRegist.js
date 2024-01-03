@@ -88,7 +88,9 @@ const DonaRegist = () => {
     setIsHovered3(false);
   };
 
-  const handlePrev = () => {};
+  const handlePrev = () => {
+    redirection(-1);
+  };
 
   const requestHeader = {
     // 'content-type': 'application/json',
@@ -142,7 +144,7 @@ const DonaRegist = () => {
         console.log('전송할 데이터2:', titleContentImageList);
 
         const response = await axios.post(
-          API_BASE_URL + '/donation/regist',
+          API_BASE_URL + '/board/donation/regist',
           titleContentImageList,
           {
             headers: {
@@ -151,10 +153,10 @@ const DonaRegist = () => {
             'Content-Type': 'multipart/form-data',
           }
         );
-        console.log(response.data); // 응답 데이터 처리
+        console.log(response.data);
         redirection('/board/donation');
       } catch (error) {
-        console.error(error); // 오류 처리
+        console.error(error);
       }
     }
   };

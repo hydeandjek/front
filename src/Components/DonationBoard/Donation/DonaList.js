@@ -8,7 +8,6 @@ import { useHorizontalScroll } from '../UseSideScroll';
 import { API_BASE_URL } from '../../../config/host-config';
 
 const DonaList = () => {
-  let [pageNum, setPageNum] = useState(1);
   const [donation, setDonations] = useState([]);
   const scrollRef = useHorizontalScroll();
   const redirection = useNavigate();
@@ -41,6 +40,7 @@ const DonaList = () => {
       try {
         const response = await axios.get(API_BASE_URL + '/board/donation');
         const data = response.data;
+        console.log(response.data);
         setDonations(data);
       } catch (error) {
         console.log(error);
@@ -48,7 +48,12 @@ const DonaList = () => {
     };
 
     fetchData();
-  }, [pageNum]);
+  }, []);
+
+  function formatDateTime(dateTime) {
+    const formattedDateTime = dateTime.replace(/-/g, '/');
+    return formattedDateTime;
+  }
 
   return (
     <>
@@ -113,7 +118,7 @@ const DonaList = () => {
                 src={content.imageUrl}
                 name={content.userName}
                 title={content.title}
-                date={content.regDate}
+                date={formatDateTime(content.approvalDate)}
                 content={content.content}
                 count={content.commentCount}
               />

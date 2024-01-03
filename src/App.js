@@ -215,7 +215,7 @@ function App() {
                   element={<DonaRegist />}
                 />
                 <Route
-                  path='/board/donation/:boardId'
+                  path='/board/donation/:shareId'
                   element={<DonaDetail />}
                 />
                 <Route
@@ -223,7 +223,7 @@ function App() {
                   element={<ApproList />}
                 />
                 <Route
-                  path='/board/approval/detail'
+                  path='/board/approval/:shareId'
                   element={<ApproDetail />}
                 />
                 <Route

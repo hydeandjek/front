@@ -10,14 +10,13 @@ import { useHorizontalScroll } from '../UseSideScroll';
 import { API_BASE_URL } from '../../../config/host-config';
 
 const ApproList = () => {
-  let [pageNum, setPageNum] = useState(1);
   const [approval, setApprovals] = useState([]);
   const scrollRef = useHorizontalScroll();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_BASE_URL + '/board/donation');
+        const response = await axios.get(API_BASE_URL + '/board/donation/approval');
         const data = response.data;
         setApprovals(data);
       } catch (error) {
@@ -26,7 +25,13 @@ const ApproList = () => {
     };
 
     fetchData();
-  }, [pageNum]);
+  }, []);
+
+  const parsedDate = new Date(approval.regDate);
+  const formattedDate = `${parsedDate.getFullYear()}/${(parsedDate.getMonth() + 1)
+  .toString()
+  .padStart(2, '0')}/${parsedDate.getDate().toString().padStart(2, '0')}`;
+  console.log(formattedDate);
 
   return (
     <>
@@ -53,11 +58,11 @@ const ApproList = () => {
             {approval.map((content, index) => (
                 <BoardList
                   key={index}
-                  url={'donation/detail/' + content.id}
+                  url={'approval/' + content.id}
                   src={content.imageUrl}
                   name={content.userName}
                   title={content.title}
-                  date={content.regDate}
+                  date={formattedDate}
                   content={content.content}
                   count={content.commentCount}
                 />
