@@ -11,6 +11,7 @@ const DrugStore = () => {
   return (
     <>
       <div id='DrugStore'>
+
         <div className='rec_center2'>
           Life
           <div className='side2'>

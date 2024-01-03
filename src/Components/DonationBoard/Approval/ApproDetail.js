@@ -66,10 +66,10 @@ const ApproDetail = () => {
       try {
         const response = await axios.post(`${API_BASE_URL}/board/donation/approval/complete/${shareId}/REJECT`, {
         });
-        console.log(response.data);  // 응답 데이터 처리
+        console.log(response.data);
         redirection('/board/approval');
       } catch (error) {
-        console.error(error);  // 오류 처리
+        console.error(error);
       }
     }
   };
@@ -80,10 +80,10 @@ const ApproDetail = () => {
       try {
         const response = await axios.post(`${API_BASE_URL}/board/donation/approval/complete/${shareId}/APPROVE`, {
         });
-        console.log(response.data);  // 응답 데이터 처리
+        console.log(response.data);
         redirection('/board/approval');
       } catch (error) {
-        console.error(error);  // 오류 처리
+        console.error(error);
       }
     }
   };
@@ -121,6 +121,7 @@ const ApproDetail = () => {
   };
 
   const saveComment = async () => {
+    if (!comment.trim()) {alert('댓글을 입력해주세요.'); return;}
     try {
       const encodedComment = JSON.stringify({
         content: comment,
@@ -138,8 +139,7 @@ const ApproDetail = () => {
       setComment('');
       fetchData();
     } catch (error) {
-      alert('로그인 후 이용 가능합니다.');
-      setComment('');
+      console.error(error);
     }
   };
 
@@ -161,6 +161,49 @@ const ApproDetail = () => {
       }
     }
   };
+
+  const [imageStyles, setImageStyles] = useState({});
+
+  const applyImageStyle = (image) => {
+    const img = new Image();
+    img.src = image.filePath;
+
+    return new Promise((resolve, reject) => {
+      img.addEventListener('load', () => {
+        const imageStyles = {};
+
+        const { naturalWidth, naturalHeight } = img;
+
+        if (naturalWidth / naturalHeight > 1) {
+          imageStyles.className = 'img1';
+        } else if (naturalWidth / naturalHeight < 1) {
+          imageStyles.className = 'img2';
+        } else {
+          imageStyles.className = 'img3';
+        }
+
+        resolve(imageStyles);
+      });
+
+      img.addEventListener('error', reject);
+    });
+  };
+
+  useEffect(() => {
+    if (approval?.uploadImages) {
+      const promises = approval.uploadImages.map((image) =>
+        applyImageStyle(image)
+      );
+
+      Promise.all(promises)
+        .then((styles) => {
+          setImageStyles(styles);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [approval?.uploadImages]);
 
   return (
     <>
@@ -192,7 +235,11 @@ const ApproDetail = () => {
                 </div>
 
                 <div className="imageBox" ref={scrollRef}>
-                  <img src={approval?.imageUrl} />
+                  {approval?.uploadImages && approval.uploadImages.map((image, index) => (
+                    <div className="imageList" key={index}>
+                      <img src={image.filePath} className={imageStyles[index]?.className} />
+                    </div>
+                  ))}
                 </div>
 
                 <div className="titleBox">

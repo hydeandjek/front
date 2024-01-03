@@ -308,6 +308,7 @@ const Cctv = () => {
           </div>
         </div>
       </div>
+      <div className='wrap_title_name'>CCTV</div>
       <div className='map_wrap' id='cctv'>
         <div
           id='menu_wrap'
