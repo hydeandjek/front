@@ -80,20 +80,20 @@ const MyPost = () => {
 
       const result = await res.json();
 
-      // const res2 = await fetch(REQUEST_URL_Category, {
-      //   method: 'GET',
-      //   headers: {
-      //     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
-      //   },
-      // });
-      // if (!res2.ok) {
-      //   throw new Error('Network response was not ok');
-      // }
+      const res2 = await fetch(REQUEST_URL_Category, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+        },
+      });
+      if (!res2.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-      // const result2 = await res2.json();
+      const result2 = await res2.json();
 
       console.log(result);
-      // console.log(result2);
+      console.log(result2);
 
       // const i = 1;
       let processedData = [];
@@ -119,7 +119,7 @@ const MyPost = () => {
 
       if (result.length > 0) {
         processedData.push(
-          ...result
+          ...result2
             .filter((item) => item.userId === userId)
             .map((item, index) => ({
               rowNumber: index + 1,
