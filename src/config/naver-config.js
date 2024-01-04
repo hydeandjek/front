@@ -9,4 +9,6 @@
 const CLIENT_ID = process.env.REACT_APP_NAVER_REST_API_KEY;
 const REDIRECT_URL = process.env.REACT_APP_NAVER_REDIRECT_URL;
 
+console.log(CLIENT_ID, REDIRECT_URL);
+
 export const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code&state=test`;

@@ -16,7 +16,9 @@ const ApproList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_BASE_URL + '/board/donation/approval');
+        const response = await axios.get(
+          API_BASE_URL + '/board/donation/approval'
+        );
         const data = response.data;
         setApprovals(data);
       } catch (error) {
@@ -50,22 +52,24 @@ const ApproList = () => {
         <div className='title_name_board'>승인 게시판</div>
 
         <div className='warp-content'>
-          <div className='contentBox' ref={scrollRef}>
+          <div
+            className='contentBox'
+            ref={scrollRef}
+          >
             {approval.map((content, index) => (
-                <BoardList
-                  key={index}
-                  url={'approval/' + content.id}
-                  src={content.imageUrl}
-                  name={content.userName}
-                  title={content.title}
-                  date={content.regDate}
-                  content={content.content}
-                  count={content.commentCount}
-                />
-              ))}
+              <BoardList
+                key={index}
+                url={'approval/' + content.id}
+                src={content.imageUrl}
+                name={content.userName}
+                title={content.title}
+                date={content.regDate}
+                content={content.content}
+                count={content.commentCount}
+              />
+            ))}
           </div>
         </div>
-
       </div>
     </>
   );

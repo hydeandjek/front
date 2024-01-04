@@ -2,32 +2,34 @@ import React from 'react';
 import './BoardList.scss';
 import { getLoginUserInfo } from '../../../utils/AuthContext';
 
+
 const BoardList = ({ name, title, src, url, date, content, count, flag }) => {
   const {role} = getLoginUserInfo();
+
 
   function truncateContent(text, maxWidth) {
     const maxCharactersPerLine = Math.floor(maxWidth / 4);
     const maxLines = 5;
-  
+
     let formattedText = '';
     let currentLine = 1;
-  
+
     for (let i = 0; i < text.length; i++) {
       formattedText += text[i];
-  
+
       // 한 줄에 최대 글자 수에 도달하면 다음 줄로 넘어감
       if (formattedText.length % maxCharactersPerLine === 0) {
         formattedText += '\n';
         currentLine++;
       }
-  
+
       // 넓이를 초과하는 경우 다음 줄로 넘어감
       if (formattedText.length > maxWidth) {
         formattedText = formattedText.slice(0, formattedText.lastIndexOf('\n'));
         break;
       }
     }
-  
+
     // 5번째 줄의 내용에 "..."을 추가하고 그 뒤의 내용을 제거
     const lines = formattedText.split('\n');
     if (lines.length >= maxLines) {
@@ -37,17 +39,19 @@ const BoardList = ({ name, title, src, url, date, content, count, flag }) => {
       lines[lastLineIndex] = truncatedLine;
       lines.splice(lastLineIndex + 1); // 마지막 줄 이후의 내용 제거
     }
-  
+
     return lines.join('\n');
   }
 
   function truncateTitle(str, maxLength) {
     if (str.length > maxLength) {
-      return str.slice(0, maxLength) + "..";
+      return str.slice(0, maxLength) + '..';
     } else {
       return str;
     }
   }
+
+
 
   const handleRedirect = () => {
     if (role === "ADMIN") {
@@ -66,6 +70,7 @@ const BoardList = ({ name, title, src, url, date, content, count, flag }) => {
   } else if (flag === 'HOLD') {
     flagImg = 'https://cdn.discordapp.com/attachments/1179983459821813860/1192271676386324480/image1.png?ex=65a87886&is=65960386&hm=c7012c2b8c72f7725a2d53b5f02088cec42d22333dfd2d2da60a971917e121c2&';
   }
+
 
   return (
     <div className='boardContent'>

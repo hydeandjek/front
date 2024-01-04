@@ -33,12 +33,16 @@ const Modify = () => {
 
   // 검증 완료 체크에 대한 상태변수를 관리
   const [correct, setCorrect] = useState({
-    password: undefined,
-    passwordCheck: undefined,
+    password: '',
+    passwordCheck: '',
     address: true,
   });
 
-  // const [emailToken, setEmailToken] = useState(null);
+  const requestHeader = {
+    'content-type': 'application/json',
+    // JWT에 대한 인증 토큰이라는 타입을 선언
+    Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+  };
 
   const saveInputState = ({ key, inputValue, msg, flag }) => {
     // setMessage((prev) => ({ ...prev, [key]: msg }));
@@ -49,38 +53,64 @@ const Modify = () => {
     }
   };
 
-  // 이름 입력창 체인지 이벤트 핸들러
-  // const passwordHandler = (e) => {
-  //   // setMessage({ ...message, passwordCheck: '' });
-  //   setCorrect({ ...correct, passwordCheck: false });
-  //   document.getElementById('passwordCheck').value = '';
+  // 패스워드 입력창 체인지 이벤트 핸들러
+  const passwordHandler = (e) => {
+    // 패스워드가 변경됬다? -> 패스워드 확인란 비우고 시작하자
+    setCorrect({ ...correct, passwordCheck: false });
+    document.getElementById('passwordCheck').value = '';
 
-  //   const inputValue = e.target.value;
+    const inputValue = e.target.value;
+    const pwRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
-  //   saveInputState({
-  //     key: 'password',
-  //     inputValue,
-  //     msg: '', // Validation message
-  //     flag: true, // Validation status
-  //   });
-  // };
+    let msg = '';
+    let flag = false;
 
-  // 이름 입력창 체인지 이벤트 핸들러
+    if (!inputValue) {
+      msg = '비밀번호는 필수입니다.';
+    } else if (!pwRegex.test(inputValue)) {
+      msg = '8글자 이상의 영문, 숫자, 특수문자를 포함해 주세요.';
+    } else {
+      msg = '사용 가능한 비밀번호입니다.';
+      flag = true;
+    }
+
+    saveInputState({
+      key: 'password',
+      inputValue,
+      msg,
+      flag,
+    });
+  };
+
+  // 비밀번호 확인란 체인지 이벤트 핸들러
   const pwCheckHandler = (e) => {
+    let msg = '';
+    let flag = false;
+
+    if (!e.target.value) {
+      msg = '비밀번호 확인란은 필수입니다.';
+    } else if (userValue.password !== e.target.value) {
+      msg = '패스워드가 일치하지 않습니다.';
+    } else {
+      msg = '패스워드가 일치합니다.';
+      flag = true;
+    }
+
     saveInputState({
       key: 'passwordCheck',
       inputValue: '',
-      msg: '', // Validation message
-      flag: true, // Validation status
+      msg,
+      flag,
     });
   };
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/user`, {
+      const response = await fetch(`${API_BASE_URL}`, {
         method: 'GET',
+        headers: requestHeader,
       });
-
       if (response.ok) {
         const userData = await response.json();
         setUserValue({
@@ -128,30 +158,42 @@ const Modify = () => {
 
     if (isValid()) {
       try {
-        const response = await fetch(`${API_BASE_URL}/update`, {
+        const response = await fetch(`${API_BASE_URL}`, {
           method: 'PUT',
-          headers: { 'content-type': 'application/json' },
+          headers: {
+            'content-type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+          },
           body: JSON.stringify(userValue),
         });
-
         if (response.ok) {
-          alert('User information updated successfully!');
+          alert('회원정보가 성공적으로 수정되었습니다.');
         } else {
-          throw new Error('Failed to update user information');
+          throw new Error('회원정보 설정을 다시 해주세요.');
         }
       } catch (error) {
         console.error(error.message);
       }
     } else {
-      alert('Please fill in all required fields');
+      alert('정보 입력이 제대로 되지 않았습니다.');
     }
   };
 
   // 입력란이 모두 검증에 통과했는지 여부를 검사
   const isValid = () => {
+    console.log('Password:', userValue.password);
+    console.log('Password Check:', correct.passwordCheck);
+
+    if (!correct.passwordCheck) {
+      alert('Passwords do not match');
+      return false;
+    }
     for (const key in correct) {
-      const flag = correct[key];
-      if (!flag) return false;
+      // const flag = correct[key];
+      // if (!flag)
+      if (!correct[key]) {
+        return false;
+      }
     }
     return true;
   };
@@ -191,10 +233,10 @@ const Modify = () => {
                   </Label>
                   <Input
                     type='password'
-                    id='passwordCheck'
+                    id='password'
                     placeholder='새로운 비밀번호 확인'
                     required
-                    onChange={pwCheckHandler}
+                    onChange={passwordHandler}
                     invalid={
                       correct.passwordCheck === undefined
                         ? undefined
