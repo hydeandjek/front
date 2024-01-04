@@ -13,7 +13,10 @@ const DonaList = () => {
   const redirection = useNavigate();
 
   const onClickRegist = () => {
-    if (!localStorage.getItem('LOGIN_TOKEN')) {alert('로그인 후 이용해주세요.'); return;}
+    if (!localStorage.getItem('LOGIN_TOKEN')) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
     redirection('/board/donation/regist');
   };
 
@@ -59,16 +62,20 @@ const DonaList = () => {
   return (
     <>
       <div id='donationBoard'>
-      <div className='rec_center2' onMouseLeave={handleMouseLeave}>
+        <div
+          className='rec_center2'
+          onMouseLeave={handleMouseLeave}
+        >
           Community
           <div className='side2'>
             <div className='sidebar2'>
               {board.map((menu, index) => (
-                <div className='sidebar-item2' key={index}>
+                <div
+                  className='sidebar-item2'
+                  key={index}
+                >
                   {menu.name === '나눔 게시판' ? (
-                    <div
-                      onMouseEnter={handleMouseEnter}
-                    >
+                    <div onMouseEnter={handleMouseEnter}>
                       <NavLink
                         to={menu.path}
                         activeClassName='active-link'
@@ -92,7 +99,7 @@ const DonaList = () => {
                             color: '#000',
                             display: 'block',
                             borderRadius: '10px',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
                           }}
                         >
                           글쓰기
@@ -100,7 +107,11 @@ const DonaList = () => {
                       )}
                     </div>
                   ) : (
-                    <NavLink to={menu.path} activeClassName='active-link' exact>
+                    <NavLink
+                      to={menu.path}
+                      activeClassName='active-link'
+                      exact
+                    >
                       <p>{menu.name}</p>
                     </NavLink>
                   )}
@@ -127,6 +138,7 @@ const DonaList = () => {
                 date={formatDateTime(content.approvalDate)}
                 content={content.content}
                 count={content.commentCount}
+                flag={content.approvalFlag}
               />
             ))}
           </div>
