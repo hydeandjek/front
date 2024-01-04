@@ -119,7 +119,7 @@ const MyPost = () => {
 
       if (result.length > 0) {
         processedData.push(
-          ...result2
+          ...result
             .filter((item) => item.userId === userId)
             .map((item, index) => ({
               rowNumber: index + 1,
