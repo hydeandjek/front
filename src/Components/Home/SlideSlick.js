@@ -5,6 +5,8 @@ import slide4 from '../../../src/assets/img/main(2)-mini1.png';
 import slide5 from '../../../src/assets/img/main(2)-mini4.png';
 import slide6 from '../../../src/assets/img/main(2)-mini5.png';
 import slide7 from '../../../src/assets/img/main(2)-mini6.png';
+import slide8 from '../../../src/assets/img/main-page slice2.png';
+import slide9 from '../../../src/assets/img/mainpage-slice33.png';
 
 const SlideSlick = () => {
   const settings = {
@@ -13,7 +15,7 @@ const SlideSlick = () => {
     slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 2000,
     pauseOnHover: true,
   };
 
@@ -37,11 +39,13 @@ const SlideSlick = () => {
           <h1>로그인 기능을 이용한 다양한 정보 제공</h1>
         </div>
         <div className='slick-content'>
-          <img src={slide5} />
+          <img src={slide8} />
+          <h1>주제에 따른 커뮤니티 게시판</h1>
         </div>
-        {/* <div className='slick-content'>
-          <img src={slide3} />
-        </div> */}
+        <div className='slick-content'>
+          <img src={slide9} />
+          <h1>1인가구를 위한 가구 및 가전제품 정보 제공</h1>
+        </div>
       </Slider>
     </div>
   );

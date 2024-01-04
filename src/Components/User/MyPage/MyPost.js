@@ -14,7 +14,9 @@ import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2.js';
 import icon1 from '../../../assets/img/icon1.png';
 import icon2 from '../../../assets/img/icon2.png';
 import { getLoginUserInfo } from '../../../utils/AuthContext.js';
+
 import { Category, Try } from '@mui/icons-material';
+
 
 const MyPost = () => {
   const [data, setData] = useState([]);
@@ -29,7 +31,7 @@ const MyPost = () => {
   // const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${CATEGORYBOARD}`;
   // const REQUEST_URL_QUESTION = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${QUESTIONBOARD}`;
   const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}`;
-  const REQUEST_URL_Category = `${API_BASE_URL}${CATEGORYBOARD}/entire`;
+
   const redirection = useNavigate();
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
