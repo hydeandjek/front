@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import './MyPost.module.scss';
+import './MyPost.scss';
 import {
   API_BASE_URL,
   QUESTIONBOARD,
@@ -14,27 +14,23 @@ import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2.js';
 import icon1 from '../../../assets/img/icon1.png';
 import icon2 from '../../../assets/img/icon2.png';
 import { getLoginUserInfo } from '../../../utils/AuthContext.js';
-
-import { Category, Try } from '@mui/icons-material';
-
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const MyPost = () => {
   const [data, setData] = useState([]);
-  const [allData, setAllData] = useState([]);
 
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(10);
   const [countNum, setCountNum] = useState(false);
   const userId = getLoginUserInfo().userid; // 현재 로그인한 사용자의 ID를 가져온다고 가정함.
-  const userName = getLoginUserInfo().username; // 현재 로그인한 사용자의 ID를 가져온다고 가정함.
-  // const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}`;
-  // const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${CATEGORYBOARD}`;
-  // const REQUEST_URL_QUESTION = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${QUESTIONBOARD}`;
   const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}`;
+  const REQUEST_URL_Category = `${API_BASE_URL}${CATEGORYBOARD}/entire`;
 
   const redirection = useNavigate();
+
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
+  const [realCurrentPage, setRealCurrentPage] = useState(1);
 
   const onClickApprove = () => {
     redirection('/board/donation/mypage/approve');
@@ -100,28 +96,59 @@ const MyPost = () => {
       console.log(result2);
 
       // const i = 1;
+      let processedData = [];
 
       if (result.length > 0) {
-        const processedData = result
-          .filter((item) => item.userId === userId)
-          .map((item, index) => ({
-            rowNumber: index + 1,
-            boardId: item.boardId,
-            title: item.title,
-            content: item.content,
-            regDate: new Date(item.regDate).toISOString().split('T')[0],
-            userId: item.userId.slice(0, 4),
-            userName: item.userName,
-          }));
-
-        // 데이터를 regDate 기준으로 내림차순 정렬
-        processedData.sort((a, b) => b.rowNumber - a.rowNumber);
-
-        // 데이터를 상태에 업데이트
-        setData(processedData);
+        processedData.push(
+          ...result
+            .filter((item) => item.userId === userId)
+            .map((item, index) => ({
+              rowNumber: index + 1,
+              boardId: item.boardId,
+              category: 'qna',
+              title: item.title,
+              content: item.content,
+              regDate: new Date(item.regDate).toISOString().split('T')[0],
+              userId: item.userId.slice(0, 4),
+              userName: item.userName,
+            }))
+        );
       } else {
         console.log('No data received from the server.');
       }
+
+      if (result.length > 0) {
+        processedData.push(
+          ...result2
+            .filter((item) => item.userId === userId)
+            .map((item, index) => ({
+              rowNumber: index + 1,
+              boardId: item.boardId,
+              category: item.category,
+              title: item.title,
+              content: item.content,
+              regDate: new Date(item.regDate).toISOString().split('T')[0],
+              userId: item.userId.slice(0, 4),
+              userName: item.userName,
+            }))
+        );
+      } else {
+        console.log('No data received from the server.');
+      }
+
+      console.log(processedData);
+      // 데이터를 regDate 기준으로 내림차순 정렬
+      processedData.sort((a, b) => b.rowNumber - a.rowNumber);
+      processedData = processedData.map((item, index) => ({
+        ...item,
+        rowNumber: index + 1,
+      }));
+
+      // 데이터를 상태에 업데이트
+      setData(processedData);
+
+      setStartIndex((realCurrentPage - 1) * 10);
+      setEndIndex(realCurrentPage * 10);
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -136,87 +163,100 @@ const MyPost = () => {
     // userName: item.userName,
   }));
 
-  const boarddetailhandleClick = (boardId) => {
+  const boarddetailhandleClick = (boardId, category) => {
     // 선택된 아이템에 대한 로직을 수행
-    redirection('/board/question/detail', { state: { board: boardId } });
+    console.log(boardId, category);
+    if (category === 'qna') {
+      redirection('/board/question/detail', { state: { board: boardId } });
+    } else {
+      redirection('/board/onelife/detail', {
+        state: { boardId: boardId, category: category },
+      });
+    }
+    //redirection('/board/question/detail', { state: { board: boardId } });
   };
 
   const pageSize = 10;
   const totalPages = Math.ceil(data.length / pageSize);
+
   const beforePageHandler = () => {
-    // setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-    // setCountNum(false);
-    if (startIndex > 0) {
-      setStartIndex(startIndex - 10);
-      setEndIndex(endIndex - 10);
-    }
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    // setStartIndex(startIndex - 10);
+    // setEndIndex(endIndex - 10);
+    setCountNum(false);
   };
 
   const afterPageHandler = () => {
-    // setCurrentPage((prevPage) => prevPage + 1);
-    // 총 페이지 수 계산
-
-    if (currentPage < totalPages) {
-      // 다음 페이지로 이동할 경우
-      setCurrentPage((prevPage) => prevPage + 1);
-      setStartIndex((prevIndex) => prevIndex + pageSize);
-      setEndIndex((prevIndex) => prevIndex + pageSize);
-    } else {
-      // 마지막 페이지인 경우
-      setCountNum(true);
-    }
+    setCurrentPage((prevPage) => prevPage + 1);
+    // setStartIndex(startIndex + 10);
+    // setEndIndex(endIndex + 10);
   };
 
   const pageNumHandler = (pageNumber) => {
     const buttonText = pageNumber.target.innerText;
+    //setCurrentPage(pageNumber);
     setStartIndex((buttonText - 1) * 10);
     setEndIndex(buttonText * 10);
+    setRealCurrentPage(Number(buttonText));
   };
 
   useEffect(() => {
     fetchData();
   }, []); // 컴포넌트가 마운트될 떄 게시글 데이터를 가져온다.
 
-  const renderPageButtons = () => {
-    const startNumber = (currentPage - 1) * pageSize + 1;
-    const endNumber = startNumber + pageSize - 1;
+  const RenderPageButtons = () => {
+    const startNumber = (currentPage - 1) * itemsPerPage + 1;
+    const endNumber = startNumber + itemsPerPage - 1;
     let pageNumber;
 
-    return Array.from({ length: totalPages }).map((_, index) => {
-      if (data.length <= (startNumber + index - 1) * pageSize) {
-        return;
+    return Array.from({ length: itemsPerPage }).map((_, index) => {
+      if (data.length <= (startNumber + index - 1) * 10) {
+        return <></>;
       } else {
         pageNumber = startNumber + index;
       }
+
       return (
-        <button
-          key={pageNumber}
-          className={`a num${index + 1}`}
-          onClick={pageNumHandler}
-        >
-          {pageNumber}
-        </button>
+        <>
+          {realCurrentPage === pageNumber ? (
+            <PaginationItem active>
+              <PaginationLink
+                key={pageNumber}
+                onClick={pageNumHandler}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          ) : (
+            <PaginationItem>
+              <PaginationLink
+                key={pageNumber}
+                onClick={pageNumHandler}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          )}
+        </>
       );
     });
   };
 
   return (
     <>
-      <board id='board'>
+      <board id='myboard'>
         <div
           className='ppps'
           style={{
             position: 'fixed',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-40%, -40%)',
           }}
         >
           <div id='community'>
-            <h5>내가 쓴 게시글</h5>
-
             <div className='overlap-wrapper'>
-              <div className='overlap'>
+              <div className='overlap1'>
                 <div className='content-text-wrapper'>
                   <div className='text-wrapper a1'>No</div>
                   {/* <div className='text-wrapper a2'>게시판</div> */}
@@ -233,48 +273,43 @@ const MyPost = () => {
                     >
                       <div className='text-wrapper a1'>{item.rowNumber}</div>
                       <div className='text-wrapper a3'>{item.title}</div>
-                      <div className='text-wrapper a4'>{item.userName}</div>
-                      <div className='text-wrappera5'>{item.regDate}</div>
+                      <div className='text-wrapper a4'>
+                        {item.userName.substring(0, 2)}***
+                      </div>
+                      <div className='text-wrapper a5'>{item.regDate}</div>
                     </div>
                   ))}
                 </div>
+                <Pagination className='pagination'>
+                  <PaginationItem>
+                    <PaginationLink
+                      previous
+                      onClick={beforePageHandler}
+                    />
+                  </PaginationItem>
+                  <RenderPageButtons />
+                  {countNum ? (
+                    ''
+                  ) : (
+                    <PaginationItem>
+                      <PaginationLink
+                        next
+                        onClick={afterPageHandler}
+                      />
+                    </PaginationItem>
+                  )}
+                </Pagination>
               </div>
             </div>
-          </div>
-          <div className='PageBtn'>
-            <button
-              className='before'
-              onClick={beforePageHandler}
-            >
-              <img
-                src={icon1}
-                alt='버튼 이미지'
-                className='buttonImage'
-              ></img>
-            </button>
-            <div className='aabtn'>
-              <div className='bbbtn'>{renderPageButtons()}</div>
-            </div>
-            {countNum ? (
-              <button>끝</button>
-            ) : (
-              <button
-                className='after'
-                onClick={afterPageHandler}
-              >
-                <img
-                  src={icon2}
-                  alt='버튼 이미지'
-                  className='buttonImage'
-                ></img>
-              </button>
-            )}
           </div>
         </div>
       </board>
       <div>
-      <div className='rec_center2' onMouseLeave={handleMouseLeave}>
-            MyBoard
+        <div
+          className='rec_center2'
+          onMouseLeave={handleMouseLeave}
+        >
+          MyBoard
           <div className='side2'>
             <div className='sidebar2'>
               {myboard.map((menu, index) => (
@@ -283,9 +318,7 @@ const MyPost = () => {
                   key={index}
                 >
                   {menu.name === '나의 나눔 게시판' ? (
-                    <div
-                      onMouseEnter={handleMouseEnter}
-                    >
+                    <div onMouseEnter={handleMouseEnter}>
                       <NavLink
                         to={menu.path}
                         activeClassName='active-link'
@@ -295,67 +328,66 @@ const MyPost = () => {
                       </NavLink>
                       {isHover && (
                         <>
-                            <p
-                                onClick={onClickHold}
-                               
-                                style={{
-                                    fontSize: '14px',
-                                    width: '150px',
-                                    padding: '3px 10px',
-                                    margin: '5px 0px',
-                                    position: 'absolute',
-                                    bottom: '-2%',
-                                    textAlign: 'center',
-                                    textDecoration: 'none',
-                                    marginLeft: '25px',
-                                    color: '#000',
-                                    display: 'block',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                미승인 게시판
-                            </p>
-                            <p
-                                onClick={onClickApprove}
-                                style={{
-                                    fontSize: '14px',
-                                    width: '150px',
-                                    padding: '3px 10px',
-                                    margin: '5px 0px',
-                                    position: 'absolute',
-                                    bottom: '-26%',
-                                    textAlign: 'center',
-                                    textDecoration: 'none',
-                                    marginLeft: '25px',
-                                    color: '#000',
-                                    display: 'block',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                승인 게시판
-                            </p>
-                            <p
-                                onClick={onClickReject}
-                                style={{
-                                    fontSize: '14px',
-                                    width: '150px',
-                                    padding: '3px 10px',
-                                    margin: '5px 0px',
-                                    position: 'absolute',
-                                    bottom: '-50%',
-                                    textAlign: 'center',
-                                    textDecoration: 'none',
-                                    marginLeft: '25px',
-                                    color: '#000',
-                                    display: 'block',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                보류 게시판
-                            </p>
+                          <p
+                            onClick={onClickHold}
+                            style={{
+                              fontSize: '14px',
+                              width: '150px',
+                              padding: '3px 10px',
+                              margin: '5px 0px',
+                              position: 'absolute',
+                              bottom: '-2%',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              marginLeft: '25px',
+                              color: '#000',
+                              display: 'block',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            미승인 게시판
+                          </p>
+                          <p
+                            onClick={onClickApprove}
+                            style={{
+                              fontSize: '14px',
+                              width: '150px',
+                              padding: '3px 10px',
+                              margin: '5px 0px',
+                              position: 'absolute',
+                              bottom: '-26%',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              marginLeft: '25px',
+                              color: '#000',
+                              display: 'block',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            승인 게시판
+                          </p>
+                          <p
+                            onClick={onClickReject}
+                            style={{
+                              fontSize: '14px',
+                              width: '150px',
+                              padding: '3px 10px',
+                              margin: '5px 0px',
+                              position: 'absolute',
+                              bottom: '-50%',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              marginLeft: '25px',
+                              color: '#000',
+                              display: 'block',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            보류 게시판
+                          </p>
                         </>
                       )}
                     </div>
