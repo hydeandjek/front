@@ -59,19 +59,15 @@ const DonaList = () => {
   return (
     <>
       <div id='donationBoard'>
-        <div className='rec_center2'>
+      <div className='rec_center2' onMouseLeave={handleMouseLeave}>
           Community
           <div className='side2'>
             <div className='sidebar2'>
               {board.map((menu, index) => (
-                <div
-                  className='sidebar-item2'
-                  key={index}
-                >
+                <div className='sidebar-item2' key={index}>
                   {menu.name === '나눔 게시판' ? (
                     <div
                       onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
                     >
                       <NavLink
                         to={menu.path}
@@ -88,26 +84,23 @@ const DonaList = () => {
                             width: '150px',
                             padding: '3px 10px',
                             margin: '5px 0px',
-                            position: 'relative',
+                            position: 'absolute',
+                            bottom: '-1%',
                             textAlign: 'center',
                             textDecoration: 'none',
                             marginLeft: '25px',
                             color: '#000',
                             display: 'block',
                             borderRadius: '10px',
-                            cursor: 'pointer',
+                            cursor: 'pointer'
                           }}
                         >
-                          등록
+                          글쓰기
                         </p>
                       )}
                     </div>
                   ) : (
-                    <NavLink
-                      to={menu.path}
-                      activeClassName='active-link'
-                      exact
-                    >
+                    <NavLink to={menu.path} activeClassName='active-link' exact>
                       <p>{menu.name}</p>
                     </NavLink>
                   )}
@@ -117,7 +110,7 @@ const DonaList = () => {
           </div>
         </div>
 
-        <div className='title_name_board'>나눔 게시판</div>
+        <div className='title_name_board'>{board[2].name}</div>
 
         <div className='warp-content'>
           <div
@@ -127,7 +120,7 @@ const DonaList = () => {
             {donation.map((content, index) => (
               <BoardList
                 key={index}
-                url={'donation/' + content.id}
+                url={content.id}
                 src={content.imageUrl}
                 name={content.userName}
                 title={content.title}

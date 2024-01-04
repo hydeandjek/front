@@ -45,6 +45,11 @@ import LikeList from './Components/User/MyPage/LikeList';
 import MyPost from './Components/User/MyPage/MyPost';
 import Modify from './Components/User/MyPage/Modify';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MyDonationBoard from './Components/User/MyPage/MyDonationBorad';
+import MyApproveBoard from './Components/DonationBoard/MyPage/MyApproveBoard';
+import MyRejectBoard from './Components/DonationBoard/MyPage/MyRejectBoard';
+import MyHoldBoard from './Components/DonationBoard/MyPage/MyHoldBoard';
+import RejectList from './Components/DonationBoard/Approval/RejectList';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -223,7 +228,11 @@ function App() {
                   element={<ApproList />}
                 />
                 <Route
-                  path='/board/approval/:shareId'
+                  path='/board/reject'
+                  element={<RejectList />}
+                />
+                <Route
+                  path='/board/donation/approval/:shareId'
                   element={<ApproDetail />}
                 />
                 <Route
@@ -237,6 +246,22 @@ function App() {
                 <Route
                   path='/mypage/modify'
                   element={<Modify />}
+                />
+                <Route
+                  path='/board/donation/mypage'
+                  element={<MyDonationBoard />}
+                />
+                <Route
+                  path='/board/donation/mypage/approve'
+                  element={<MyApproveBoard />}
+                />
+                <Route
+                  path='/board/donation/mypage/reject'
+                  element={<MyRejectBoard />}
+                />
+                <Route
+                  path='/board/donation/mypage/hold'
+                  element={<MyHoldBoard />}
                 />
               </Routes>
             </div>

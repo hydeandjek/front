@@ -56,7 +56,7 @@
     .imageBox {
         display: flex;
         flex-wrap: nowrap;
-        justify-content: center;
+        justify-content: flex-start;
         overflow-x: auto;
         width: 90%;
         will-change: transform;
