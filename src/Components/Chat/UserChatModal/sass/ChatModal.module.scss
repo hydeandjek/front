@@ -11,6 +11,9 @@
             position: fixed;
             right: 10px;
             bottom: 10px;
+            background: transparent;
+            border: none;
+            filter: invert(100%);
         }
     }
 }
@@ -20,5 +23,5 @@
     width: 570px;
     position: absolute;
     right: 50px;
-    bottom: 50px;
+    bottom: 80px;
 }
