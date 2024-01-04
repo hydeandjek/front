@@ -27,7 +27,7 @@ const SlideSlick2 = () => {
         </div>
         <div className='slick-content2'>
           <img src={slide4} />
-          <h1>-----------</h1>
+          <h1>회원 주소에 따른 지도 자동좌표 변환</h1>
         </div>
         <div className='slick-content2'>
           <img src={slide5} />

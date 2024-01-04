@@ -329,6 +329,25 @@
         vertical-align: middle;
     }
     
+    .ApproBtn {
+        position: absolute;
+        top: 21px;
+        right: 32%;
+        display: flex;
+
+        .refusBtn {
+            position: relative;
+    
+            border: 1px solid silver;
+            width: 75px;
+            padding: 5px 0;
+            margin-left: 10px;
+            border-radius: 10px;
+    
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }   
+    }
 }
 
 body {

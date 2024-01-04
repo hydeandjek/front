@@ -177,6 +177,36 @@
 
         vertical-align: middle;
     }
+
+    .ApproBtn {
+        position: absolute;
+        top: 21px;
+        right: 32%;
+        display: flex;
+
+        .prevBtn {
+            position: relative;
+    
+            border: 1px solid silver;
+            width: 75px;
+            padding: 5px 0;
+            border-radius: 10px;
+    
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .prevBtn:hover {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .prevBtn img {
+            width: 20px;
+            margin-right: 6px;
+            margin-left: 8px;
+    
+            vertical-align: middle;
+        }
+    }
 }
 
 body {
