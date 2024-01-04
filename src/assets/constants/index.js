@@ -54,3 +54,8 @@ export const mypage = [
   { name: '찜목록', path: '/mypage/likelist' },
   { name: '나의게시글', path: '/mypage/mypost' },
 ];
+
+export const decision = [
+  { name: '승인 게시판', path: '/board/approval' },
+  { name: '보류 게시판', path: '/board/reject' },
+]

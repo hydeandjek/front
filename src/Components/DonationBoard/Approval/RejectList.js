@@ -9,14 +9,14 @@ import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2';
 import { useHorizontalScroll } from '../UseSideScroll';
 import { API_BASE_URL } from '../../../config/host-config';
 
-const ApproList = () => {
+const RejectList = () => {
   const [approval, setApprovals] = useState([]);
   const scrollRef = useHorizontalScroll();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_BASE_URL + '/board/donation/approval');
+        const response = await axios.get(API_BASE_URL + '/board/donation/reject');
         const data = response.data;
         setApprovals(data);
       } catch (error) {
@@ -47,14 +47,14 @@ const ApproList = () => {
           </div>
         </div>
 
-        <div className='title_name_board'>승인 게시판</div>
+        <div className='title_name_board'>보류 게시판</div>
 
         <div className='warp-content'>
           <div className='contentBox' ref={scrollRef}>
             {approval.map((content, index) => (
                 <BoardList
                   key={index}
-                  url={'approval/' + content.id}
+                  url={content.id}
                   src={content.imageUrl}
                   name={content.userName}
                   title={content.title}
@@ -71,4 +71,4 @@ const ApproList = () => {
   );
 };
 
-export default ApproList;
+export default RejectList;
