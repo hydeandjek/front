@@ -30,7 +30,7 @@
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  background-color: #ffffff;
+  //background-color: #ffffff;
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 0px; /* 아이템 간 간격 조절 */
@@ -39,6 +39,9 @@
   border-bottom: 1px solid gray;
 
   padding: 10px;
+  background-color: white;
+  border-top-left-radius: 10px ;
+  border-top-right-radius: 10px ;
 }
 
 #qna-board .content-text-wrapper1 {
@@ -105,17 +108,24 @@
   width: 1096px;
 }
 
-#qna-board .overlap-group {
-  width: px; // 기본 스타일
+#qna-board .overlap-group1 {
+  //width: px; // 기본 스타일
 
-  @media (max-width: 768px) {
-    width: 80%; // 화면 너비가 768px 이하일 때의 스타일
-    height: 60&;
-    font-size: 60%;
-  }
+  // @media (max-width: 768px) {
+  //   width: 80%; // 화면 너비가 768px 이하일 때의 스타일
+  //   height: 60%;
+  //   font-size: 60%;
+  // }
 
-  @media (min-width: 769px) and (max-width: 1024px) {
-    width: 60%; // 화면 너비가 769px 이상이고 1024px 이하일 때의 스타일
+  // @media (min-width: 769px) and (max-width: 1024px) {
+  //   width: 60%; // 화면 너비가 769px 이상이고 1024px 이하일 때의 스타일
+  // }
+
+  div.content-text-wrapper1:last-child {
+    border: 0;
+    border-bottom-left-radius: 10px ;
+    border-bottom-right-radius: 10px ;
+
   }
 }
 
@@ -140,7 +150,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   border: none;
-  border: 1px solid orange;
+  border: 1px solid rgb(222, 226, 230);
 }
 
 #qna-board .createBoard .createBoardAA .title {
@@ -156,7 +166,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   border: none;
-  border: 1px solid orange;
+  border: 1px solid rgb(222, 226, 230);
 }
 
 #qna-board .overlap .createBoardB .btnBoard {

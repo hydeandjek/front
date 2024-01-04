@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import './MyPost.module.scss';
-import { API_BASE_URL, QUESTIONBOARD } from '../../../config/host-config.js';
+import {
+  API_BASE_URL,
+  QUESTIONBOARD,
+  CATEGORYBOARD,
+} from '../../../config/host-config.js';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { board } from '../../../assets/constants/index.js';
@@ -9,14 +13,23 @@ import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2.js';
 
 import icon1 from '../../../assets/img/icon1.png';
 import icon2 from '../../../assets/img/icon2.png';
+import { getLoginUserInfo } from '../../../utils/AuthContext.js';
+import { Category, Try } from '@mui/icons-material';
 
 const MyPost = () => {
   const [data, setData] = useState([]);
+  const [allData, setAllData] = useState([]);
+
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(10);
   const [countNum, setCountNum] = useState(false);
-  const userId = localStorage.getItem('USER_ID'); // 현재 로그인한 사용자의 ID를 가져온다고 가정함.
+  const userId = getLoginUserInfo().userid; // 현재 로그인한 사용자의 ID를 가져온다고 가정함.
+  const userName = getLoginUserInfo().username; // 현재 로그인한 사용자의 ID를 가져온다고 가정함.
+  // const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}`;
+  // const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${CATEGORYBOARD}`;
+  // const REQUEST_URL_QUESTION = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${QUESTIONBOARD}`;
   const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}`;
+  const REQUEST_URL_Category = `${API_BASE_URL}${CATEGORYBOARD}/entire`;
   const redirection = useNavigate();
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -57,25 +70,47 @@ const MyPost = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(REQUEST_URL);
+      const res = await fetch(REQUEST_URL, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+        },
+      });
       if (!res.ok) {
         throw new Error('Network response was not ok');
       }
 
       const result = await res.json();
 
+      const res2 = await fetch(REQUEST_URL_Category, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+        },
+      });
+      if (!res2.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result2 = await res2.json();
+
+      console.log(result);
+      console.log(result2);
+
       // const i = 1;
 
       if (result.length > 0) {
-        const processedData = result.map((item, index) => ({
-          rowNumber: index + 1,
-          boardId: item.boardId,
-          title: item.title,
-          content: item.content,
-          regDate: new Date(item.regDate).toISOString().split('T')[0],
-          userId: item.userId.slice(0, 4),
-          userName: item.userName,
-        }));
+        const processedData = result
+          .filter((item) => item.userId === userId)
+          .map((item, index) => ({
+            rowNumber: index + 1,
+            boardId: item.boardId,
+            title: item.title,
+            content: item.content,
+            regDate: new Date(item.regDate).toISOString().split('T')[0],
+            userId: item.userId.slice(0, 4),
+            userName: item.userName,
+          }));
 
         // 데이터를 regDate 기준으로 내림차순 정렬
         processedData.sort((a, b) => b.rowNumber - a.rowNumber);
@@ -101,39 +136,8 @@ const MyPost = () => {
 
   const boarddetailhandleClick = (boardId) => {
     // 선택된 아이템에 대한 로직을 수행
-    redirection('/board/question/detaile', { state: { board: boardId } });
+    redirection('/board/question/detail', { state: { board: boardId } });
   };
-
-  // const QnaAddBoardHandler = async () => {
-  //   const titleAddElement = document.getElementsByClassName('title')[0];
-  //   const contentAddElement = document.getElementsByClassName('content')[0];
-  //   const titleAdd = titleAddElement ? titleAddElement.value : '';
-  //   const contentAdd = contentAddElement ? contentAddElement.value : '';
-  //   document.getElementsByClassName('title')[0].value = '';
-  //   document.getElementsByClassName('content')[0].value = '';
-
-  //   if (!titleAdd || !contentAdd) {
-  //     alert('제목과 내용을 모두 입력해주세요.');
-  //     return; // 요청을 보내지 않고 함수를 종료
-  //   }
-
-  //   if (!localStorage.getItem('LOGIN_TOKEN')) {
-  //     alert('로그인 후 이용해주세요');
-  //     return;
-  //   }
-
-  //   const BoardAdd = await fetch(REQUEST_URL, {
-  //     method: 'POST', // 또는 'PUT'에 따라 사용하고자 하는 HTTP 메서드 선택
-  //     headers: requestHeader,
-  //     body: JSON.stringify({
-  //       title: titleAdd, // 이 부분에서 직접 사용
-  //       content: contentAdd, // 이 부분에서 직접 사용
-  //     }),
-  //   });
-  //   // setRefresh((prevRefresh) => prevRefresh + 1);
-
-  //   fetchData();
-  // };
 
   const pageSize = 10;
   const totalPages = Math.ceil(data.length / pageSize);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Recipe.scss';
 
 import arrowR from '../../../assets/img/Right.png';
@@ -25,6 +25,7 @@ const Recipe = ({ recipeData, onArrowClick }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const [hoveredRecipe, setHoveredRecipe] = useState(null);
+  const [likeList, setLikeList] = useState([]);
 
   const handleMouseEnter = (recipeId) => {
     setIsHovered(true);
@@ -38,6 +39,13 @@ const Recipe = ({ recipeData, onArrowClick }) => {
 
   // 좋아요
   const [isWishAdd, setIsWishAdd] = useState(false);
+
+  // fetch 요청 보낼 때 사용할 요청 헤더 설정
+  const requestHeader = {
+    'content-type': 'application/json',
+    // JWT에 대한 인증 토큰이라는 타입을 선언
+    Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+  };
 
   const onLikeAddHandler = (e) => {
     setIsWishAdd(!isWishAdd);
@@ -61,6 +69,20 @@ const Recipe = ({ recipeData, onArrowClick }) => {
       });
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(API_BASE_URL + '/api/menu/recipe/like', {
+        headers: requestHeader,
+      });
+
+      if (res.status === 200) {
+        setLikeList(res.data);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (!recipeData) return;
 
@@ -187,6 +209,7 @@ const Recipe = ({ recipeData, onArrowClick }) => {
       console.error('레시피 상세보기 요청에 실패했습니다.', error);
     }
   };
+
   // Loading이 true면 컴포넌트를 띄우고, false면 null(빈 값)처리 하여 컴포넌트 숨김
   return (
     <>
@@ -218,6 +241,7 @@ const Recipe = ({ recipeData, onArrowClick }) => {
               onClick={(e) =>
                 onRecipeDetail(content.name, content.cate, content.seq, e)
               }
+              likeList={likeList}
               style={{ opacity: hoveredRecipe === index ? 0.5 : 1 }}
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
