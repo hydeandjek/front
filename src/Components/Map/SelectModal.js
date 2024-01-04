@@ -12,6 +12,73 @@ const SelectModal = ({ handleSubmit }) => {
 
   const API_URL = API_BASE_URL + '/map';
 
+  const [myaddress, setMyaddress] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/map/myaddress/gudong`,
+          {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const data = response.data;
+        console.log(response.data);
+        setMyaddress(data);
+
+        // 구 추출
+        const startIndex = data.indexOf(' ') + 1;
+        const endIndex = data.indexOf('구') + 1;
+        const gu = data.substring(startIndex, endIndex);
+
+        // 동 추출
+        const startParenthesesIndex = data.indexOf('(') + 1;
+        const endParenthesesIndex = data.indexOf(')');
+        const dong = data.substring(startParenthesesIndex, endParenthesesIndex);
+
+        setSelectedGu(gu);
+        setSelectedDong(dong);
+        handleSubmit(gu, dong);
+        setDongOptions([]);
+
+        try {
+          const response = await axios.get(
+            `${API_URL}/${encodeURIComponent(gu)}`
+          );
+          const data = response.data;
+
+          setDongOptions(data);
+        } catch (error) {
+          console.error('Error occurred:', error);
+        }
+      } catch (error) {
+        console.log('로그인 정보가 없어 기본값이 출력됩니다.');
+        setSelectedGu('마포구');
+        setSelectedDong('대흥동');
+
+        handleSubmit('마포구', '대흥동');
+        setDongOptions([]);
+
+        try {
+          const response = await axios.get(
+            `${API_URL}/${encodeURIComponent('마포구')}`
+          );
+          const data = response.data;
+
+          setDongOptions(data);
+        } catch (error) {
+          console.error('Error occurred:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     const adr0 = [
       '강남구',
@@ -48,6 +115,7 @@ const SelectModal = ({ handleSubmit }) => {
     const selectedValue = event.target.value;
 
     setSelectedGu(selectedValue);
+    setSelectedDong('동');
     setDongOptions([]);
 
     try {
@@ -80,10 +148,10 @@ const SelectModal = ({ handleSubmit }) => {
             value={selectedGu}
           >
             <option
-              value=''
+              value={selectedGu}
               hidden
             >
-              구
+              {selectedGu}
             </option>
             {guOptions.map((option, index) => (
               <option
@@ -108,10 +176,10 @@ const SelectModal = ({ handleSubmit }) => {
             onChange={(event) => setSelectedDong(event.target.value)}
           >
             <option
-              value=''
+              value={selectedDong}
               hidden
             >
-              동
+              {selectedDong}
             </option>
             {dongOptions.map((option, index) => (
               <option

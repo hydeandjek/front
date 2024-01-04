@@ -11,6 +11,8 @@ import slide3 from '../../../src/assets/img/main5.jpg';
 import Header from '../Header/Header';
 import './Home.scss';
 import SlideSlick from './SlideSlick';
+import SlideSlick2 from './SlideSlick2';
+import SlideSlick3 from './SlideSlick3';
 
 const items = [
   {
@@ -98,6 +100,35 @@ function Home() {
           }}
         >
           <SlideSlick />
+        </div>
+      ) : (
+        item.alt
+      )}
+      {i === 2 ? (
+        <div
+          className='carousel-caption d-none d-md-block'
+          style={{
+            position: 'absolute',
+            bottom: '-10%',
+            right: '75%',
+            transform: 'translateX(50%) translateY(-50%)',
+            // marginBottom: '50px',
+            // marginTop: '50px',
+          }}
+        >
+          <SlideSlick2 />
+          <div
+            className='carousel-caption d-none d-md-block'
+            style={{
+              position: 'absolute',
+              // bottom: '100%',
+              right: '75%',
+              transform: 'translateX(50%) translateY(-50%)',
+              marginBottom: '50px',
+            }}
+          ></div>
+
+          <SlideSlick3 />
         </div>
       ) : (
         item.alt

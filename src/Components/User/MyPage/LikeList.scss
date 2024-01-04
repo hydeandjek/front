@@ -1,4 +1,23 @@
-#likelist {
+#mypage-likeList .contentBox{
     display: flex;
     flex-direction: row;
+}
+
+#mypage-likeList .contentbox-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+#mypage-likeList .contentBox {
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }

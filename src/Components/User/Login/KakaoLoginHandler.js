@@ -19,12 +19,17 @@ const KakaoLoginHandler = () => {
     // 컴포넌트가 렌더링 될 때 인가 코드를 백엔드로 전송하는 fetch 요청
     const kakaoLogin = async () => {
       const res = await fetch(`${REQUEST_URL}/kakaoLogin?code=${code}`);
-      const data = await res.json();
-      console.log(data);
-      const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
 
-      // Context Api
-      onLogin(token, userName, address, role, userId);
+      if (res.status === 200) {
+        const data = await res.json();
+        const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
+
+        // Context Api
+        onLogin(token, userName, address, role, userId);
+      } else {
+        console.log(await res.text());
+        alert('서버에서 오류가 발생했습니다!');
+      }
 
       // 홈으로 리다이렉트
       redirection('/');

@@ -5,8 +5,8 @@ import slide4 from '../../../src/assets/img/main(2)-mini1.png';
 import slide5 from '../../../src/assets/img/main(2)-mini4.png';
 import slide6 from '../../../src/assets/img/main(2)-mini5.png';
 import slide7 from '../../../src/assets/img/main(2)-mini6.png';
-import slide8 from '../../../src/assets/img/main-page slice2.png';
-import slide9 from '../../../src/assets/img/mainpage-slice33.png';
+import slide8 from '../../../src/assets/img/main222222.png';
+import slide9 from '../../../src/assets/img/가전제품.png';
 
 const SlideSlick = () => {
   const settings = {
@@ -15,7 +15,7 @@ const SlideSlick = () => {
     slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
   };
 
@@ -34,13 +34,13 @@ const SlideSlick = () => {
           <img src={slide6} />
           <h1>검색 기능을 통한 1인가구 편의시설 제공</h1>
         </div>
-        <div className='slick-content'>
+        {/* <div className='slick-content'>
           <img src={slide7} />
           <h1>로그인 기능을 이용한 다양한 정보 제공</h1>
-        </div>
+        </div> */}
         <div className='slick-content'>
           <img src={slide8} />
-          <h1>주제에 따른 커뮤니티 게시판</h1>
+          <h1>혼자서 간단히 먹을 수 있는 밀키트 정보 제공</h1>
         </div>
         <div className='slick-content'>
           <img src={slide9} />
