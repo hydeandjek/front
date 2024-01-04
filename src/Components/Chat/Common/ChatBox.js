@@ -116,7 +116,7 @@ const ChatBox = ({ style }) => {
             alt='Chatting header icon'
             src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/657832b267a6ebed31481896/img/chatting-header-icon.svg'
           />
-          <div>안녕하세요, 1terFace입니다 &#58;&#41;</div>
+          <div>안녕하세요, 1nterFace입니다 &#58;&#41;</div>
         </div>
 
         <div className={styles['time-information-box']}>
@@ -130,7 +130,7 @@ const ChatBox = ({ style }) => {
         </div>
 
         <div className={`${styles['chat-message']} ${styles['chat-info']}`}>
-          <p>안녕하세요, 1terFace입니다 &#58;&#41;</p>
+          <p>안녕하세요, 1nterFace입니다 &#58;&#41;</p>
           <br />
           <br />
           <p>저희 사이트를 방문해주셔서 진심으로 감사드립니다!</p>

@@ -50,7 +50,6 @@ const Login = () => {
     }
 
     const data = await res.json();
-    console.log(data);
 
     const { token, userName, email, address, role, userId } = data; // 서버에서 온 json 읽기
 
