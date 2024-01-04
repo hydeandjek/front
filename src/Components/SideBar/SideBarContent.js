@@ -64,6 +64,7 @@ const SideBarContent = ({
       body: JSON.stringify({
         // userId: token,
         recipeName: name,
+        recipeImg: src,
         done: !isWishAdd,
       }),
     })

@@ -269,7 +269,9 @@ const MyPost = () => {
                     <div
                       key={item.boardId}
                       className='content-text-wrapper1'
-                      onClick={() => boarddetailhandleClick(item.boardId)}
+                      onClick={() =>
+                        boarddetailhandleClick(item.boardId, item.category)
+                      }
                     >
                       <div className='text-wrapper a1'>{item.rowNumber}</div>
                       <div className='text-wrapper a3'>{item.title}</div>

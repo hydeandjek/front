@@ -1,16 +1,22 @@
 import React from 'react';
+import './LikeItem.scss';
 
-function LikeItem({ id, title, isLiked, handleLike }) {
+function LikeItem({ id, src, title, handleLike }) {
   const handleClick = () => {
-    handleLike(id);
+    handleLike(title, src);
   };
 
   return (
-    <div>
-      <h3>{title}</h3>
-      <button onClick={handleClick}>
-        {isLiked ? '좋아요 취소' : '좋아요'}
-      </button>
+    <div className='content-item-mypage'>
+      <img
+        src={src}
+        alt={title}
+      />
+      <p>{title}</p>
+      <button
+        onClick={handleClick}
+        className='heart-icon'
+      ></button>
     </div>
   );
 }

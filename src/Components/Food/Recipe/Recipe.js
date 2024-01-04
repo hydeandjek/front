@@ -77,7 +77,7 @@ const Recipe = ({ recipeData, onArrowClick }) => {
       });
 
       if (res.status === 200) {
-        setLikeList(res.data);
+        setLikeList(res.data.map((item) => item.recipeName));
       }
     };
 
