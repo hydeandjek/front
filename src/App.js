@@ -50,6 +50,7 @@ import MyApproveBoard from './Components/DonationBoard/MyPage/MyApproveBoard';
 import MyRejectBoard from './Components/DonationBoard/MyPage/MyRejectBoard';
 import MyHoldBoard from './Components/DonationBoard/MyPage/MyHoldBoard';
 import RejectList from './Components/DonationBoard/Approval/RejectList';
+import RejectDetail from './Components/DonationBoard/Approval/RejectDetail';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -234,6 +235,10 @@ function App() {
                 <Route
                   path='/board/donation/approval/:shareId'
                   element={<ApproDetail />}
+                />
+                <Route
+                  path='/board/donation/approval/reject/:shareId'
+                  element={<RejectDetail />}
                 />
                 <Route
                   path='/mypage/likelist'

@@ -2,10 +2,8 @@ import React from 'react';
 import './BoardList.scss';
 import { getLoginUserInfo } from '../../../utils/AuthContext';
 
-
 const BoardList = ({ name, title, src, url, date, content, count, flag }) => {
-  const {role} = getLoginUserInfo();
-
+  const { role } = getLoginUserInfo();
 
   function truncateContent(text, maxWidth) {
     const maxCharactersPerLine = Math.floor(maxWidth / 4);
@@ -51,10 +49,8 @@ const BoardList = ({ name, title, src, url, date, content, count, flag }) => {
     }
   }
 
-
-
   const handleRedirect = () => {
-    if (role === "ADMIN") {
+    if (role === 'ADMIN') {
       window.location.href = '/board/donation/approval/' + url;
     } else {
       window.location.href = '/board/donation/' + url;
@@ -62,37 +58,46 @@ const BoardList = ({ name, title, src, url, date, content, count, flag }) => {
   };
 
   let flagImg;
-  
-  if (flag === 'APPROVE') {
-    flagImg = 'https://cdn.discordapp.com/attachments/1179983459821813860/1192271640348864672/image0.png?ex=65a8787e&is=6596037e&hm=446bd20489c766f0c90373ddc57ca3527c7200f6aaa49f556a720518885f3a1c&';
-  } else if (flag === 'REJECT') {
-    flagImg = 'https://cdn.discordapp.com/attachments/1179983459821813860/1192271753976741948/image2.png?ex=65a87899&is=65960399&hm=26cfe19da86b27587f14bb1382f93002b7012ea90568f039d76134a7f37d16b2&';
-  } else if (flag === 'HOLD') {
-    flagImg = 'https://cdn.discordapp.com/attachments/1179983459821813860/1192271676386324480/image1.png?ex=65a87886&is=65960386&hm=c7012c2b8c72f7725a2d53b5f02088cec42d22333dfd2d2da60a971917e121c2&';
-  }
 
+  if (flag === 'APPROVE') {
+    flagImg =
+      'https://cdn.discordapp.com/attachments/1179983459821813860/1192271640348864672/image0.png?ex=65a8787e&is=6596037e&hm=446bd20489c766f0c90373ddc57ca3527c7200f6aaa49f556a720518885f3a1c&';
+  } else if (flag === 'REJECT') {
+    flagImg =
+      'https://cdn.discordapp.com/attachments/1179983459821813860/1192271753976741948/image2.png?ex=65a87899&is=65960399&hm=26cfe19da86b27587f14bb1382f93002b7012ea90568f039d76134a7f37d16b2&';
+  } else if (flag === 'HOLD') {
+    flagImg =
+      'https://cdn.discordapp.com/attachments/1179983459821813860/1192271676386324480/image1.png?ex=65a87886&is=65960386&hm=c7012c2b8c72f7725a2d53b5f02088cec42d22333dfd2d2da60a971917e121c2&';
+  }
 
   return (
     <div className='boardContent'>
-      <a href={'/board/donation/' + url} onClick={handleRedirect}>
-        <img src={src} className='boardContentImg'/>
-          {flag && (
+      <a
+        href={'/board/donation/' + url}
+        onClick={handleRedirect}
+      >
+        <img
+          src={src}
+          className='boardContentImg'
+        />
+        {flag && (
           <p style={{ paddingLeft: '7px' }}>
             <p>
-              <img src={flagImg} className='flagImage'/>
-              {truncateTitle(title, 10)}
+              <img
+                src={flagImg}
+                className='flagImage'
+              />
+              {truncateTitle(title, 9)}
             </p>
             <span>댓글 {count}</span>
           </p>
-          )}
-          {!flag && (
+        )}
+        {!flag && (
           <p>
-            <p>
-              {truncateTitle(title, 12)}
-            </p>
+            <p>{truncateTitle(title, 10)}</p>
             <span>댓글 {count}</span>
-        </p>
-          )}
+          </p>
+        )}
         <p>{truncateContent(content, 250)}</p>
         <p>
           <span>{name}</span>

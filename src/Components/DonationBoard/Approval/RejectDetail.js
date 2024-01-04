@@ -9,7 +9,7 @@ import '../List/DetailList.scss';
 import DetailList from '../List/DetailList';
 import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2';
 
-const ApproDetail = () => {
+const RejectDetail = () => {
   const { shareId } = useParams();
   const [showCommentList, setShowCommentList] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('white');
@@ -17,22 +17,10 @@ const ApproDetail = () => {
   const [comment, setComment] = useState('');
   const [liCount, setLiCount] = useState(0);
 
-  const [isHovered1, setIsHovered1] = useState(false);
   const [isHovered2, setIsHovered2] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
 
   const redirection = useNavigate();
-
-  const handlePrev = () => {
-    redirection(-1);
-  };
-
-  const handleMouseEnter1 = () => {
-    setIsHovered1(true);
-  };
-  const handleMouseLeave1 = () => {
-    setIsHovered1(false);
-  };
 
   const handleMouseEnter2 = () => {
     setIsHovered2(true);
@@ -58,7 +46,7 @@ const ApproDetail = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/board/donation/approval/${shareId}`
+        `${API_BASE_URL}/board/donation/approval/reject/${shareId}`
       );
       const data = response.data;
       setApprovals(data);
@@ -73,38 +61,26 @@ const ApproDetail = () => {
     }
   }, [approval]);
 
-  const handleRefus = async () => {
-    const confirmed = window.confirm('게시글을 보류하시겠습니까?');
-    if (confirmed) {
-      if (liCount === 0) {
-        alert('보류 사유를 작성해주세요.');
-        return;
-      }
-      try {
-        const response = await axios.post(
-          `${API_BASE_URL}/board/donation/approval/complete/${shareId}/REJECT`,
-          {}
-        );
-        console.log(response.data);
-        redirection('/board/approval');
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  const handlePrev = () => {
+    redirection(-1);
   };
 
-  const handleApprove = async () => {
-    const confirmed = window.confirm('게시글을 승인하시겠습니까?');
+  const handleDelete = async () => {
+    const confirmed = window.confirm('게시글을 삭제하시겠습니까?');
     if (confirmed) {
       try {
-        const response = await axios.post(
-          `${API_BASE_URL}/board/donation/approval/complete/${shareId}/APPROVE`,
-          {}
+        const response = await axios.delete(
+          `${API_BASE_URL}/board/donation/${shareId}`,
+          {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+              'Content-Type': 'application/json',
+            },
+          }
         );
-        console.log(response.data);
-        redirection('/board/approval');
+        redirection('/board/donation');
       } catch (error) {
-        console.error(error);
+        alert('삭제 권한이 없습니다.');
       }
     }
   };
@@ -259,7 +235,7 @@ const ApproDetail = () => {
               <div className='detailBox'>
                 <div className='userIdBox'>
                   <p>{approval?.userName}</p>
-                  <p>{approval?.regDate}</p>
+                  <p>{approval.regDate}</p>
                 </div>
 
                 <div
@@ -305,42 +281,43 @@ const ApproDetail = () => {
                     <p className='boundaryLine'></p>
                     <div className='commentList'>
                       <ul style={{ listStyle: 'none', padding: 0 }}>
-                        {approval.comments.map((content, index) => (
-                          <li
-                            className='comments'
-                            key={index}
-                            style={{ marginBottom: '10px' }}
-                          >
-                            <div className='comment-top'>
-                              <div className='comment-title'>
-                                <div className='comment-id'>
-                                  {content.userName}
+                        {approval?.comments &&
+                          approval.comments.map((content, index) => (
+                            <li
+                              className='comments'
+                              key={index}
+                              style={{ marginBottom: '10px' }}
+                            >
+                              <div className='comment-top'>
+                                <div className='comment-title'>
+                                  <div className='comment-id'>
+                                    {content.userName}
+                                  </div>
+                                  <div className='comment-date'>
+                                    {content.regDate}
+                                  </div>
                                 </div>
-                                <div className='comment-date'>
-                                  {content.regDate}
+                                <div
+                                  className='comment-delete'
+                                  key={index}
+                                  onClick={() => handleCommentDelete(index)}
+                                  onMouseEnter={() => handleMouseEnter4(index)}
+                                  onMouseLeave={() => handleMouseLeave4(index)}
+                                >
+                                  <img
+                                    src={
+                                      hoveredStates[index]
+                                        ? 'https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659278261e7516556beef78b/img/vector.svg'
+                                        : 'https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659278ab34bd3cdd86f37c00/img/vector.svg'
+                                    }
+                                  />
                                 </div>
                               </div>
-                              <div
-                                className='comment-delete'
-                                key={index}
-                                onClick={() => handleCommentDelete(index)}
-                                onMouseEnter={() => handleMouseEnter4(index)}
-                                onMouseLeave={() => handleMouseLeave4(index)}
-                              >
-                                <img
-                                  src={
-                                    hoveredStates[index]
-                                      ? 'https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659278261e7516556beef78b/img/vector.svg'
-                                      : 'https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659278ab34bd3cdd86f37c00/img/vector.svg'
-                                  }
-                                />
+                              <div className='comment-content'>
+                                {content.content}
                               </div>
-                            </div>
-                            <div className='comment-content'>
-                              {content.content}
-                            </div>
-                          </li>
-                        ))}
+                            </li>
+                          ))}
                       </ul>
                       <div
                         className={`commentInput  ${
@@ -368,52 +345,38 @@ const ApproDetail = () => {
             </div>
           </div>
 
-          <div className='ApproBtn'>
+          <div className='Btn'>
             <div
               className='prevBtn'
               onClick={handlePrev}
-              onMouseEnter={handleMouseEnter1}
-              onMouseLeave={handleMouseLeave1}
-              style={{ borderColor: isHovered1 ? 'black' : 'silver' }}
+              onMouseEnter={handleMouseEnter2}
+              onMouseLeave={handleMouseLeave2}
+              style={{ borderColor: isHovered2 ? 'black' : 'silver' }}
             >
-              {isHovered1 ? (
+              {isHovered2 ? (
                 <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6590315334bd3cdd86f37b35/img/group@2x.png' />
               ) : (
                 <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659034e8ebd5f41b5ff0ab42/img/group@2x.png' />
               )}
-              <span style={{ color: isHovered1 ? 'black' : 'silver' }}>
+              <span style={{ color: isHovered2 ? 'black' : 'silver' }}>
                 이전
               </span>
             </div>
-            <div
-              className='refusBtn'
-              onClick={handleRefus}
-              onMouseEnter={handleMouseEnter2}
-              onMouseLeave={handleMouseLeave2}
-              style={{ borderColor: isHovered2 ? 'red' : 'silver' }}
-            >
-              {isHovered2 ? (
-                <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6592963eebd5f41b5ff0ac36/img/group@2x.png' />
-              ) : (
-                <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6592967f6e7d9b67d959560c/img/group@2x.png' />
-              )}
-              <span style={{ color: isHovered2 ? 'red' : 'silver' }}>보류</span>
-            </div>
 
             <div
-              className='approvBtn'
-              onClick={handleApprove}
+              className='deleteBtn'
+              onClick={handleDelete}
               onMouseEnter={handleMouseEnter3}
               onMouseLeave={handleMouseLeave3}
-              style={{ borderColor: isHovered3 ? 'green' : 'silver' }}
+              style={{ borderColor: isHovered3 ? 'black' : 'silver' }}
             >
               {isHovered3 ? (
-                <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/65929dd0267d880a66d3e454/img/vector.svg' />
+                <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/6590315334bd3cdd86f37b35/img/group@2x.png' />
               ) : (
-                <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/65929e176c2db389163dba89/img/vector.svg' />
+                <img src='https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/659034e8ebd5f41b5ff0ab42/img/group@2x.png' />
               )}
-              <span style={{ color: isHovered3 ? 'green' : 'silver' }}>
-                승인
+              <span style={{ color: isHovered3 ? 'black' : 'silver' }}>
+                삭제
               </span>
             </div>
           </div>
@@ -423,4 +386,4 @@ const ApproDetail = () => {
   );
 };
 
-export default ApproDetail;
+export default RejectDetail;
