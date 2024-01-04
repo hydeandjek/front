@@ -14,10 +14,14 @@ import SideBarItem2 from '../../SideBar/SideBar2/SideBarItem2.js';
 import icon1 from '../../../assets/img/icon1.png';
 import icon2 from '../../../assets/img/icon2.png';
 import { getLoginUserInfo } from '../../../utils/AuthContext.js';
-import { Category } from '@mui/icons-material';
+
+import { Category, Try } from '@mui/icons-material';
+
 
 const MyPost = () => {
   const [data, setData] = useState([]);
+  const [allData, setAllData] = useState([]);
+
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(10);
   const [countNum, setCountNum] = useState(false);
@@ -27,10 +31,38 @@ const MyPost = () => {
   // const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${CATEGORYBOARD}`;
   // const REQUEST_URL_QUESTION = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}&category=${QUESTIONBOARD}`;
   const REQUEST_URL = `${API_BASE_URL}${QUESTIONBOARD}?userId=${userId}`;
-  const REQUEST_URL_Category = `${API_BASE_URL}${CATEGORYBOARD}{category}=${Category}`;
+
   const redirection = useNavigate();
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
+
+  const onClickApprove = () => {
+    redirection('/board/donation/mypage/approve');
+  };
+  const onClickReject = () => {
+    redirection('/board/donation/mypage/reject');
+  };
+  const onClickHold = () => {
+    redirection('/board/donation/mypage/hold');
+  };
+
+  const myboard = [
+    { name: '내가 쓴 게시글', path: '/mypage/mypost' },
+    { name: '나의 나눔 게시판', path: '/board/donation/mypage' },
+  ];
+
+  const [isHover, setIsHover] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHover(true);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+    setIsOpen(false);
+  };
 
   const requestHeader = {
     'content-type': 'application/json',
@@ -51,6 +83,21 @@ const MyPost = () => {
       }
 
       const result = await res.json();
+
+      const res2 = await fetch(REQUEST_URL_Category, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+        },
+      });
+      if (!res2.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result2 = await res2.json();
+
+      console.log(result);
+      console.log(result2);
 
       // const i = 1;
 
@@ -226,21 +273,103 @@ const MyPost = () => {
         </div>
       </board>
       <div>
-        <div className='rec_center2'>
-          board
+      <div className='rec_center2' onMouseLeave={handleMouseLeave}>
+            MyBoard
           <div className='side2'>
             <div className='sidebar2'>
-              {board.map((menu, index) => {
-                return (
-                  <NavLink
-                    style={{ textDecoration: 'none' }}
-                    to={menu.path}
-                    key={index}
-                  >
-                    <SideBarItem2 menu={menu} />
-                  </NavLink>
-                );
-              })}
+              {myboard.map((menu, index) => (
+                <div
+                  className='sidebar-item2'
+                  key={index}
+                >
+                  {menu.name === '나의 나눔 게시판' ? (
+                    <div
+                      onMouseEnter={handleMouseEnter}
+                    >
+                      <NavLink
+                        to={menu.path}
+                        activeClassName='active-link'
+                        exact
+                      >
+                        <p>{menu.name}</p>
+                      </NavLink>
+                      {isHover && (
+                        <>
+                            <p
+                                onClick={onClickHold}
+                               
+                                style={{
+                                    fontSize: '14px',
+                                    width: '150px',
+                                    padding: '3px 10px',
+                                    margin: '5px 0px',
+                                    position: 'absolute',
+                                    bottom: '-2%',
+                                    textAlign: 'center',
+                                    textDecoration: 'none',
+                                    marginLeft: '25px',
+                                    color: '#000',
+                                    display: 'block',
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                미승인 게시판
+                            </p>
+                            <p
+                                onClick={onClickApprove}
+                                style={{
+                                    fontSize: '14px',
+                                    width: '150px',
+                                    padding: '3px 10px',
+                                    margin: '5px 0px',
+                                    position: 'absolute',
+                                    bottom: '-26%',
+                                    textAlign: 'center',
+                                    textDecoration: 'none',
+                                    marginLeft: '25px',
+                                    color: '#000',
+                                    display: 'block',
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                승인 게시판
+                            </p>
+                            <p
+                                onClick={onClickReject}
+                                style={{
+                                    fontSize: '14px',
+                                    width: '150px',
+                                    padding: '3px 10px',
+                                    margin: '5px 0px',
+                                    position: 'absolute',
+                                    bottom: '-50%',
+                                    textAlign: 'center',
+                                    textDecoration: 'none',
+                                    marginLeft: '25px',
+                                    color: '#000',
+                                    display: 'block',
+                                    borderRadius: '10px',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                보류 게시판
+                            </p>
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <NavLink
+                      to={menu.path}
+                      activeClassName='active-link'
+                      exact
+                    >
+                      <p>{menu.name}</p>
+                    </NavLink>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>

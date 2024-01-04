@@ -184,6 +184,7 @@ const CategoryBoard = () => {
       <board id='qna-board'>
         <div className='App_wrap-content__1j7ZVa'>
           <div className='rec_center2'>
+            Community
             <div className='side2'>
               <div className='sidebar2'>
                 {board.map((menu, index) => {

@@ -179,12 +179,6 @@ const DonaDetail = () => {
     }
   };
 
-  function formatDateTime(dateTime) {
-    const formattedDateTime = dateTime.replace(/-/g, '/');
-    return formattedDateTime;
-    
-  }
-
   const [imageStyles, setImageStyles] = useState({});
 
   const applyImageStyle = (image) => {
@@ -228,10 +222,15 @@ const DonaDetail = () => {
     }
   }, [donation?.uploadImages]);
 
+  function formatDateTime(dateTime) {
+    const formattedDateTime = dateTime.replace(/-/g, '/');
+    return formattedDateTime;
+  }
+
   return (
     <>
       <div id='donationBoard'>
-        <div className='rec_center2'>
+        <div className='rec_center2' onMouseLeave={handleMouseLeave}>
           Community
           <div className='side2'>
             <div className='sidebar2'>
@@ -240,7 +239,6 @@ const DonaDetail = () => {
                   {menu.name === '나눔 게시판' ? (
                     <div
                       onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
                     >
                       <NavLink
                         to={menu.path}
@@ -257,7 +255,8 @@ const DonaDetail = () => {
                             width: '150px',
                             padding: '3px 10px',
                             margin: '5px 0px',
-                            position: 'relative',
+                            position: 'absolute',
+                            bottom: '-1%',
                             textAlign: 'center',
                             textDecoration: 'none',
                             marginLeft: '25px',
@@ -267,7 +266,7 @@ const DonaDetail = () => {
                             cursor: 'pointer'
                           }}
                         >
-                          등록
+                          글쓰기
                         </p>
                       )}
                     </div>
@@ -288,7 +287,9 @@ const DonaDetail = () => {
               <div className="detailBox">
                 <div className="userIdBox">
                   <p>{donation?.userName}</p>
-                  <p>{donation?.approvalDate}</p>
+                  <p>
+                    {donation?.approvalDate ? formatDateTime(donation.approvalDate) : donation.regDate}
+                  </p>
                 </div>
 
                 <div className="imageBox" ref={scrollRef}>
