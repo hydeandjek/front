@@ -332,13 +332,6 @@ const Modify = () => {
                     </Col>
                   </Row>
                 </Container>
-                <button
-                  type='button'
-                  className={styles['link-button']}
-                  onClick={() => redirection('/user/login')}
-                >
-                  이미 계정이 있습니까? 로그인 하세요.
-                </button>
               </form>
             </CardBody>
           </Card>

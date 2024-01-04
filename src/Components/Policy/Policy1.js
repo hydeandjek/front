@@ -9235,7 +9235,6 @@ const Policy2 = () => {
 
   const onClickTitleButton = (e) => {
     setItem(items[e.target.dataset.i]);
-    console.log(item);
     toggle();
   };
 

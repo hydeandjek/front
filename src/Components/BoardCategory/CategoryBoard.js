@@ -90,6 +90,9 @@ const CategoryBoard = () => {
     const contentAdd = contentAddElement ? contentAddElement.value : '';
     const AddCate = 0;
 
+    titleAddElement.value = '';
+    contentAddElement.value = '';
+
     // console.log(categoryinputAddElement);
 
     if (!titleAdd || !contentAdd || !categoryAdd) {
@@ -309,7 +312,6 @@ const CategoryBoard = () => {
               )}
             </div>
           </div>
-
           {/* <CateBoardDetail fetchDataHandler={fetchDataHandler} /> */}
         </div>
       </board>

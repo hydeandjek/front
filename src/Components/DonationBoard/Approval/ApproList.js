@@ -49,6 +49,8 @@ const ApproList = () => {
           </div>
         </div>
 
+        <div className='title_name_board'>승인 게시판</div>
+
         <div className='warp-content'>
           <div
             className='contentBox'
@@ -61,7 +63,7 @@ const ApproList = () => {
                 src={content.imageUrl}
                 name={content.userName}
                 title={content.title}
-                date={content.approvalDate}
+                date={content.regDate}
                 content={content.content}
                 count={content.commentCount}
               />

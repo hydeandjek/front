@@ -13,11 +13,12 @@ const DonaList = () => {
   const redirection = useNavigate();
 
   const onClickRegist = () => {
+    if (!localStorage.getItem('LOGIN_TOKEN')) {alert('로그인 후 이용해주세요.'); return;}
     redirection('/board/donation/regist');
   };
 
   const board = [
-    { name: '카테고리 게시판', path: '/' },
+    { name: '카테고리 게시판', path: '/board/onelife' },
     { name: '질문 게시판', path: '/board/question' },
     { name: '나눔 게시판', path: '/board/donation' },
   ];
@@ -115,6 +116,8 @@ const DonaList = () => {
             </div>
           </div>
         </div>
+
+        <div className='title_name_board'>나눔 게시판</div>
 
         <div className='warp-content'>
           <div

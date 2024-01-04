@@ -77,6 +77,7 @@ function Kakao({ Category }) {
 
   return (
     <div id='kakao'>
+      <div className='title_name_map'>{Category}</div>
       <div
         id='map'
         style={{
