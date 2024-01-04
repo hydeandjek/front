@@ -9,10 +9,11 @@ import { CLIENT_ID } from '../../config/kakao-config';
 
 const { kakao } = window;
 function Kakao({ Category }) {
-  const [selectedGu, setSelectedGu] = useState('마포구');
-  const [selectedDong, setSelectedDong] = useState('대흥동');
+  const [selectedGu, setSelectedGu] = useState('');
+  const [selectedDong, setSelectedDong] = useState('');
 
   const handleSubmit = (selectedGu, selectedDong) => {
+    if (selectedDong === '동') { alert('동을 선택해주세요.'); window.location.reload(); return; }
     const container = document.getElementById('map'); // 지도를 담을 DOM 레퍼런스
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표.
