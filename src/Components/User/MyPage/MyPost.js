@@ -17,7 +17,6 @@ import { getLoginUserInfo } from '../../../utils/AuthContext.js';
 
 import { Category, Try } from '@mui/icons-material';
 
-
 const MyPost = () => {
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
@@ -84,20 +83,20 @@ const MyPost = () => {
 
       const result = await res.json();
 
-      const res2 = await fetch(REQUEST_URL_Category, {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
-        },
-      });
-      if (!res2.ok) {
-        throw new Error('Network response was not ok');
-      }
+      // const res2 = await fetch(REQUEST_URL_Category, {
+      //   method: 'GET',
+      //   headers: {
+      //     Authorization: 'Bearer ' + localStorage.getItem('LOGIN_TOKEN'),
+      //   },
+      // });
+      // if (!res2.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
 
-      const result2 = await res2.json();
+      // const result2 = await res2.json();
 
       console.log(result);
-      console.log(result2);
+      // console.log(result2);
 
       // const i = 1;
 
@@ -273,8 +272,11 @@ const MyPost = () => {
         </div>
       </board>
       <div>
-      <div className='rec_center2' onMouseLeave={handleMouseLeave}>
-            MyBoard
+        <div
+          className='rec_center2'
+          onMouseLeave={handleMouseLeave}
+        >
+          MyBoard
           <div className='side2'>
             <div className='sidebar2'>
               {myboard.map((menu, index) => (
@@ -283,9 +285,7 @@ const MyPost = () => {
                   key={index}
                 >
                   {menu.name === '나의 나눔 게시판' ? (
-                    <div
-                      onMouseEnter={handleMouseEnter}
-                    >
+                    <div onMouseEnter={handleMouseEnter}>
                       <NavLink
                         to={menu.path}
                         activeClassName='active-link'
@@ -295,67 +295,66 @@ const MyPost = () => {
                       </NavLink>
                       {isHover && (
                         <>
-                            <p
-                                onClick={onClickHold}
-                               
-                                style={{
-                                    fontSize: '14px',
-                                    width: '150px',
-                                    padding: '3px 10px',
-                                    margin: '5px 0px',
-                                    position: 'absolute',
-                                    bottom: '-2%',
-                                    textAlign: 'center',
-                                    textDecoration: 'none',
-                                    marginLeft: '25px',
-                                    color: '#000',
-                                    display: 'block',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                미승인 게시판
-                            </p>
-                            <p
-                                onClick={onClickApprove}
-                                style={{
-                                    fontSize: '14px',
-                                    width: '150px',
-                                    padding: '3px 10px',
-                                    margin: '5px 0px',
-                                    position: 'absolute',
-                                    bottom: '-26%',
-                                    textAlign: 'center',
-                                    textDecoration: 'none',
-                                    marginLeft: '25px',
-                                    color: '#000',
-                                    display: 'block',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                승인 게시판
-                            </p>
-                            <p
-                                onClick={onClickReject}
-                                style={{
-                                    fontSize: '14px',
-                                    width: '150px',
-                                    padding: '3px 10px',
-                                    margin: '5px 0px',
-                                    position: 'absolute',
-                                    bottom: '-50%',
-                                    textAlign: 'center',
-                                    textDecoration: 'none',
-                                    marginLeft: '25px',
-                                    color: '#000',
-                                    display: 'block',
-                                    borderRadius: '10px',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                보류 게시판
-                            </p>
+                          <p
+                            onClick={onClickHold}
+                            style={{
+                              fontSize: '14px',
+                              width: '150px',
+                              padding: '3px 10px',
+                              margin: '5px 0px',
+                              position: 'absolute',
+                              bottom: '-2%',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              marginLeft: '25px',
+                              color: '#000',
+                              display: 'block',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            미승인 게시판
+                          </p>
+                          <p
+                            onClick={onClickApprove}
+                            style={{
+                              fontSize: '14px',
+                              width: '150px',
+                              padding: '3px 10px',
+                              margin: '5px 0px',
+                              position: 'absolute',
+                              bottom: '-26%',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              marginLeft: '25px',
+                              color: '#000',
+                              display: 'block',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            승인 게시판
+                          </p>
+                          <p
+                            onClick={onClickReject}
+                            style={{
+                              fontSize: '14px',
+                              width: '150px',
+                              padding: '3px 10px',
+                              margin: '5px 0px',
+                              position: 'absolute',
+                              bottom: '-50%',
+                              textAlign: 'center',
+                              textDecoration: 'none',
+                              marginLeft: '25px',
+                              color: '#000',
+                              display: 'block',
+                              borderRadius: '10px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            보류 게시판
+                          </p>
                         </>
                       )}
                     </div>
