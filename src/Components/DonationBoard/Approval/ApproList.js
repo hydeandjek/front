@@ -16,7 +16,9 @@ const ApproList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(API_BASE_URL + '/board/donation/approval');
+        const response = await axios.get(
+          API_BASE_URL + '/board/donation/approval'
+        );
         const data = response.data;
         setApprovals(data);
       } catch (error) {
@@ -26,12 +28,6 @@ const ApproList = () => {
 
     fetchData();
   }, []);
-
-  const parsedDate = new Date(approval.regDate);
-  const formattedDate = `${parsedDate.getFullYear()}/${(parsedDate.getMonth() + 1)
-  .toString()
-  .padStart(2, '0')}/${parsedDate.getDate().toString().padStart(2, '0')}`;
-  console.log(formattedDate);
 
   return (
     <>
@@ -54,22 +50,24 @@ const ApproList = () => {
         </div>
 
         <div className='warp-content'>
-          <div className='contentBox' ref={scrollRef}>
+          <div
+            className='contentBox'
+            ref={scrollRef}
+          >
             {approval.map((content, index) => (
-                <BoardList
-                  key={index}
-                  url={'approval/' + content.id}
-                  src={content.imageUrl}
-                  name={content.userName}
-                  title={content.title}
-                  date={formattedDate}
-                  content={content.content}
-                  count={content.commentCount}
-                />
-              ))}
+              <BoardList
+                key={index}
+                url={'approval/' + content.id}
+                src={content.imageUrl}
+                name={content.userName}
+                title={content.title}
+                date={content.approvalDate}
+                content={content.content}
+                count={content.commentCount}
+              />
+            ))}
           </div>
         </div>
-
       </div>
     </>
   );
