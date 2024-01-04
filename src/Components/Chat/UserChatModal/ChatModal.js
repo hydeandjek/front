@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ChatBox from '../Common/ChatBox';
 import styles from './sass/ChatModal.module.scss';
 import AuthContext from '../../../utils/AuthContext';
 import { useLocation } from 'react-router';
-import ChatContext from '../../../utils/ChatContext';
+
 const ChatModal = () => {
   const [openChattingImage, setOpenChattingImage] = useState(
     'https://cdn.animaapp.com/projects/65741ad69db072ad359ef23b/releases/657951e5d664db7fd57b9dbd/img/chatting-icon.svg'
@@ -13,7 +13,7 @@ const ChatModal = () => {
   const [showButton, setShowButton] = useState(true);
 
   // 채팅 버튼이 안 보일 위치
-  const disableLocation = ['/user/login', '/user/join', '/AdminChat' ];
+  const disableLocation = ['/user/login', '/user/join', '/AdminChat'];
 
   const authContext = useContext(AuthContext);
 

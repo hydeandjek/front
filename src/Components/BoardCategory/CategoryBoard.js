@@ -42,8 +42,8 @@ const CategoryBoard = () => {
 
       if (result.length > 0) {
         const processedData = result.map((item) => ({
-          rowNum: item.rowNum,
-          id: item.id,
+          rowNum: item.rowNumber,
+          id: item.boardId,
           category: item.category,
           title: item.title,
           regDate: new Date(item.regDate).toISOString().split('T')[0],
@@ -179,8 +179,6 @@ const CategoryBoard = () => {
 
   return (
     <>
-      {/* <board id='board1'> */}
-
       <board id='qna-board'>
         <div className='App_wrap-content__1j7ZVa'>
           <div className='rec_center2'>
